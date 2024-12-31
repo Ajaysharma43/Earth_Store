@@ -1,6 +1,7 @@
 #Postcard {
   display: grid;
   justify-content: center;
+  padding: 15px;
 }
 
 #Postcard_Header {

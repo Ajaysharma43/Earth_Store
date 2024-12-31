@@ -12,7 +12,7 @@ const About = () => {
         <>
         <header className="
         xl:h-full xl:w-full bg-cover bg-no-repeat
-        lg:w-full lg:h-96
+        lg:w-full lg:h-[571px]
         " style={{backgroundImage:`url(${image})`}}>
             <Navbar/>
             <Front_Page/>

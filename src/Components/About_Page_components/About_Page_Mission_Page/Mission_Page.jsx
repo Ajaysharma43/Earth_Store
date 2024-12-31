@@ -6,7 +6,7 @@ const Mission = () => {
     <>
       <div
         className="
-          flex flex-wrap justify-center pt-32 pb-32 gap-6
+          flex flex-wrap justify-center pt-10 pb-10 
           xl:flex xl:justify-center xl:gap-24 xl:pt-32 xl:pb-32
           lg:flex lg:justify-center lg:gap-6 lg:pt-32 lg:pb-32
           md:flex md:justify-center md:gap-6 md:pt-32 md:pb-32
@@ -19,24 +19,27 @@ const Mission = () => {
             alt="Mission Image" 
             className="
             p-4
-              lg:h-[clamp(50px, 31vw, 346px)] 
+              lg:h-[clamp(50px, 31vw, 346px)] lg:w-[564px]
               xl:h-[clamp(50px, 31vw, 346px)] xl:w-[564px]  /* Extra-large screens */
-              md:h-[clamp(100px, 20vw, 250px)]  /* Medium screens */
-              sm:h-[clamp(80px, 12vw, 200px)]   /* Small screens */
+              md:w-1/2 md:w-[564px] 
+              sm:h-[clamp(80px, 12vw, 200px)]   sm:w-[564px]
               w-full object-cover
             "  
           />
         </section>
 
         <section>
-          <div className="mt-10 w-full max-w-xl lg:w-[clamp(50px, 31vw, 96px)] p-4">
-            <h1 className="text-4xl font-bold font-serif pb-9">OUR MISSION</h1>
+          <div className="
+          mt-10 w-full max-w-xl lg:w-[clamp(0px, 31vw, 96px)] p-4
+          xl:mt-10
+          lg">
+            <h1 className="text-4xl font-bold font-serif pb-9 flex flex-wrap break-words whitespace-normal">OUR MISSION</h1>
             <p
               className="
                 md:w-[clamp(50px, 31vw, 434px)]
                 xl:text-slate-500 xl:text-lg xl:w-[464px]
                 lg:text-slate-500 lg:text-lg lg:w-[434px]
-                text-slate-500 text-lg
+                text-slate-500 text-lg break-words whitespace-normal
               "
             >
               Hello, my name is Tyler Moore and with the help of many people I

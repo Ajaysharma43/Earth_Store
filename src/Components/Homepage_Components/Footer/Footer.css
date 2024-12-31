@@ -1,17 +1,13 @@
 #HomapageFooter {
-  display: flex
-;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 18%;
   margin-top: 2%;
   margin-bottom: 1%;
-  margin-left: 0%;
   width: 100%;
   overflow: hidden;
 }
-
-
 
 #Homepage_Footer_Nav {
   display: flex;
@@ -36,48 +32,48 @@
   font-size: 18px;
 }
 
-
-@media screen and (max-width: 1076px) and (min-width: 0px) {
+@media screen and (max-width: 1076px) {
   #HomapageFooter {
     display: grid;
+    grid-template-columns: 1fr; /* Stacks all elements */
     justify-content: center;
+    align-items: center; /* Centers elements vertically */
     gap: 16%;
     margin-top: 2%;
     margin-bottom: 1%;
-    margin-left: 0%;
     width: 100%;
     overflow: visible;
+    text-align: center; /* Ensures text elements are centered */
   }
 
   #Homepage_Footer_Nav {
-    display: grid
-;
-    gap: 0%;
+    display: flex;
+    flex-direction: column; /* Align navigation links vertically */
+    gap: 10px;
     justify-content: center;
-}
+    align-items: center;
+  }
 
-#Homepage_Footer_Logo {
-  font-family: system-ui;
-  /* letter-spacing: 3px; */
-  font-size: 26px;
-  position: absolute;
-  height: 4%;
+  #Homepage_Footer_Logo {
+    position: relative;
+    margin: 0 auto;
+    height: 25px;
+    margin-left: 87%;
 }
 
   .Homepage_Footer_Nav_Element {
     font-family: system-ui;
     font-weight: 400;
-    font-size: 19px;
     margin: 7px;
-    text-align: center;
     font-size: clamp(15px, 3vw, 19px);
-}
+    text-align: center; /* Centers text inside navigation */
+  }
 
-#Homepage_Footer_Info {
-  font-family: system-ui;
-  font-weight: 500;
-  font-size: 21px;
-  font-size: clamp(16px, 3vw, 21px);
-}
-
+  #Homepage_Footer_Info {
+    font-family: system-ui;
+    font-weight: 500;
+    font-size: clamp(16px, 3vw, 21px);
+    text-align: center; /* Centers copyright text */
+    margin-top: 10px;
+  }
 }
