@@ -648,6 +648,10 @@ video {
   padding: 0.5rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -936,6 +940,10 @@ video {
 
   .xl\:w-\[50\%\] {
     width: 50%;
+  }
+
+  .xl\:w-\[564px\] {
+    width: 564px;
   }
 
   .xl\:flex-wrap {

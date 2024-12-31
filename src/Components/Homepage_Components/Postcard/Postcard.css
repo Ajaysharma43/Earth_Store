@@ -62,7 +62,7 @@
 }
 
 #Postcard_Para {
-  font-size: clamp(18px, 2.5vw, 64px);
+  font-size: clamp(15px, 2.5vw, 64px);
 }
 
   
@@ -90,7 +90,7 @@
 @media screen and (max-width: 468px) {
   #Postcard_Button {
     color: white;
-    width: 142px;
+    width: 160px;
     /* max-width: 383px; */
     font-size: clamp(11px, 3vw, 18px);
     text-transform: uppercase;
@@ -100,5 +100,6 @@
     margin: 0 auto 5%;
     display: block;
     transition: 0.4s ease;
+    height: 57px;
 }
 }

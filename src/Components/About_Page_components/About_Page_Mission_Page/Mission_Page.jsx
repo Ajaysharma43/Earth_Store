@@ -18,16 +18,18 @@ const Mission = () => {
             src={Forest} 
             alt="Mission Image" 
             className="
-              h-96
-              lg:h-[clamp(50px, 31vw, 346px)]
-              md:h-[clamp(50px, 20vw, 250px)]
+            p-4
+              lg:h-[clamp(50px, 31vw, 346px)] 
+              xl:h-[clamp(50px, 31vw, 346px)] xl:w-[564px]  /* Extra-large screens */
+              md:h-[clamp(100px, 20vw, 250px)]  /* Medium screens */
+              sm:h-[clamp(80px, 12vw, 200px)]   /* Small screens */
               w-full object-cover
             "  
           />
         </section>
 
         <section>
-          <div className="mt-10 w-full max-w-xl lg:w-[clamp(50px, 31vw, 96px)]">
+          <div className="mt-10 w-full max-w-xl lg:w-[clamp(50px, 31vw, 96px)] p-4">
             <h1 className="text-4xl font-bold font-serif pb-9">OUR MISSION</h1>
             <p
               className="

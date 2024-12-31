@@ -71,8 +71,14 @@ const Navbar = () => {
         {isDropdownOpen && (
           <div className="Navbar_Dropdown">
             <ul>
+            <Link to='/' style={{textDecorationLine:"none"}}>
               <li>HOME</li>
+              </Link>
+
+              <Link to='/About' style={{textDecorationLine:"none"}}>
               <li>ABOUT</li>
+              </Link>
+              
               <li>SHOP</li>
               <li>CONTACT</li>
             </ul>

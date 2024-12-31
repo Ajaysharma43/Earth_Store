@@ -14,19 +14,19 @@ const Homepage_Ending = () => {
     <div id="Homepage_Ending_Details">
       {[
         {
-          icon: <FaLock className="text-gray-700 h-12 w-12" />,
+          icon: <FaLock />,
           header: "Secure Payment",
           info: "All our payments are SSL secured",
           display: "block",
         },
         {
-          icon: <FaBox className="text-white h-12 w-12 bg-gray-700 p-2 rounded-full" />,
+          icon: <FaBox/>,
           header: "Delivered With Care",
           info: "Super fast shipping to your door",
           display: "block",
         },
         {
-          icon: <FaHandHoldingHeart className="text-red-500 h-12 w-12" />,
+          icon: <FaHandHoldingHeart/>,
           header: "Excellent Service",
           info: "Live chat and phone support",
           display: "none",
