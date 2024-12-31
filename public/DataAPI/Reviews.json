@@ -1,0 +1,19 @@
+[
+    {
+        "User":"Jennifer Lewis",
+        "Userpic":"/src/assets/Homapage_Images/earth-store-testimonial-avatar-img.jpeg",
+        "Review":"Fast shipping and excellent customer service. The product was even better than expected. I will definitely be a returning customer."
+    }
+    ,
+    {
+        "User":"Alicia Heart",
+        "Userpic":"/src/assets/Homapage_Images/earth-store-testimonials-avatar-img-2.jpeg",
+        "Review":"Great user experience on your website. I found exactly what I was looking for at a great price. I will definitely be telling my friends."
+    }
+    ,
+    {
+        "User":"Juan Carlos",
+        "Userpic":"/src/assets/Homapage_Images/earth-store-testimonials-avatar-img-1.jpeg",
+        "Review":"Thank you for the excellent shopping experience. It arrived quickly and was exactly as described. I will definitely be shopping with you again in the future."
+    }
+]

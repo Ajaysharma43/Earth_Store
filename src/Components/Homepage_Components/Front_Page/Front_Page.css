@@ -1,0 +1,114 @@
+:root {
+    --Global-color-1 :#2c541d;
+    --Global-color-2 :#050505;
+    --Global-color-3 :#74a84a;
+    --Global-font-1  :math;
+
+    --Front_Page_Button-Color : white;
+    --Front_Page_Button-Font : "Jost", sans-serif;
+    --Front_Page_Button-Border : none;
+}
+
+#Front_Page {
+    height: 578px;
+    margin-top: 8%;
+}
+#Front_Page_Title {
+    font-family: var(--Global-font-1);
+    font-size: clamp(15px, 9vw, 101px);
+    color: var(--Global-color-1);
+    letter-spacing: 6px;
+    margin: 0;
+    padding-top: 137px;
+}
+
+
+#Front_Page_Paragraph {
+    color: var(--Global-color-2);
+    font-size: clamp(27px, 3vw, 90px);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: var(--Global-font-1);
+    margin-top: 0;
+}
+
+
+#Front_Page_Button {
+    font-family: var(--Front_Page_Button-Font);
+    width: clamp(153px, 1vw, 225px);
+    height: clamp(46px, 3vw, 100px);
+    border: var(--Front_Page_Button-Border);
+    font-size: clamp(12px, 3vw, 15px);
+    background-color: var(--Global-color-3);
+    color: var(--Front_Page_Button-Color);
+    transition: 0.4s;
+    letter-spacing: 2px;
+}
+
+
+#Front_Page_Button:hover {
+    background-color: var(--Global-color-1);
+}
+
+@media screen and (max-width: 1050px) and (min-width:469px) {
+    #Front_Page {
+        height: 428px;
+        margin-top: 8%;
+    }
+
+    #Front_Page_Button {
+        font-family: var(--Front_Page_Button-Font);
+        width: clamp(130px, 2vw, 184px);
+        height: clamp(46px, 3vw, 100px);
+        border: var(--Front_Page_Button-Border);
+        font-size: clamp(12px, 3vw, 15px);
+        background-color: var(--Global-color-3);
+        color: var(--Front_Page_Button-Color);
+        transition: 0.4s;
+        letter-spacing: 2px;
+    }
+    
+}
+
+@media screen and (max-width: 468px) and (min-width: 0px)
+{
+    #Front_Page {
+        height: 578px;
+        margin-top: 0%;
+    }
+
+    #Front_Page_Title {
+        font-family: var(--Global-font-1);
+        font-size: clamp(15px, 9vw, 101px);
+        color: var(--Global-color-1);
+        letter-spacing: 6px;
+        margin: 0;
+        padding-top: 9%;
+    }
+    
+
+    #Front_Page_Paragraph {
+        color: var(--Global-color-2);
+        font-size: clamp(29px, 3vw, 90px);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: var(--Global-font-1);
+        margin-top: 0;
+    }
+    #Front_Page_Button {
+        font-family: var(--Front_Page_Button-Font);
+        width: clamp(130px, 2vw, 184px);
+        height: clamp(46px, 3vw, 100px);
+        border: var(--Front_Page_Button-Border);
+        font-size: clamp(12px, 3vw, 15px);
+        background-color: var(--Global-color-3);
+        color: var(--Front_Page_Button-Color);
+        transition: 0.4s;
+        letter-spacing: 2px;
+    }
+      #Front_Page_Button:hover {
+        background-color: var(--Global-color-1);
+    }
+}

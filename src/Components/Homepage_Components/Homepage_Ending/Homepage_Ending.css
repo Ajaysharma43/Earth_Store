@@ -1,0 +1,143 @@
+#Homepage_Ending_Details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3%;
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+.Homepage_Ending_Details_1 {
+  display: flex;
+  gap: 15px;
+  width: 24%;
+}
+
+.Homepage_Ending_icon {
+  margin-top: 24px;
+  background: #2c541d;
+  height: 20px;
+  width: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 50%;
+  color: white;
+}
+
+.Homepage_Ending_Header {
+  margin: 0;
+  margin-top: 26px;
+  margin-bottom: 5px;
+  font-family: monospace;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.Homepage_Ending_Empty {
+  width: 1px;
+  height: 77%;
+  background-color: #00000029;
+  margin-top: 25px;
+  margin-left: 55px;
+}
+
+.Homepage_Ending_Info {
+  margin: 0;
+  font-family: system-ui;
+  font-weight: 400;
+  color: #413c3c;
+  font-size: clamp(5px, 2vw, 16px);
+}
+
+.icon {
+  display: block;
+  background-color: green;
+  height: 43px;
+  font-size: 24px;
+  width: 43px;
+  text-align: center;
+  padding-left: 9px;
+  padding-top: 8px;
+  border-radius: 50%;
+  color: white;
+  position: relative;
+  left: 7%;
+  top: 38%;
+}
+
+@media screen and (max-width: 1050px) and (min-width: 0px) {
+  #Homepage_Ending_Details {
+    display: grid;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3%;
+    margin-top: 4%;
+    margin-bottom: 4%;
+  }
+
+  .Homepage_Ending_Details_1 {
+    display: flex;
+    gap: 0px;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .Homepage_Ending_Empty {
+    width: 100%;
+    height: 1px;
+    background-color: #00000029;
+    /* margin-top: 25px; */
+    /* margin-left: 55px; */
+    /* display: flex
+; */
+    position: relative;
+    left: -28%;
+}
+
+.icon {
+  display: block;
+  background-color: green;
+  height: 43px;
+  font-size: 24px;
+  width: 43px;
+  text-align: center;
+  padding-left: 9px;
+  padding-top: 8px;
+  border-radius: 50%;
+  color: white;
+  position: relative;
+  left: 35%;
+}
+
+  .Homepage_Ending_icon {
+    margin-top: 24px;
+    background: #2c541d;
+    height: 15px;
+    width: 31px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 50%;
+    color: white;
+  }
+
+  .Homepage_Ending_Header {
+    margin: 0;
+    margin-top: 11px;
+    margin-bottom: 5px;
+    font-family: monospace;
+    font-size: clamp(15px, 3vw, 19px);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .Homepage_Ending_Info {
+    margin: 0;
+    font-family: system-ui;
+    font-weight: 400;
+    color: #413c3c;
+    margin-bottom: 16%;
+    font-size: clamp(13px, 3vw, 15px);
+}
+}

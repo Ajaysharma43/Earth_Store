@@ -1,0 +1,83 @@
+#HomapageFooter {
+  display: flex
+;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18%;
+  margin-top: 2%;
+  margin-bottom: 1%;
+  margin-left: 0%;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+#Homepage_Footer_Nav {
+  display: flex;
+  gap: 9%;
+}
+
+.Homepage_Footer_Nav_Element {
+  font-family: system-ui;
+  font-weight: 400;
+  font-size: 17px;
+}
+
+#Homepage_Footer_Logo {
+  font-family: system-ui;
+  letter-spacing: 3px;
+  font-size: 26px;
+}
+
+#Homepage_Footer_Info {
+  font-family: system-ui;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+
+@media screen and (max-width: 1076px) and (min-width: 0px) {
+  #HomapageFooter {
+    display: grid;
+    justify-content: center;
+    gap: 16%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    margin-left: 0%;
+    width: 100%;
+    overflow: visible;
+  }
+
+  #Homepage_Footer_Nav {
+    display: grid
+;
+    gap: 0%;
+    justify-content: center;
+}
+
+#Homepage_Footer_Logo {
+  font-family: system-ui;
+  /* letter-spacing: 3px; */
+  font-size: 26px;
+  position: absolute;
+  height: 4%;
+}
+
+  .Homepage_Footer_Nav_Element {
+    font-family: system-ui;
+    font-weight: 400;
+    font-size: 19px;
+    margin: 7px;
+    text-align: center;
+    font-size: clamp(15px, 3vw, 19px);
+}
+
+#Homepage_Footer_Info {
+  font-family: system-ui;
+  font-weight: 500;
+  font-size: 21px;
+  font-size: clamp(16px, 3vw, 21px);
+}
+
+}

@@ -1,0 +1,180 @@
+:root {
+  --global-color-1: #666;
+  --global-font-1: sans-serif;
+}
+
+#Reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 40px; */
+  /* background-color: #f9f9f9; */
+  width: 100%;
+  margin-top: 6%;
+  margin-bottom: 6%;
+}
+#Reviews_Header {
+  width: 79%;
+  margin-bottom: 40px;
+  text-align: left;
+  /* padding-left: 20px; */
+}
+
+#Reviews_Header h1 {
+  font-size: 50px;
+  font-weight: 600;
+  font-family: "Jost", var(--global-font-1);
+  padding-left: 3%;
+}
+
+#Reviews_User {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 78%;
+}
+
+.Reviews_item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 15px;
+  /* background-color: #fff; */
+  /* border: 1px solid #ddd; */
+  /* border-radius: 8px; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  padding: 20px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Review_Section {
+  grid-column: span 2;
+}
+
+.Userpic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.Userpic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Placeholder_Icon {
+  font-size: 24px;
+  color: var(--global-color-1);
+}
+
+.User_Name {
+  font-size: 1.2rem;
+  color: #333;
+  /* margin: 0; */
+  font-family: var(--global-font-1);
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: black;
+  margin-top: 26px;
+}
+
+.User_Review {
+  font-size: 1rem;
+  color: var(--global-color-1);
+  line-height: 1.5;
+  margin: 0;
+  margin-top: 10px;
+  width: 84%;
+  font-size: 21px;
+  font-weight: 400;
+  font-family: sans-serif;
+}
+
+@media screen and (max-width: 1050px) and (min-width: 0px) {
+  .User_Review {
+    font-size: 1rem;
+    color: var(--global-color-1);
+    line-height: 1.5;
+    margin: 0;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 21px;
+    font-weight: 400;
+    font-family: sans-serif;
+    font-size: clamp(16px, 3vw, 21px);
+}
+
+.User_Name {
+  font-size: 1.2rem;
+  color: #333;
+  /* margin: 0; */
+  font-family: var(--global-font-1);
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: black;
+  margin-top: 26px;
+  font-size: clamp(12px, 3vw, 16px);
+}
+
+  #Reviews_User {
+    display: flex;
+    flex-wrap: wrap;
+    /* gap: 30px; */
+    width: 100%;
+  }
+
+  .Reviews_item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 15px;
+    /* background-color: #fff; */
+    /* border: 1px solid #ddd; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+    padding: 20px;
+    /* text-align: left; */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+  }
+
+  #Reviews_Header {
+    width: 79%;
+    margin-bottom: 40px;
+    /* text-align: left; */
+    /* padding-left: 20px; */
+    width: 100%;
+}
+
+#Reviews_Header h1 {
+  font-size: clamp(20px, 3vw, 43px);
+  font-weight: 600;
+  font-family: "Jost", var(--global-font-1);
+  padding-left: 3%;
+}
+
+#Reviews {
+  display: flex
+;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 40px; */
+  /* background-color: #f9f9f9; */
+  width: 100%;
+  margin-top: 6%;
+  margin-bottom: 6%;
+  margin: 6px;
+}
+
+
+}

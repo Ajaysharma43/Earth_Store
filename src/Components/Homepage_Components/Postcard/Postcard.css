@@ -1,0 +1,104 @@
+#Postcard {
+  display: grid;
+  justify-content: center;
+}
+
+#Postcard_Header {
+  width: 99%;
+  text-align: center;
+  font-size: 44px;
+  font-family: math;
+  text-transform: uppercase;
+  letter-spacing: 5.92px;
+  line-height: 1.3em;
+  margin: 0;
+  margin-top: 14%;
+}
+
+
+#Postcard_Para {
+  text-align: center;
+  color: gray;
+  font-size: 17px;
+  font-family: sans-serif;
+  margin-bottom: 7%;
+  letter-spacing: 1px;
+}
+
+#Postcard_Button {
+  color: white;
+  width: 38%;
+  /* max-width: 383px; */
+  font-size: clamp(11px, 3vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: clamp(1px, 1vw, 3px);
+  background-color: #74a84a;
+  border: none;
+  margin: 0px auto 5%;
+  display: block;
+  transition: 0.4s ease;
+  height: 69%;
+}
+
+#Postcard_Button:hover {
+  background-color: #2c541d;
+}
+
+
+
+
+
+@media screen and (max-width: 1050px) and (min-width: 0px) {
+  #Postcard_Header {
+    width: 100%;
+    text-align: center;
+    font-size: clamp(35px, 5vw, 60px);
+    font-family: math;
+    text-transform: uppercase;
+    letter-spacing: clamp(0px, 1vw, 1px);
+    line-height: 1.3em;
+    margin: 0;
+    margin-top: 100px;
+}
+
+#Postcard_Para {
+  font-size: clamp(18px, 2.5vw, 64px);
+}
+
+  
+}
+
+@media screen and (max-width: 828px) {
+  #Postcard_Button {
+    color: white;
+    width: 279px;
+    /* max-width: 383px; */
+    font-size: clamp(11px, 2vw, 18px);
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25rem;
+    background-color: #74a84a;
+    border: none;
+    margin: 0 auto 5%;
+    display: block;
+    transition: 0.4s ease;
+}
+
+}
+
+@media screen and (max-width: 468px) {
+  #Postcard_Button {
+    color: white;
+    width: 142px;
+    /* max-width: 383px; */
+    font-size: clamp(11px, 3vw, 18px);
+    text-transform: uppercase;
+    letter-spacing: clamp(1px, 1vw, 3px);
+    background-color: #74a84a;
+    border: none;
+    margin: 0 auto 5%;
+    display: block;
+    transition: 0.4s ease;
+}
+}

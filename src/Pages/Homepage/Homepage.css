@@ -1,0 +1,43 @@
+#Homepage_Header {
+  background-image: url("../../assets/Homapage_Images/a9588ac4be92480bbf420071afe1043d.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+}
+
+#Empty_Line {
+  width: 100%;
+  background-color: #c9b8b8a6;
+  height: 1px;
+}
+
+#Reviews_Article {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+}
+
+#Postcard_Article {
+  background-image: url("../../assets/Homapage_Images/a9588ac4be92480bbf420071afe1043d.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 470px;
+}
+
+#Homepage_Ending_Article {
+  width: 100%;
+}
+
+@media screen and (max-width: 468px) and (min-width:0px) 
+{
+  #Homepage_Header {
+    background-image: url("../../assets/Homapage_Images/a9588ac4be92480bbf420071afe1043d.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 437px;
+}
+}

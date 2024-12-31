@@ -1,0 +1,55 @@
+[
+    {
+        "id":"1",
+        "name":"Poster V1",
+        "type":"Posters",
+        "price":"$23.99",
+        "image":"/src/assets/Homapage_Images/Poster1.jpg",
+        "description":"Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides."
+    }
+    ,
+    {
+        "id":"2",
+        "name":"Poster V2",
+        "type":"Posters",
+        "price":"$17.99",
+       "image":"/src/assets/Homapage_Images/Poster2.jpg",
+        "description":"Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides."
+    }
+    ,
+    {
+        "id":"3",
+        "name":"Poster V3",
+        "type":"Posters",
+        "price":"$14.99",
+        "image":"/src/assets/Homapage_Images/Poster3.jpg",
+        "description":"Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides."
+    }
+    ,
+    {
+        "id":"4",
+        "name":"Poster V4",
+        "type":"Posters",
+        "price":"$23.99",
+        "image":"/src/assets/Homapage_Images/Poster5.jpg",
+        "description":"Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides."
+    }
+    ,
+    {
+        "id":"5",
+        "name":"Poster V5",
+        "type":"Posters",
+        "price":"$17.99",
+        "image":"/src/assets/Homapage_Images/Poster5.jpg",
+        "description":"Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides."
+    }
+    ,
+    {
+        "id":"6",
+        "name":"Poster V6",
+        "type":"Posters",
+        "price":"$14.99",
+        "image":"/src/assets/Homapage_Images/Poster5.jpg",
+        "description":"Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides."
+    }
+]
