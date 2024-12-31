@@ -13,7 +13,7 @@ const Footer = () => {
           </nav>
         </div>
 
-        <div style={{    width: "36%",height:"0px",textAlign:"end"}}>
+        <div style={{    width: "15%",height:"0px",textAlign:"end"}}>
             <img src="https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/11/EARTH-STORE-200x35.png" alt="" id="Homepage_Footer_Logo"/>
 
         </div>

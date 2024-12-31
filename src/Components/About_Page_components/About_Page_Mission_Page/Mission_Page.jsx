@@ -6,9 +6,9 @@ const Mission = () => {
     <>
       <div
         className="
-          flex flex-wrap justify-center items-center pt-10 pb-10 gap-8
+          flex flex-wrap justify-center items-center pt-10 pb-10 gap-8 w-full
           xl:flex-row xl:justify-center xl:gap-24 xl:pt-32 xl:pb-32
-          lg:flex-row lg:justify-center lg:items-center lg:gap-12 lg:pt-32 lg:pb-32
+          lg:flex-row lg:justify-between lg:gap-12 lg:pt-32 lg:pb-32
           md:flex-row md:justify-between md:gap-8 md:pt-20 md:pb-20
           sm:flex-col sm:justify-center sm:gap-6 sm:pt-16 sm:pb-16
         "
@@ -21,7 +21,7 @@ const Mission = () => {
             className="
               lg:h-[clamp(50px, 31vw, 346px)] lg:w-[564px] 
               xl:h-[clamp(50px, 31vw, 346px)] xl:w-[564px] 
-              md:w-[564px] md:h-[clamp(50px, 31vw, 346px)] p-4
+              md:w-[50%] md:h-[clamp(50px, 31vw, 346px)] p-4
               sm:h-[clamp(80px, 12vw, 200px)] sm:w-full
               w-full
             "
@@ -29,15 +29,15 @@ const Mission = () => {
         </section>
 
         {/* Content Section */}
-        <section className="flex-1 px-4">
+        <section className="px-4 flex-1">
           <div className="mt-10">
-            <p className="text-4xl font-bold font-serif pb-6 break-words whitespace-normal text-center lg:text-center">
+            <p className="text-4xl font-bold font-serif pb-6 break-words whitespace-normal">
               OUR MISSION
             </p>
             <p
               className="
                 text-slate-500 text-lg leading-relaxed break-words whitespace-normal
-                md:w-full lg:w-[434px] xl:w-[464px] text-center lg:text-center
+                md:w-[50%] lg:w-[434px] xl:w-[464px] 
               "
             >
               Hello, my name is Tyler Moore and with the help of many people I
@@ -50,7 +50,7 @@ const Mission = () => {
             <p
               className="
                 text-slate-500 text-lg leading-relaxed w-full
-                sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[50%] text-center lg:text-center
+                sm:w-[90%] md:w-[70%] lg:w-[70%] xl:w-[50%] 
               "
             >
               I wish you the best of luck with your business, enjoy the
