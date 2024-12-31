@@ -7,8 +7,8 @@ const Mission = () => {
       <div
         className="
           flex flex-wrap justify-center items-center pt-10 pb-10 gap-8 w-full
-          xl:flex-row xl:justify-center xl:gap-24 xl:pt-32 xl:pb-32
-          lg:flex-row lg:justify-between lg:gap-12 lg:pt-32 lg:pb-32
+          xl:flex-row xl:justify-center xl:gap-24 xl:pt-32 xl:pb-32 xl:ml-[7%]
+          lg:flex-row lg:justify-between lg:gap-12 lg:pt-32 lg:pb-32 lg:ml-[7%]
           md:flex-row md:justify-between md:gap-8 md:pt-20 md:pb-20
           sm:flex-col sm:justify-center sm:gap-6 sm:pt-16 sm:pb-16
         "
@@ -19,7 +19,7 @@ const Mission = () => {
             src={Forest}
             alt="Mission Image"
             className="
-              lg:h-[clamp(50px, 31vw, 346px)] lg:w-[564px] 
+              lg:h-[clamp(50px, 31vw, 346px)] lg:w-[504px] 
               xl:h-[clamp(50px, 31vw, 346px)] xl:w-[564px] 
               md:w-[50%] md:h-[clamp(50px, 31vw, 346px)] p-4
               sm:h-[clamp(80px, 12vw, 200px)] sm:w-full

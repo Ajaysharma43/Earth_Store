@@ -614,6 +614,10 @@ video {
   flex: 1 1 0%;
 }
 
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -976,6 +980,10 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:ml-\[7\%\] {
+    margin-left: 7%;
+  }
+
   .lg\:flex {
     display: flex;
   }
@@ -1002,6 +1010,10 @@ video {
 
   .lg\:w-\[564px\] {
     width: 564px;
+  }
+
+  .lg\:w-\[504px\] {
+    width: 504px;
   }
 
   .lg\:flex-row {
@@ -1091,6 +1103,10 @@ video {
 @media (min-width: 1280px) {
   .xl\:mt-10 {
     margin-top: 2.5rem;
+  }
+
+  .xl\:ml-\[7\%\] {
+    margin-left: 7%;
   }
 
   .xl\:flex {
