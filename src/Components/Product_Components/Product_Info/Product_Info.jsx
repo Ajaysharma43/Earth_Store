@@ -13,6 +13,7 @@ import {
 import { MdZoomOutMap } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { FaSearch,FaCompress  } from "react-icons/fa";
+import Idcontext from "../../Context/IdContext";
 
 const Product_Info = () => {
   const id = useParams();
@@ -27,6 +28,7 @@ const Product_Info = () => {
   const dilog = useRef(null);
   const Imageref = useRef();
   const DilogImage = useRef();
+  const Fixed_Nav = useRef();
 
   const Zoom = (e) => {
     const image = Imageref.current;
@@ -121,6 +123,10 @@ const Product_Info = () => {
     Image.style.transform = "scale(1.9)"
   }
 
+  const NavFix = () => {
+
+  }
+
   useEffect(() => {
     async function Getproducts() {
       const response = await axios.get(data);
@@ -133,6 +139,26 @@ const Product_Info = () => {
 
   return (
     <>
+
+    <nav className="fixed flex justify-center w-full gap-[63%] bg-white" ref={Fixed_Nav}>
+      <section className="flex gap-6">
+        <img src={Product.image} alt="" className="w-[80px] h-[80px]"/>
+        <h1>{Product.name}</h1>
+      </section>
+
+      <section className="flex">
+        <h1>{Product.price}</h1>
+        <ButtonGroup variant="contained" aria-label="Basic button group">
+              <button onClick={() => RemoveCartItems()}>-</button>
+              <h1>{CartItems}</h1>
+              <button onClick={() => AddCartItems()}>+</button>
+            </ButtonGroup>
+            <span>
+              <button>Add to cart</button>
+            </span>
+      </section>
+    </nav>
+
       <Dialog
   open={open}
   onClose={handleDialogClose}

@@ -9,6 +9,7 @@ const Product = () => {
             <Navbar/>
         </header>
 
+
         <article>
             <Product_Info/>
         </article>
