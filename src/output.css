@@ -610,6 +610,10 @@ video {
   margin-top: 5%;
 }
 
+.mr-\[50\%\] {
+  margin-right: 50%;
+}
+
 .block {
   display: block;
 }
@@ -620,6 +624,10 @@ video {
 
 .flex {
   display: flex;
+}
+
+.grid {
+  display: grid;
 }
 
 .hidden {
@@ -821,6 +829,10 @@ video {
 
 .text-center {
   text-align: center;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .font-serif {
