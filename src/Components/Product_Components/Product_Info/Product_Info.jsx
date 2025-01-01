@@ -140,6 +140,7 @@ const Product_Info = () => {
       const response = await axios.get(data);
       const Single = response.data.find((Product) => Product.id == id.id);
       setproduct(Single);
+      sessionStorage.setItem('data',JSON.stringify(Single))
     }
 
     Getproducts();
