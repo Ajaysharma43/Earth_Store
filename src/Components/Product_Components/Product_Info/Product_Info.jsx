@@ -239,12 +239,12 @@ const Product_Info = () => {
           <p className="w-[550px]">{Product.description}</p>
           <h1 className="flex">
             <ButtonGroup variant="contained" aria-label="Basic button group">
-              <button onClick={() => RemoveCartItems()}>-</button>
-              <h1>{CartItems}</h1>
-              <button onClick={() => AddCartItems()}>+</button>
+              <button onClick={() => RemoveCartItems()} className="w-[40px] h-[40px]">-</button>
+              <h1 className="w-[40px] h-[40px] text-center pt-3">{CartItems}</h1>
+              <button onClick={() => AddCartItems()} className="w-[40px] h-[40px] border-none border-rl-slate-600">+</button>
             </ButtonGroup>
             <span>
-              <button>Add to cart</button>
+              <button className="w-[100px] h-[40px] ml-[30px]">Add to cart</button>
             </span>
           </h1>
           <h1>Category: {Product.type}</h1>
