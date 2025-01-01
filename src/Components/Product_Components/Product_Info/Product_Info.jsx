@@ -125,13 +125,13 @@ const Product_Info = () => {
 
   const NavFix = () => {
     const Nav = Fixed_Nav.current;
-    if(window.scrollY > 200)
+    if(window.scrollY = 0)
     {
-      Nav.style.display = "hidden"
+      Nav.style.display = "flex"
     }
     else
     {
-      Nav.style.display = "flex"
+      Nav.style.display = "hidden"
     }
   }
 
@@ -148,7 +148,7 @@ const Product_Info = () => {
   return (
     <>
 
-    <nav className="fixed flex justify-center w-full gap-[63%] bg-white" ref={Fixed_Nav}>
+    <nav className="fixed hidden justify-center w-full gap-[63%] bg-white" ref={Fixed_Nav} onScroll={()=>NavFix()}>
       <section className="flex gap-6">
         <img src={Product.image} alt="" className="w-[80px] h-[80px]"/>
         <h1>{Product.name}</h1>
