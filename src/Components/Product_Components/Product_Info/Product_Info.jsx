@@ -208,7 +208,7 @@ const Product_Info = () => {
   </div>
 </Dialog>
 
-      <div className="flex flex-wrap justify-center gap-[40px]">
+      <div className="flex flex-wrap justify-center gap-[40px] mt-[5%]">
       <section className="overflow-hidden">
   <div
     className="group relative h-[300px] w-[300px] overflow-hidden"
