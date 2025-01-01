@@ -124,7 +124,15 @@ const Product_Info = () => {
   }
 
   const NavFix = () => {
-
+    const Nav = Fixed_Nav.current;
+    if(window.scrollY > 200)
+    {
+      Nav.style.display = "hidden"
+    }
+    else
+    {
+      Nav.style.display = "flex"
+    }
   }
 
   useEffect(() => {
@@ -158,6 +166,8 @@ const Product_Info = () => {
             </span>
       </section>
     </nav>
+
+
 
       <Dialog
   open={open}
