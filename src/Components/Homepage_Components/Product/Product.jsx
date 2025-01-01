@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import data from "/DataAPI/Porducts.json?url";
 import "./Product.css";
 import { FaBagShopping } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -60,6 +61,7 @@ const Product = () => {
     <>
       <div id="Products">
         {products.map((item, index) => (
+          
           <motion.div
             id="Product_card"
             key={index}
@@ -74,6 +76,7 @@ const Product = () => {
               delay: index * 0.2, 
             }}
           >
+            <Link to={`/Product/${item.id}`}>
             <div id="Product_Image_Section">
               <img src={item.image} alt="" id="Product_Image" />
               <div id="Content_Overlay">
@@ -107,7 +110,7 @@ const Product = () => {
                 </div>
               </div>
             </div>
-
+            </Link>
             <h3 id="Product_Type">{item.type}</h3>
             <h1 id="Product_Name">{item.name}</h1>
             <h3 id="Product_Price">{item.price}</h3>
