@@ -201,7 +201,7 @@ const Product_Info = () => {
           ref={DilogImage}
           src={Product.image}
           alt="Product"
-          className="h-[80vh] w-[80vw] object-contain" // Increased size
+          className="h-[80vh] w-[80vw] object-contain" 
         />
       </CardActionArea>
     </DialogContent>
@@ -209,13 +209,13 @@ const Product_Info = () => {
   </div>
 </Dialog>
 
-      <div className="flex flex-wrap justify-center gap-[40px] mt-[5%]">
-      <section className="overflow-hidden">
+      <div className="flex flex-wrap justify-center gap-[40px] mt-[5%] w-full">
+      <section className="overflow-hidden w-1/2 flex justify-center">
   <div
     className="group relative h-[300px] w-[300px] overflow-hidden"
     onMouseMove={(e) => Zoom(e)}
     onMouseLeave={() => ResetZoom()}
-     // Open dialog on image click
+
   >
     <img
       src={Product.image}
@@ -230,7 +230,7 @@ const Product_Info = () => {
 </section>
 
 
-        <section>
+        <section className="w-[25%]">
           <h3>
             Home/{Product.type}/{Product.name}
           </h3>
@@ -240,12 +240,12 @@ const Product_Info = () => {
           <p className="w-[550px]">{Product.description}</p>
           <h1 className="flex">
             <ButtonGroup variant="contained" aria-label="Basic button group">
-              <button onClick={() => RemoveCartItems()} className="w-[40px] h-[40px]">-</button>
-              <h1 className="w-[40px] h-[40px] text-center pt-3">{CartItems}</h1>
-              <button onClick={() => AddCartItems()} className="w-[40px] h-[40px] border-none border-rl-slate-600">+</button>
+              <button onClick={() => RemoveCartItems()} className="w-[40px] h-[40px] border">-</button>
+              <h1 className="w-[40px] h-[40px] text-center pt-3 border">{CartItems}</h1>
+              <button onClick={() => AddCartItems()} className="w-[40px] h-[40px] border-none border-rl-slate-600 border">+</button>
             </ButtonGroup>
             <span>
-              <button className="w-[100px] h-[40px] ml-[30px]">Add to cart</button>
+              <button className="w-[200px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] text-[17px] transition duration-500 hover:bg-[#2c541d]">Add to cart</button>
             </span>
           </h1>
           <h1>Category: {Product.type}</h1>

@@ -51,7 +51,7 @@
 
 .icon {
   display: block;
-  background-color: green;
+  background-color: #2c541d;
   height: 43px;
   font-size: 24px;
   width: 43px;
@@ -77,7 +77,7 @@
 
   .Homepage_Ending_Details_1 {
     display: flex;
-    gap: 0px;
+    gap: 7px;
     width: 100%;
     flex-direction: column;
     text-align: center;
@@ -93,22 +93,22 @@
 ; */
     position: relative;
     left: -28%;
-}
+  }
 
-.icon {
-  display: block;
-  background-color: green;
-  height: 43px;
-  font-size: 24px;
-  width: 43px;
-  text-align: center;
-  padding-left: 9px;
-  padding-top: 8px;
-  border-radius: 50%;
-  color: white;
-  position: relative;
-  left: 35%;
-}
+  .icon {
+    display: block;
+    background-color: #2c541d;
+    height: 43px;
+    font-size: 24px;
+    width: 43px;
+    text-align: center;
+    padding-left: 9px;
+    padding-top: 8px;
+    border-radius: 50%;
+    color: white;
+    position: relative;
+    left: 35%;
+  }
 
   .Homepage_Ending_icon {
     margin-top: 24px;
@@ -139,5 +139,5 @@
     color: #413c3c;
     margin-bottom: 16%;
     font-size: clamp(13px, 3vw, 15px);
-}
+  }
 }

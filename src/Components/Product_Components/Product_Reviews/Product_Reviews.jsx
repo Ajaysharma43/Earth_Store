@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { CiStar } from "react-icons/ci";
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useParams } from "react-router-dom";
 
 
@@ -50,7 +52,7 @@ export const DescriptionContent = () => {
           <label htmlFor="rating" className="block font-medium mb-2">Your rating *</label>
           <div className="flex gap-2">
             {[1, 2, 3, 4, 5].map((rating) => (
-              <button key={rating} className="p-2 border rounded-full"><CiStar/></button>
+              <button key={rating} className="p-2 border rounded-full"><StarBorderIcon/></button>
             ))}
           </div>
         </div>
