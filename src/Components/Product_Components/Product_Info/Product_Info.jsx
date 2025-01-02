@@ -209,7 +209,7 @@ const Product_Info = () => {
   </div>
 </Dialog>
 
-      <div className="flex flex-wrap mt-[5%] w-full h-[562px] pl-[12%]">
+      <div className="flex flex-wrap mt-[5%] w-full h-[572px] pl-[12%]">
       <section className="overflow-hidden w-1/2 flex justify-center">
   <div
     className="group relative h-[500px] w-[500px] overflow-hidden"
@@ -231,21 +231,21 @@ const Product_Info = () => {
 
 
         <section className="w-[40%]">
-          <h3>
+          <h3 className="mt-[10px] text-[17px]">
             Home/{Product.type}/{Product.name}
           </h3>
-          <h3>{Product.type}</h3>
-          <h1>{Product.name}</h1>
-          <h1>{Product.price}</h1>
-          <p className="w-[100%]">{Product.description}</p>
-          <h1 className="flex">
-            <ButtonGroup variant="contained" aria-label="Basic button group">
+          <h3 className="mt-[10px] text-[17px]">{Product.type}</h3>
+          <h1 className="mt-[10px] text-[42px]">{Product.name}</h1>
+          <h1 className="mt-[10px] text-[38px] font-bold text-gray-500">{Product.price}</h1>
+          <p className="w-[100%] text-[#808285] mt-[10px]">{Product.description}</p>
+          <h1 className="flex mt-[10px]">
+            <ButtonGroup>
               <button onClick={() => RemoveCartItems()} className="w-[40px] h-[40px] border text-[#74a84a]">-</button>
               <h1 className="w-[40px] h-[40px] text-center pt-3 border text-gray-500">{CartItems}</h1>
-              <button onClick={() => AddCartItems()} className="w-[40px] h-[40px] border-none border-rl-slate-600 border text-[#74a84a]">+</button>
+              <button onClick={() => AddCartItems()} className="w-[40px] h-[40px] border border-rl-slate-600 border text-[#74a84a]">+</button>
             </ButtonGroup>
             <span>
-              <button className="w-[155px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] text-[17px] transition duration-500 hover:bg-[#2c541d]">Add to cart</button>
+              <button className="w-[155px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] mt-[10px] text-[17px] transition duration-500 hover:bg-[#2c541d]">Add to cart</button>
             </span>
           </h1>
           <h1>Category: {Product.type}</h1>
