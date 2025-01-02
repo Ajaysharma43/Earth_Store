@@ -248,7 +248,7 @@ const Product_Info = () => {
               <button className="w-[155px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] mt-[10px] text-[17px] transition duration-500 hover:bg-[#2c541d]">Add to cart</button>
             </span>
           </h1>
-          <h1>Category: {Product.type}</h1>
+          <h1>Category: <h1>{Product.type}</h1></h1>
         </section>
       </div>
     </>
