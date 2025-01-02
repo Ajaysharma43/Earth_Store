@@ -209,10 +209,10 @@ const Product_Info = () => {
   </div>
 </Dialog>
 
-      <div className="flex flex-wrap justify-center gap-[40px] mt-[5%] w-full">
+      <div className="flex flex-wrap mt-[5%] w-full h-[562px] pl-[12%]">
       <section className="overflow-hidden w-1/2 flex justify-center">
   <div
-    className="group relative h-[300px] w-[300px] overflow-hidden"
+    className="group relative h-[500px] w-[500px] overflow-hidden"
     onMouseMove={(e) => Zoom(e)}
     onMouseLeave={() => ResetZoom()}
 
@@ -221,7 +221,7 @@ const Product_Info = () => {
       src={Product.image}
       ref={Imageref}
       alt="Product"
-      className="h-full w-full object-contain"
+      className=" object-contain"
     />
     <div className="absolute top-2 right-2 z-10 bg-opacity-50 bg-white p-2 rounded-full cursor-pointer" onClick={handleDialogOpen}>
       <FaSearch size={20} color="black" />
@@ -230,22 +230,22 @@ const Product_Info = () => {
 </section>
 
 
-        <section className="w-[25%]">
+        <section className="w-[40%]">
           <h3>
             Home/{Product.type}/{Product.name}
           </h3>
           <h3>{Product.type}</h3>
           <h1>{Product.name}</h1>
           <h1>{Product.price}</h1>
-          <p className="w-[550px]">{Product.description}</p>
+          <p className="w-[100%]">{Product.description}</p>
           <h1 className="flex">
             <ButtonGroup variant="contained" aria-label="Basic button group">
-              <button onClick={() => RemoveCartItems()} className="w-[40px] h-[40px] border">-</button>
-              <h1 className="w-[40px] h-[40px] text-center pt-3 border">{CartItems}</h1>
-              <button onClick={() => AddCartItems()} className="w-[40px] h-[40px] border-none border-rl-slate-600 border">+</button>
+              <button onClick={() => RemoveCartItems()} className="w-[40px] h-[40px] border text-[#74a84a]">-</button>
+              <h1 className="w-[40px] h-[40px] text-center pt-3 border text-gray-500">{CartItems}</h1>
+              <button onClick={() => AddCartItems()} className="w-[40px] h-[40px] border-none border-rl-slate-600 border text-[#74a84a]">+</button>
             </ButtonGroup>
             <span>
-              <button className="w-[200px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] text-[17px] transition duration-500 hover:bg-[#2c541d]">Add to cart</button>
+              <button className="w-[155px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] text-[17px] transition duration-500 hover:bg-[#2c541d]">Add to cart</button>
             </span>
           </h1>
           <h1>Category: {Product.type}</h1>
