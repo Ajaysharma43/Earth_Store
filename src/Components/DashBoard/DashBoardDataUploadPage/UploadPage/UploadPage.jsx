@@ -1,15 +1,30 @@
-import React, { useReducer } from "react";
-import {Upload , UploadReducer} from "../../DashBoardReducer/Upload_Reducer/Upload_Reducer"
+import axios from "axios";
+import React, { useReducer, useRef } from "react";
 
 const SimpleForm = () => {
-    
-    const [State , Reducer] = useReducer(UploadReducer,Upload)
 
+  const Product = useRef();
+  const ProductType = useRef();
+  const ProductPrice = useRef();
+  const ProductImage = useRef();
+  const ProductDescritption = useRef();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    const name = Product.current.value;
+    const type = ProductType.current.value;
+    const price = ProductPrice.current.value;
+    const image = ProductImage.current.value;
+    const description = ProductDescritption.current.value;
+
+    const response = await axios.post(`http://localhost:3000/Upload/Data`,{name,type,price,image,description})
+  };
 
   return (
     <div className="max-w-md mx-auto mt-10 bg-white p-6 rounded-md shadow-md">
       <h2 className="text-2xl font-semibold text-center mb-6">Upload</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* Name Input */}
         <div className="mb-4">
           <label className="block text-gray-700" htmlFor="name">
@@ -19,6 +34,7 @@ const SimpleForm = () => {
             type="text"
             id="name"
             name="name"
+            ref={Product}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -30,9 +46,8 @@ const SimpleForm = () => {
             Type
           </label>
           <input
-            type="email"
-            id="email"
-            name="email"
+            type="text"
+            ref={ProductType}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -44,9 +59,8 @@ const SimpleForm = () => {
             Price
           </label>
           <input
-            type="tel"
-            id="phone"
-            name="phone"
+            type="text"
+            ref={ProductPrice}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -59,8 +73,7 @@ const SimpleForm = () => {
           </label>
           <input
             type="text"
-            id="address"
-            name="address"
+            ref={ProductImage}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -72,8 +85,7 @@ const SimpleForm = () => {
             Description
           </label>
           <textarea
-            id="message"
-            name="message"
+          ref={ProductDescritption}
             rows="4"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required

@@ -45,7 +45,7 @@ export const DescriptionContent = () => {
       },[])
     return (
       <div className="p-4 text-gray-800">
-        <h2 className="text-2xl font-bold mb-4">Be the first to review {Data.name}</h2>
+        <h2 className="text-2xl font-bold mb-4">Be the first to review {Data.Name}</h2>
         <p className="mb-4">Your email address will not be published. Required fields are marked *</p>
   
         <div className="mb-4">

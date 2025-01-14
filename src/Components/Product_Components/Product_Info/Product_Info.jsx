@@ -14,6 +14,9 @@ import { MdZoomOutMap } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { FaSearch,FaCompress  } from "react-icons/fa";
 import Idcontext from "../../Context/IdContext";
+import { meta } from "@eslint/js";
+
+const URL = import.meta.env.VITE_API_URL
 
 const Product_Info = () => {
   const id = useParams();
@@ -137,10 +140,13 @@ const Product_Info = () => {
 
   useEffect(() => {
     async function Getproducts() {
-      const response = await axios.get(data);
-      const Single = response.data.find((Product) => Product.id == id.id);
-      setproduct(Single);
-      sessionStorage.setItem('data',JSON.stringify(Single))
+      const response = await axios.post(`${URL}/Data/Product`,{id});
+      console.log(URL);
+      
+      console.log(response.data.Product);
+      
+      setproduct(response.data.Product);
+      sessionStorage.setItem('data',JSON.stringify(response.data.Product))
     }
 
     Getproducts();
@@ -199,13 +205,13 @@ const Product_Info = () => {
       <CardActionArea>
         <img
           ref={DilogImage}
-          src={Product.image}
+          src={Product.Image}
           alt="Product"
           className="h-[80vh] w-[80vw] object-contain" 
         />
       </CardActionArea>
     </DialogContent>
-    <h1 className="text-center text-gray-500">{Product.name}</h1>
+    <h1 className="text-center text-gray-500">{Product.Name}</h1>
   </div>
 </Dialog>
 
@@ -218,7 +224,7 @@ const Product_Info = () => {
 
   >
     <img
-      src={Product.image}
+      src={Product.Image}
       ref={Imageref}
       alt="Product"
       className=" object-contain"
@@ -232,12 +238,12 @@ const Product_Info = () => {
 
         <section className="w-[40%]">
           <h3 className="mt-[10px] text-[17px]">
-            Home/{Product.type}/{Product.name}
+            Home/{Product.Type}/{Product.Name}
           </h3>
-          <h3 className="mt-[10px] text-[17px]">{Product.type}</h3>
-          <h1 className="mt-[10px] text-[42px]">{Product.name}</h1>
-          <h1 className="mt-[10px] text-[38px] font-bold text-gray-500">{Product.price}</h1>
-          <p className="w-[100%] text-[#808285] mt-[10px]">{Product.description}</p>
+          <h3 className="mt-[10px] text-[17px]">{Product.Type}</h3>
+          <h1 className="mt-[10px] text-[42px]">{Product.Name}</h1>
+          <h1 className="mt-[10px] text-[38px] font-bold text-gray-500">{Product.Price}</h1>
+          <p className="w-[100%] text-[#808285] mt-[10px]">{Product.Description}</p>
           <h1 className="flex mt-[10px]">
             <ButtonGroup>
               <button onClick={() => RemoveCartItems()} className="w-[40px] h-[40px] border text-[#74a84a]">-</button>
@@ -248,7 +254,7 @@ const Product_Info = () => {
               <button className="w-[155px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] mt-[10px] text-[17px] transition duration-500 hover:bg-[#2c541d]">Add to cart</button>
             </span>
           </h1>
-          <h1>Category: <h1>{Product.type}</h1></h1>
+          <h1>Category: <h1>{Product.Type}</h1></h1>
         </section>
       </div>
     </>

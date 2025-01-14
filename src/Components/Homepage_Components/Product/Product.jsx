@@ -6,6 +6,8 @@ import "./Product.css";
 import { FaBagShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
+const URL = import.meta.env.VITE_API_URL
+
 const Product = () => {
   const [products, setProducts] = useState([]);
   const cartRefs = useRef([]);
@@ -14,8 +16,9 @@ const Product = () => {
   useEffect(() => {
     const GetProducts = async () => {
       try {
-        const response = await axios.get(data);
-        setProducts(response.data.slice(0, 3));
+        const response = await axios.get(`${URL}/Data/data?limit=3`);
+        console.log(response.data.Data)
+        setProducts(response.data.Data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -76,9 +79,9 @@ const Product = () => {
               delay: index * 0.2, 
             }}
           >
-            <Link to={`/Product/${item.id}`}>
+            <Link to={`/Product/${item._id}`}>
             <div id="Product_Image_Section">
-              <img src={item.image} alt="" id="Product_Image" />
+              <img src={item.Image} alt="" id="Product_Image" />
               <div id="Content_Overlay">
                 <div
                   style={{
@@ -111,9 +114,9 @@ const Product = () => {
               </div>
             </div>
             </Link>
-            <h3 id="Product_Type">{item.type}</h3>
-            <h1 id="Product_Name">{item.name}</h1>
-            <h3 id="Product_Price">{item.price}</h3>
+            <h3 id="Product_Type">{item.Type}</h3>
+            <h1 id="Product_Name">{item.Name}</h1>
+            <h3 id="Product_Price">{item.Price}</h3>
           </motion.div>
         ))}
       </div>
