@@ -1,5 +1,6 @@
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar";
 import Product_Info from "../../Components/Product_Components/Product_Info/Product_Info";
+import ProductRelated from "../../Components/Product_Components/Product_Related/Product_Related";
 import Product_Reviews from "../../Components/Product_Components/Product_Reviews/Product_Reviews";
 import "../Product/Product.css"
 
@@ -17,6 +18,10 @@ const Product = () => {
 
         <article>
             <Product_Reviews/>
+        </article>
+
+        <article>
+            <ProductRelated/>
         </article>
         </>
     )
