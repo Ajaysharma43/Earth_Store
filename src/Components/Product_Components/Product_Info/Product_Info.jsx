@@ -162,29 +162,27 @@ const Product_Info = () => {
         </div>
       </Dialog>
 
-      <div className="flex flex-wrap mt-[5%] w-full h-full pl-[12%]">
-        <section className="overflow-hidden w-full mr-[49px] md:w-[38%] flex justify-center relative">
-          <div className="group relative overflow-hidden">
-            <button
-              className="absolute top-2 right-2 z-10 bg-opacity-50 bg-white p-2 rounded-full cursor-pointer"
-              onClick={handleDialogOpen}
-            >
-              <FaSearch size={20} color="black" />
-            </button>
-            
-            <div
-              style={{
-                backgroundImage: `url(${Product.Image})`,
-                height: 'clamp(300px, 40vw, 500px)', // Use clamp for dynamic height
-                width: 'clamp(300px, 50vw, 500px)',  // Use clamp for dynamic width
-              }}
-              ref={Imageref}
-              className="relative bg-cover bg-no-repeat"
-              onMouseMove={(e) => Zoom(e)}
-              onMouseLeave={() => ResetZoom()}
-            ></div>
-          </div>
-        </section>
+      <div className="flex flex-wrap mt-[5%] mb-[5%] w-full h-full pl-[12%]">
+      <section className="overflow-hidden w-full mr-[49px] md:w-[38%] flex justify-center relative">
+  <div className="group relative overflow-hidden">
+    <button
+      className="absolute top-2 right-2 z-10 bg-opacity-50 bg-white p-2 rounded-full cursor-pointer"
+      onClick={handleDialogOpen}
+    >
+      <FaSearch size={20} color="black" />
+    </button>
+    
+    <img
+      src={Product.Image}
+      alt={Product.Name}
+      ref={Imageref}
+      className="relative object-cover w-full h-auto max-h-[500px] max-w-[500px]"
+      onMouseMove={(e) => Zoom(e)}
+      onMouseLeave={() => ResetZoom()}
+    />
+  </div>
+</section>
+
 
         <section className="w-full md:w-[40%] flex flex-col">
           <h3 className="mt-[10px] text-[17px] text-gray-500">
@@ -223,7 +221,7 @@ const Product_Info = () => {
             </span>
           </h1>
 
-          <span className="h-[1px] w-[100%] bg-gray-500 mt-3"></span>
+          <span className="h-[1px] w-[100%] bg-gray-200 mt-3"></span>
 
           <h1 className="flex mt-[10px]">Category: <h1 className="text-[#74a84a]">{Product.Type}</h1></h1>
         </section>
