@@ -19,9 +19,8 @@ const URL = import.meta.env.VITE_API_URL;
 
 const Product_Info = () => {
   const id = useParams();
-
-  const product = useSelector((state)=> state.product)
-  const dispatch = useDispatch()
+  const product = useSelector((state) => state.product);
+  const dispatch = useDispatch();
 
   const [Product, setProduct] = useState({});
   const [CartItems, setCartItems] = useState(0);
@@ -39,7 +38,6 @@ const Product_Info = () => {
 
   const Zoom = (e) => {
     const image = Imageref.current;
-
     const { left, top, width, height } = image.getBoundingClientRect();
 
     const x = ((e.clientX - left) / width) * 100;
@@ -56,13 +54,10 @@ const Product_Info = () => {
 
   const ImageFullScreen = () => {
     const dilogbox = dilog.current;
-
     const image = DilogImage.current;
     image.style.transform = "scale(1)";
 
-    // Check if the browser is already in full-screen mode
     if (document.fullscreenElement) {
-      // Exit full-screen mode
       if (document.exitFullscreen) {
         SetZoomIcon(<FaSearch color="gray" size={20} />);
         SetSizeAdjust(<MdZoomOutMap color="gray" size={20} />);
@@ -82,7 +77,6 @@ const Product_Info = () => {
       }
       setIsFullScreen(false);
     } else {
-      // Request full-screen mode
       if (dilogbox.requestFullscreen) {
         SetZoomIcon(null);
         SetSizeAdjust(<FaCompress color="gray" size={20} />);
@@ -117,11 +111,11 @@ const Product_Info = () => {
   };
 
   const handleDialogClose = () => {
-    setOpen(false); // Close dialog
+    setOpen(false);
   };
 
   const handleDialogOpen = () => {
-    setOpen(true); // Open dialog
+    setOpen(true);
   };
 
   const handleScale = () => {
@@ -142,27 +136,13 @@ const Product_Info = () => {
     Getproducts();
   }, []);
 
-  // console.log("Product: ", Product);
   return (
     <>
-      <Dialog
-        open={open}
-        onClose={handleDialogClose}
-        style={{ backgroundColor: "#000000b8" }}
-      >
-        <div
-          ref={dilog}
-          className={`object-cover ${isFullScreen ? "fullscreen" : ""}`}
-        >
-          {/* Position the buttons fixed to the top-right corner of the screen */}
+      <Dialog open={open} onClose={handleDialogClose} style={{ backgroundColor: "#000000b8" }}>
+        <div ref={dilog} className={`object-cover ${isFullScreen ? "fullscreen" : ""}`}>
           <div className="fixed top-4 right-4 z-20 flex gap-[20px]">
-            {/* Zoom button */}
             <button onClick={() => handleScale()}>{ZoomIcon}</button>
-
-            {/* Full screen button */}
             <button onClick={() => ImageFullScreen()}>{SizeAdjust}</button>
-
-            {/* Close button */}
             <button onClick={() => handleDialogClose()}>
               <IoMdClose color="gray" size={30} />
             </button>
@@ -182,40 +162,41 @@ const Product_Info = () => {
         </div>
       </Dialog>
 
-      <div className="flex flex-wrap mt-[5%] w-full h-[572px] pl-[12%]">
-        <section className="overflow-hidden w-1/2 flex justify-center">
-          <div
-            className="group relative h-[500px] w-[500px] overflow-hidden"
-            onMouseMove={(e) => Zoom(e)}
-            onMouseLeave={() => ResetZoom()}
-          >
-            <img
-              src={Product.Image}
-              ref={Imageref}
-              alt="Product"
-              className=" object-contain"
-            />
-            <div
+      <div className="flex flex-wrap mt-[5%] w-full h-full pl-[12%]">
+        <section className="overflow-hidden w-full mr-[49px] md:w-[38%] flex justify-center relative">
+          <div className="group relative overflow-hidden">
+            <button
               className="absolute top-2 right-2 z-10 bg-opacity-50 bg-white p-2 rounded-full cursor-pointer"
               onClick={handleDialogOpen}
             >
               <FaSearch size={20} color="black" />
-            </div>
+            </button>
+            
+            <div
+              style={{
+                backgroundImage: `url(${Product.Image})`,
+                height: 'clamp(300px, 40vw, 500px)', // Use clamp for dynamic height
+                width: 'clamp(300px, 50vw, 500px)',  // Use clamp for dynamic width
+              }}
+              ref={Imageref}
+              className="relative bg-cover bg-no-repeat"
+              onMouseMove={(e) => Zoom(e)}
+              onMouseLeave={() => ResetZoom()}
+            ></div>
           </div>
         </section>
 
-        <section className="w-[40%]">
-          <h3 className="mt-[10px] text-[17px]">
+        <section className="w-full md:w-[40%] flex flex-col">
+          <h3 className="mt-[10px] text-[17px] text-gray-500">
             Home/{Product.Type}/{Product.Name}
           </h3>
-          <h3 className="mt-[10px] text-[17px]">{Product.Type}</h3>
-          <h1 className="mt-[10px] text-[42px]">{Product.Name}</h1>
-          <h1 className="mt-[10px] text-[38px] font-bold text-gray-500">
+          <h3 className="mt-[10px] text-[17px] text-[#74a84a]">{Product.Type}</h3>
+          <h1 className="mt-[10px] text-[26px]">{Product.Name}</h1>
+          <h1 className="mt-[10px] text-[27px] font-semibold text-gray-500">
             {Product.Price}
           </h1>
-          <p className="w-[100%] text-[#808285] mt-[10px]">
-            {Product.Description}
-          </p>
+          <p className="w-[100%] text-[#808285] mt-[10px] text-[17px]">{Product.Description}</p>
+          
           <h1 className="flex mt-[10px]">
             <ButtonGroup>
               <button
@@ -229,20 +210,22 @@ const Product_Info = () => {
               </h1>
               <button
                 onClick={() => AddCartItems()}
-                className="w-[40px] h-[40px] border border-rl-slate-600 border text-[#74a84a]"
+                className="w-[40px] h-[40px] border border-rl-slate-600 text-[#74a84a]"
               >
                 +
               </button>
             </ButtonGroup>
+
             <span>
-              <button className="w-[155px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] mt-[10px] text-[17px] transition duration-500 hover:bg-[#2c541d]">
+              <button className="w-[155px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] text-[17px] transition duration-500 hover:bg-[#2c541d]">
                 Add to cart
               </button>
             </span>
           </h1>
-          <h1>
-            Category: <h1>{Product.Type}</h1>
-          </h1>
+
+          <span className="h-[1px] w-[100%] bg-gray-500 mt-3"></span>
+
+          <h1 className="flex mt-[10px]">Category: <h1 className="text-[#74a84a]">{Product.Type}</h1></h1>
         </section>
       </div>
     </>
