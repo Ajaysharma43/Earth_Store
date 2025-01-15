@@ -1,3 +1,4 @@
+import Footer from "../../Components/Homepage_Components/Footer/Footer";
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar";
 import Product_Info from "../../Components/Product_Components/Product_Info/Product_Info";
 import ProductRelated from "../../Components/Product_Components/Product_Related/Product_Related";
@@ -23,6 +24,10 @@ const Product = () => {
         <article>
             <ProductRelated/>
         </article>
+
+        <footer>
+            <Footer/>
+        </footer>
         </>
     )
 }
