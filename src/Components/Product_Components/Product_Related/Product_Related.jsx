@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { FaBagShopping } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const URL = import.meta.env.VITE_API_URL;
 
 const ProductRelated = () => {
   const [related, setrelated] = useState([]);
-  const cartRefs = useRef([]); // Initialize as an array of refs
+  const cartRefs = useRef([]); 
 
   useEffect(() => {
     const User = sessionStorage.getItem("data");
@@ -43,7 +44,8 @@ const ProductRelated = () => {
       </h1>
       <div className="flex flex-wrap justify-center gap-[20px]">
         {related.map((item, index) => (
-          <div key={item._id}> {/* Use a unique key */}
+            <Link to={`/Product/${item._id}`} key={item._id}>
+          <div key={item._id}> 
             <section>
               <div
                 style={{ backgroundImage: `url(${item.Image})` }}
@@ -66,6 +68,7 @@ const ProductRelated = () => {
               <h1 className="text-gray-700 font-medium">{item.Price}</h1>
             </section>
           </div>
+          </Link>
         ))}
       </div>
     </>
