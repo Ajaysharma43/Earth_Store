@@ -28,7 +28,7 @@ const ProductNav = () => {
       </section>
 
       {/* Price and Cart Section */}
-      <section className="ml-auto flex items-center gap-6">
+      <section className="ml-auto w-full flex items-center gap-6">
             <h1 className="text-xl font-bold text-[#74a84a]">
           {Product?.Price || "N/A"}
         </h1>

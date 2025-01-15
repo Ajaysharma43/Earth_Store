@@ -39,7 +39,7 @@ const Navbar = () => {
 
         <section>
           <center>
-            <ul className="Navbar_Elements">
+            <div className="Navbar_Elements">
               <Link to='/' style={{textDecorationLine:"none"}}>
               <h3 className="Navbar_Element">HOME</h3>
               </Link>
@@ -63,7 +63,7 @@ const Navbar = () => {
               <h3 id="Navbar_DropDown" onClick={()=>updateicon()}>
                 {icon}
               </h3>
-            </ul>
+            </div>
           </center>
         </section>
 
