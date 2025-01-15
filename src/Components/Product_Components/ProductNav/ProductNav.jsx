@@ -44,7 +44,7 @@ const ProductNav = () => {
               +
             </button>
           </ButtonGroup>
-          <button className="px-4 py-2 bg-[#74a84a] text-white text-sm uppercase font-medium shadow-md hover:bg-green-600">
+          <button className="px-4 py-2 bg-[#74a84a] text-white text-sm uppercase font-medium shadow-md hover:bg-[#2c541d]">
             Add to cart
           </button>
         </div>

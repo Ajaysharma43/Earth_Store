@@ -12,7 +12,7 @@ import {
 import { MdZoomOutMap } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { FaSearch, FaCompress } from "react-icons/fa";
-import { useSelector , useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setproduct } from "../../Features/ProductSlice/Productslice";
 
 const URL = import.meta.env.VITE_API_URL;
@@ -138,8 +138,15 @@ const Product_Info = () => {
 
   return (
     <>
-      <Dialog open={open} onClose={handleDialogClose} style={{ backgroundColor: "#000000b8" }}>
-        <div ref={dilog} className={`object-cover ${isFullScreen ? "fullscreen" : ""}`}>
+      <Dialog
+        open={open}
+        onClose={handleDialogClose}
+        style={{ backgroundColor: "#000000b8" }}
+      >
+        <div
+          ref={dilog}
+          className={`object-cover ${isFullScreen ? "fullscreen" : ""}`}
+        >
           <div className="fixed top-4 right-4 z-20 flex gap-[20px]">
             <button onClick={() => handleScale()}>{ZoomIcon}</button>
             <button onClick={() => ImageFullScreen()}>{SizeAdjust}</button>
@@ -163,38 +170,41 @@ const Product_Info = () => {
       </Dialog>
 
       <div className="flex flex-wrap mt-[5%] mb-[5%] w-full h-full pl-[12%]">
-      <section className="overflow-hidden w-full mr-[49px] md:w-[38%] flex justify-center relative">
-  <div className="group relative overflow-hidden">
-    <button
-      className="absolute top-2 right-2 z-10 bg-opacity-50 bg-white p-2 rounded-full cursor-pointer"
-      onClick={handleDialogOpen}
-    >
-      <FaSearch size={20} color="black" />
-    </button>
-    
-    <img
-      src={Product.Image}
-      alt={Product.Name}
-      ref={Imageref}
-      className="relative object-cover w-full h-auto max-h-[500px] max-w-[500px]"
-      onMouseMove={(e) => Zoom(e)}
-      onMouseLeave={() => ResetZoom()}
-    />
-  </div>
-</section>
+        <section className="overflow-hidden w-full lg:w-[38%] flex justify-center relative h-fit mr-[5%]">
+          <div className="group relative overflow-hidden">
+            <button
+              className="absolute top-2 right-2 z-10 bg-opacity-50 bg-white p-2 rounded-full cursor-pointer"
+              onClick={handleDialogOpen}
+            >
+              <FaSearch size={20} color="black" />
+            </button>
 
+            <img
+              src={Product.Image}
+              alt={Product.Name}
+              ref={Imageref}
+              className="relative object-cover w-full h-auto max-h-[500px] max-w-full sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]"
+              onMouseMove={(e) => Zoom(e)}
+              onMouseLeave={() => ResetZoom()}
+            />
+          </div>
+        </section>
 
         <section className="w-full md:w-[40%] flex flex-col">
           <h3 className="mt-[10px] text-[17px] text-gray-500">
             Home/{Product.Type}/{Product.Name}
           </h3>
-          <h3 className="mt-[10px] text-[17px] text-[#74a84a]">{Product.Type}</h3>
+          <h3 className="mt-[10px] text-[17px] text-[#74a84a]">
+            {Product.Type}
+          </h3>
           <h1 className="mt-[10px] text-[26px]">{Product.Name}</h1>
           <h1 className="mt-[10px] text-[27px] font-semibold text-gray-500">
             {Product.Price}
           </h1>
-          <p className="w-[100%] text-[#808285] mt-[10px] text-[17px]">{Product.Description}</p>
-          
+          <p className="w-[100%] text-[#808285] mt-[10px] text-[17px]">
+            {Product.Description}
+          </p>
+
           <h1 className="flex mt-[10px]">
             <ButtonGroup>
               <button
@@ -223,7 +233,9 @@ const Product_Info = () => {
 
           <span className="h-[1px] w-[100%] bg-gray-200 mt-3"></span>
 
-          <h1 className="flex mt-[10px]">Category: <h1 className="text-[#74a84a]">{Product.Type}</h1></h1>
+          <h1 className="flex mt-[10px]">
+            Category: <h1 className="text-[#74a84a]">{Product.Type}</h1>
+          </h1>
         </section>
       </div>
     </>
