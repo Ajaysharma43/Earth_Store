@@ -844,6 +844,10 @@ video {
   width: 8rem;
 }
 
+.w-\[90\%\] {
+  width: 90%;
+}
+
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -1439,6 +1443,10 @@ video {
     margin-left: 0px;
   }
 
+  .sm\:block {
+    display: block;
+  }
+
   .sm\:hidden {
     display: none;
   }
@@ -1512,6 +1520,10 @@ video {
 @media (min-width: 768px) {
   .md\:ml-0 {
     margin-left: 0px;
+  }
+
+  .md\:block {
+    display: block;
   }
 
   .md\:flex {

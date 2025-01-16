@@ -178,7 +178,7 @@ const Product_Info = () => {
                 ref={DilogImage}
                 src={Product.Image}
                 alt="Product"
-                className="h-[80vh] w-[80vw] object-contain"
+                className="w-[80vw] object-contain"
               />
             </CardActionArea>
           </DialogContent>
@@ -212,7 +212,7 @@ const Product_Info = () => {
           </div>
         </section>
 
-        <section className="w-full md:w-[72%] flex flex-col lg:w-[38%] md:px-6 lg:px-8">
+        <section className="w-[90%] md:w-[72%] flex flex-col lg:w-[38%] md:px-6 lg:px-8">
   {Product.Type && Product.Name ? (
     <h3 className="mt-2 text-sm md:text-base text-gray-500">
       Home / {Product.Type} / {Product.Name}

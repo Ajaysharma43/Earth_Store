@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import Logo from "../../../assets/Logos/pngfind.com-ecommerce-development-png-6429963.png";
 import { useParams } from "react-router-dom";
 
 export const DescriptionContent = () => {
   return (
-    <div className="w-full max-w-3xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
+    <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
       <h1 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">
         Framed Without Borders:
       </h1>
@@ -54,7 +53,7 @@ export const ReviewsContent = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
+    <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
       <h2 className="text-xl md:text-2xl font-bold mb-4">
         Be the first to review {Data.Name}
       </h2>

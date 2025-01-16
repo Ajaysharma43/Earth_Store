@@ -18,7 +18,7 @@ const ProductNav = () => {
               className="w-12 h-12 object-cover rounded-md md:hidden sm:hidden lg:block xl:block 2xl:block hidden"
             />
             <div>
-              <h1 className="text-lg font-semibold text-gray-800">
+              <h1 className="text-lg font-semibold text-gray-800 sm:block md:block lg:block xl:block 2xl:block hidden">
                 {Product.Name}
               </h1>
             </div>

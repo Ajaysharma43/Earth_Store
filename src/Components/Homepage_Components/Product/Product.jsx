@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import data from "/DataAPI/Porducts.json?url";
-import "./Product.css";
 import { FaBagShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -62,11 +60,10 @@ const Product = () => {
 
   return (
     <>
-      <div id="Products">
+      <div className="p-8 flex flex-wrap justify-center mt-[6%] mb-[6%] w-full gap-6">
         {products.map((item, index) => (
-          
           <motion.div
-            id="Product_card"
+            className="w-[300px] flex flex-col gap-4 group"  // Added `group` class for hover interaction
             key={index}
             onMouseOver={() => RevealCart(index)} 
             onMouseLeave={() => HideCart(index)}
@@ -80,43 +77,24 @@ const Product = () => {
             }}
           >
             <Link to={`/Product/${item._id}`}>
-            <div id="Product_Image_Section">
-              <img src={item.Image} alt="" id="Product_Image" />
-              <div id="Content_Overlay">
-                <div
-                  style={{
-                    width: "100%",
-                    textAlign: "right",
-                    transition: "1s",
-                  }}
+              <section className="relative">
+                <div 
+                  style={{ backgroundImage: `url(${item.Image})` }}
+                  className="bg-cover bg-center rounded-lg shadow-md overflow-hidden transition-transform duration-300 h-[300px]"
                 >
-                  <span
-                    id="Add_Product_Text"
-                    ref={(el) => (AddProduct.current[index] = el)}
-                    style={{ display: "none" }} 
+                  <button
+                    className="absolute top-4 right-4 bg-white text-[#74a84a] p-2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out shadow-md"
                   >
-                    <h1>Add to cart</h1>
-                  </span>
+                    <FaBagShopping size={20} />
+                  </button>
                 </div>
-
-                <div
-                  ref={(el) => (cartRefs.current[index] = el)}
-                  style={{ display: "none" }} 
-                  onMouseOver={() => RevealAddProduct(index)} 
-                  onMouseOut={() => HideAddProduct(index)} 
-                >
-                  <span id="Icon_Overlay">
-                    <span id="Icon_Overlay_1">
-                      <FaBagShopping size={25} id="Icon_Cart" />
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
+              </section>
             </Link>
-            <h3 id="Product_Type">{item.Type}</h3>
-            <h1 id="Product_Name">{item.Name}</h1>
-            <h3 id="Product_Price">{item.Price}</h3>
+            <section>
+              <h3 className="text-gray-500">{item.Type}</h3>
+              <h1 className="font-semibold text-lg">{item.Name}</h1>
+              <h3 className="text-[#74a84a] font-bold">{item.Price}</h3>
+            </section>
           </motion.div>
         ))}
       </div>
