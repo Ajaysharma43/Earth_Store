@@ -1,12 +1,14 @@
 import { ButtonGroup } from "@mui/material";
 import { useSelector } from "react-redux";
+import NavImageSkeleton from "../../Sekeleton/ProductNavSekeleton/NavImageSkeleton";
+import PriceSkeleton from "../../Sekeleton/ProductSekeleton/PriceSkeleton";
 
 const ProductNav = () => {
   const Product = useSelector((state) => state.product.Product);
   console.log(Product);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md flex items-center px-8 py-4 z-50">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md flex items-center px-8 py-4 z-50 break-words whitespace-pre-wrap">
       <section className="flex items-center gap-4">
         {Product ? (
           <>
@@ -19,18 +21,17 @@ const ProductNav = () => {
               <h1 className="text-lg font-semibold text-[#74a84a]">
                 {Product.Name}
               </h1>
-              <p className="text-sm text-gray-500">{Product.Type}</p>
             </div>
           </>
         ) : (
-          <p className="text-gray-500">Loading...</p>
+          <NavImageSkeleton/>
         )}
       </section>
 
       {/* Price and Cart Section */}
       <section className="ml-auto w-full flex items-center gap-6">
             <h1 className="text-xl font-bold text-[#74a84a]">
-          {Product?.Price || "N/A"}
+          {Product?.Price || <PriceSkeleton/>}
         </h1>
         <div className="flex items-center gap-2">
           <ButtonGroup className="">

@@ -116,7 +116,7 @@ const Product_Reviews = () => {
 
   return (
     <div className="py-6">
-      <div className="flex justify-start gap-6 mb-6 ml-4">
+      <div className="flex justify-start gap-6 mb-6 ">
         <button
           onClick={() => setActiveContent("description")}
           className="text-xl font-semibold text-gray-600 hover:text-blue-600"
@@ -130,7 +130,7 @@ const Product_Reviews = () => {
           Reviews
         </button>
       </div>
-      <div className="w-full max-w-3xl ml-4">{renderContent()}</div>
+      <div className="w-full max-w-3xl lg:ml-4 md:ml-0 sm:ml-0">{renderContent()}</div>
     </div>
   );
 };

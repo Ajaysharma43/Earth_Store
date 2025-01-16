@@ -134,7 +134,9 @@ const Product_Info = () => {
   useEffect(() => {
     async function Getproducts() {
       const response = await axios.post(`${URL}/Data/Product`, { id });
-      console.log("Res: ", response.data.Product);
+      if(response.data != null)
+      {
+        console.log("Res: ", response.data.Product);
       dispatch(setproduct(response.data.Product));
       dispatch(setID(id));
 
@@ -142,6 +144,11 @@ const Product_Info = () => {
         setProduct(response.data.Product);
       }, 1000);
       sessionStorage.setItem("data", JSON.stringify(response.data.Product));
+      }
+      else
+      {
+        sessionStorage.removeItem("data")
+      }
     }
 
     Getproducts();
@@ -180,7 +187,7 @@ const Product_Info = () => {
         </div>
       </Dialog>
 
-      <div className="flex flex-wrap mt-[5%] mb-[5%] w-full h-full pl-[12%]">
+      <div className="flex flex-wrap mt-[5%] mb-[5%] w-full h-full pl-[5%]">
         <section className="overflow-hidden w-full lg:w-[38%] flex justify-center relative h-fit mr-[5%]">
           <div className="group relative overflow-hidden">
             
@@ -206,7 +213,7 @@ const Product_Info = () => {
           </div>
         </section>
 
-        <section className="w-full md:w-[40%] flex flex-col lg:w-[38%] px-4 md:px-6 lg:px-8 m-4">
+        <section className="w-full md:w-[40%] flex flex-col lg:w-[38%] md:px-6 lg:px-8">
   {Product.Type && Product.Name ? (
     <h3 className="mt-2 text-sm md:text-base text-gray-500">
       Home / {Product.Type} / {Product.Name}
