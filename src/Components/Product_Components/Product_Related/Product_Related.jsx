@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { FaBagShopping } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const URL = import.meta.env.VITE_API_URL;
 
 const ProductRelated = () => {
   const [related, setrelated] = useState([]);
+  const ID = useSelector((state) => state.ID.ID)
   const cartRefs = useRef([]); 
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const ProductRelated = () => {
 
       GetData();
     }
-  }, []);
+  }, [ID]);
 
   const ShowCart = (index, show) => {
     const currentCart = cartRefs.current[index];

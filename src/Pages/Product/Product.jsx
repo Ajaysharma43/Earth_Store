@@ -7,9 +7,11 @@ import Product_Reviews from "../../Components/Product_Components/Product_Reviews
 import ProductNav from "../../Components/Product_Components/ProductNav/ProductNav";
 import "../Product/Product.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Product = () => {
   const [showNav, setShowNav] = useState(false);
+  const ID = useSelector((state) => state.ID.ID)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +28,10 @@ const Product = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(()=>{
+    console.log(ID);
+  },[ID])
 
   return (
     <>

@@ -14,12 +14,14 @@ import { IoMdClose } from "react-icons/io";
 import { FaSearch, FaCompress } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { setproduct } from "../../Features/ProductSlice/Productslice";
+import { setID } from "../../Features/Idslice/Idslice";
 
 const URL = import.meta.env.VITE_API_URL;
 
 const Product_Info = () => {
   const id = useParams();
   const product = useSelector((state) => state.product);
+  const ID = useSelector((state) => state.ID.ID)
   const dispatch = useDispatch();
 
   const [Product, setProduct] = useState({});
@@ -128,13 +130,14 @@ const Product_Info = () => {
       const response = await axios.post(`${URL}/Data/Product`, { id });
       console.log("Res: ", response.data.Product);
       dispatch(setproduct(response.data.Product));
+      dispatch(setID(id))
 
       setProduct(response.data.Product);
       sessionStorage.setItem("data", JSON.stringify(response.data.Product));
     }
 
     Getproducts();
-  }, []);
+  }, [id]);
 
   return (
     <>
