@@ -15,13 +15,19 @@ import { FaSearch, FaCompress } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { setproduct } from "../../Features/ProductSlice/Productslice";
 import { setID } from "../../Features/Idslice/Idslice";
+import TiitleSkeleton from "../../Sekeleton/ProductSekeleton/TitleSekeleton";
+import ImageSkeleton from "../../Sekeleton/ProductSekeleton/ImageSkeleton";
+import ParagraphSkeleton from "../../Sekeleton/ProductSekeleton/Paragraph";
+import PriceSkeleton from "../../Sekeleton/ProductSekeleton/PriceSkeleton";
+import CatageorySkeleton from "../../Sekeleton/ProductSekeleton/Catageory";
+import RouteBarSkeleton from "../../Sekeleton/ProductSekeleton/RouteBarSekeleton";
 
 const URL = import.meta.env.VITE_API_URL;
 
 const Product_Info = () => {
   const id = useParams();
   const product = useSelector((state) => state.product);
-  const ID = useSelector((state) => state.ID.ID)
+  const ID = useSelector((state) => state.ID.ID);
   const dispatch = useDispatch();
 
   const [Product, setProduct] = useState({});
@@ -130,9 +136,11 @@ const Product_Info = () => {
       const response = await axios.post(`${URL}/Data/Product`, { id });
       console.log("Res: ", response.data.Product);
       dispatch(setproduct(response.data.Product));
-      dispatch(setID(id))
+      dispatch(setID(id));
 
-      setProduct(response.data.Product);
+      setTimeout(() => {
+        setProduct(response.data.Product);
+      }, 1000);
       sessionStorage.setItem("data", JSON.stringify(response.data.Product));
     }
 
@@ -175,71 +183,96 @@ const Product_Info = () => {
       <div className="flex flex-wrap mt-[5%] mb-[5%] w-full h-full pl-[12%]">
         <section className="overflow-hidden w-full lg:w-[38%] flex justify-center relative h-fit mr-[5%]">
           <div className="group relative overflow-hidden">
-            <button
+            
+            {Product.Image ? (
+              <>
+              <button
               className="absolute top-2 right-2 z-10 bg-opacity-50 bg-white p-2 rounded-full cursor-pointer"
               onClick={handleDialogOpen}
             >
               <FaSearch size={20} color="black" />
             </button>
-
-            <img
-              src={Product.Image}
-              alt={Product.Name}
-              ref={Imageref}
-              className="relative object-cover w-full h-auto max-h-[500px] max-w-full sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]"
-              onMouseMove={(e) => Zoom(e)}
-              onMouseLeave={() => ResetZoom()}
-            />
+              <img
+                src={Product.Image}
+                ref={Imageref}
+                className="relative object-cover w-full h-auto max-h-[500px] max-w-full sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]"
+                onMouseMove={(e) => Zoom(e)}
+                onMouseLeave={() => ResetZoom()}
+              />
+              </>
+            ) : (
+              <ImageSkeleton />
+            )}
           </div>
         </section>
 
-        <section className="w-full md:w-[40%] flex flex-col">
-          <h3 className="mt-[10px] text-[17px] text-gray-500">
-            Home/{Product.Type}/{Product.Name}
-          </h3>
-          <h3 className="mt-[10px] text-[17px] text-[#74a84a]">
-            {Product.Type}
-          </h3>
-          <h1 className="mt-[10px] text-[26px]">{Product.Name}</h1>
-          <h1 className="mt-[10px] text-[27px] font-semibold text-gray-500">
-            {Product.Price}
-          </h1>
-          <p className="w-[100%] text-[#808285] mt-[10px] text-[17px]">
-            {Product.Description}
-          </p>
+        <section className="w-full md:w-[40%] flex flex-col lg:w-[38%] px-4 md:px-6 lg:px-8 m-4">
+  {Product.Type && Product.Name ? (
+    <h3 className="mt-2 text-sm md:text-base text-gray-500">
+      Home / {Product.Type} / {Product.Name}
+    </h3>
+  ) : (
+    <>
+      <RouteBarSkeleton className="h-4 w-[200px] sm:w-[100px] md:w-[200px] lg:w-[200px]" />
+    </>
+  )}
 
-          <h1 className="flex mt-[10px]">
-            <ButtonGroup>
-              <button
-                onClick={() => RemoveCartItems()}
-                className="w-[40px] h-[40px] border text-[#74a84a]"
-              >
-                -
-              </button>
-              <h1 className="w-[40px] h-[40px] text-center pt-3 border text-gray-500">
-                {CartItems}
-              </h1>
-              <button
-                onClick={() => AddCartItems()}
-                className="w-[40px] h-[40px] border border-rl-slate-600 text-[#74a84a]"
-              >
-                +
-              </button>
-            </ButtonGroup>
+  <h3 className="mt-2 text-sm md:text-base text-[#74a84a]">
+    {Product.Type ? Product.Type : <CatageorySkeleton className="h-4 w-1/2 md:w-1/3" />}
+  </h3>
 
-            <span>
-              <button className="w-[155px] h-[40px] ml-[30px] bg-[#74a84a] text-white uppercase tracking-[2px] text-[17px] transition duration-500 hover:bg-[#2c541d]">
-                Add to cart
-              </button>
-            </span>
-          </h1>
+  <h1 className="mt-2 text-lg md:text-xl font-bold">
+    {Product.Name ? Product.Name : <TiitleSkeleton className="h-6 w-[80%] md:w-[60%]" />}
+  </h1>
 
-          <span className="h-[1px] w-[100%] bg-gray-200 mt-3"></span>
+  <h1 className="mt-2 text-lg md:text-xl font-semibold text-gray-500">
+    {Product.Price ? Product.Price : <PriceSkeleton className="h-5 w-1/3" />}
+  </h1>
 
-          <h1 className="flex mt-[10px]">
-            Category: <h1 className="text-[#74a84a]">{Product.Type}</h1>
-          </h1>
-        </section>
+  <p className="w-full text-gray-600 mt-2 text-sm md:text-base">
+    {Product.Description ? (
+      Product.Description
+    ) : (
+      <ParagraphSkeleton className="h-[119px] w-full " />
+    )}
+  </p>
+
+  <h1 className="flex mt-4 items-center">
+    <ButtonGroup>
+      <button
+        onClick={() => RemoveCartItems()}
+        className="w-10 h-10 border text-[#74a84a] text-sm md:text-base"
+      >
+        -
+      </button>
+      <h1 className="w-10 h-10 text-center pt-2 border text-gray-500 text-sm md:text-base">
+        {CartItems}
+      </h1>
+      <button
+        onClick={() => AddCartItems()}
+        className="w-10 h-10 border text-[#74a84a] text-sm md:text-base"
+      >
+        +
+      </button>
+    </ButtonGroup>
+
+    <span>
+      <button className="w-[140px] sm:w-[155px] h-10 ml-4 bg-[#74a84a] text-white uppercase tracking-wide text-sm md:text-base transition duration-500 hover:bg-[#2c541d]">
+        Add to cart
+      </button>
+    </span>
+  </h1>
+
+  <span className="h-px w-full bg-gray-200 mt-3"></span>
+
+  <h1 className="flex flex-wrap mt-4 text-sm md:text-base">
+    Category:{" "}
+    <span className="text-[#74a84a] ml-2">
+      {Product.Type ? Product.Type : <CatageorySkeleton className="h-4 w-1/4" />}
+    </span>
+  </h1>
+</section>
+
       </div>
     </>
   );

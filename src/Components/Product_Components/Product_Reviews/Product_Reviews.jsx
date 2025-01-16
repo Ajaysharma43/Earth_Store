@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 export const DescriptionContent = () => {
   return (
-    <div className="w-full max-w-3xl ml-4 p-6 bg-white rounded-lg text-gray-800">
+    <div className="w-full max-w-3xl ml-4 p-6 bg-white rounded-lg text-gray-800 break-words whitespace-pre-wrap">
       <h1 className="text-xl font-semibold text-[#2b2b2b] mb-6">Framed Without Borders:</h1>
 
       <ul className="list-disc pl-6 mb-6 space-y-3">
