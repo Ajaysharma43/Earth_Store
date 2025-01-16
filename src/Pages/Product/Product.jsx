@@ -36,25 +36,19 @@ const Product = () => {
   return (
     <>
         <Navbar />
-        <Link
-            to="/home"
-            className="text-black hover:bg-gray-700 px-3 py-2 rounded-md text-lg"
-          >
-            Home
-          </Link>
-      <article className="w-full border-t border-t-gray-600">
+      <article className="w-full border-t border-t-gray-600 ">
         <Product_Info />
       </article>
 
       <article
-        className={`fixed top-0 w-full z-50 transition duration-500 ease-in-out ${
+        className={` fixed top-0 w-full z-50 transition duration-500 ease-in-out ${
           showNav ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
         }`}
       >
         <ProductNav />
       </article>
 
-      <article>
+      <article className="w-full">
         <Product_Reviews />
       </article>
 

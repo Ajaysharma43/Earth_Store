@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 const URL = import.meta.env.VITE_API_URL;
 
 const ProductRelated = () => {
-  const [related, setrelated] = useState([]);
-  const ID = useSelector((state) => state.ID.ID)
-  const cartRefs = useRef([]); 
+  const [related, setRelated] = useState([]);
+  const ID = useSelector((state) => state.ID.ID);
+  const cartRefs = useRef([]);
 
   useEffect(() => {
     const User = sessionStorage.getItem("data");
@@ -19,10 +19,11 @@ const ProductRelated = () => {
       const GetData = async () => {
         const id = ParsedUser._id;
         const response = await axios.post(`${URL}/Data/RelatedProduct`, { id });
-        setrelated(response.data.result);
+        setRelated(response.data.result);
       };
 
       GetData();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [ID]);
 
@@ -40,40 +41,40 @@ const ProductRelated = () => {
   };
 
   return (
-    <>
-      <h1 className="flex justify-center w-1/3 text-[37px] font-semibold">
+    <div className="p-8">
+      <h1 className="text-center text-3xl font-semibold text-gray-800 mb-8">
         Related Products
       </h1>
-      <div className="flex flex-wrap justify-center gap-[20px]">
+      <div className="flex flex-wrap justify-center gap-8">
         {related.map((item, index) => (
-            <Link to={`/Product/${item._id}`} key={item._id}>
-          <div key={item._id}> 
-            <section>
-              <div
-                style={{ backgroundImage: `url(${item.Image})` }}
-                className="relative h-[300px] w-[300px] bg-cover bg-no-repeat"
-                onMouseEnter={() => ShowCart(index, true)}
-                onMouseLeave={() => ShowCart(index, false)}
-              >
-                <button
-                  className="absolute top-4 right-4 bg-white text-[#74a84a] p-1 rounded-full w-[40px] h-[40px] flex items-center justify-center opacity-0 scale-75 transition-all duration-300 ease-in-out"
-                  ref={(el) => (cartRefs.current[index] = el)}
+          <Link to={`/Product/${item._id}`} key={item._id}>
+            <div className="w-[300px] flex flex-col gap-4">
+              <section className="relative">
+                <div
+                  style={{ backgroundImage: `url(${item.Image})` }}
+                  className="relative h-[300px] w-full bg-cover bg-center rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
+                  onMouseEnter={() => ShowCart(index, true)}
+                  onMouseLeave={() => ShowCart(index, false)}
                 >
-                  <FaBagShopping size={20} />
-                </button>
-              </div>
-            </section>
+                  <button
+                    className="absolute top-4 right-4 bg-white text-[#74a84a] p-2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 scale-75 transition-all duration-300 ease-in-out shadow-md"
+                    ref={(el) => (cartRefs.current[index] = el)}
+                  >
+                    <FaBagShopping size={20} />
+                  </button>
+                </div>
+              </section>
 
-            <section>
-              <h1 className="text-gray-400">{item.Type}</h1>
-              <h1 className="font-medium">{item.Name}</h1>
-              <h1 className="text-gray-700 font-medium">{item.Price}</h1>
-            </section>
-          </div>
+              <section className="text-center">
+                <h1 className="text-sm text-gray-500">{item.Type}</h1>
+                <h1 className="text-lg font-semibold text-gray-800">{item.Name}</h1>
+                <h1 className="text-base text-[#74a84a] font-medium">{item.Price}</h1>
+              </section>
+            </div>
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

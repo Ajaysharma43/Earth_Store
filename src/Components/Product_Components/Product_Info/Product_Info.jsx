@@ -8,6 +8,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  BottomNavigation
 } from "@mui/material";
 import { MdZoomOutMap } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
@@ -140,9 +141,7 @@ const Product_Info = () => {
       dispatch(setproduct(response.data.Product));
       dispatch(setID(id));
 
-      setTimeout(() => {
         setProduct(response.data.Product);
-      }, 1000);
       sessionStorage.setItem("data", JSON.stringify(response.data.Product));
       }
       else
@@ -187,7 +186,7 @@ const Product_Info = () => {
         </div>
       </Dialog>
 
-      <div className="flex flex-wrap mt-[5%] mb-[5%] w-full h-full pl-[5%]">
+      <div className="flex flex-wrap justify-center mt-[5%] mb-[5%] w-full h-full pl-[5%]">
         <section className="overflow-hidden w-full lg:w-[38%] flex justify-center relative h-fit mr-[5%]">
           <div className="group relative overflow-hidden">
             
@@ -213,7 +212,7 @@ const Product_Info = () => {
           </div>
         </section>
 
-        <section className="w-full md:w-[40%] flex flex-col lg:w-[38%] md:px-6 lg:px-8">
+        <section className="w-full md:w-[72%] flex flex-col lg:w-[38%] md:px-6 lg:px-8">
   {Product.Type && Product.Name ? (
     <h3 className="mt-2 text-sm md:text-base text-gray-500">
       Home / {Product.Type} / {Product.Name}

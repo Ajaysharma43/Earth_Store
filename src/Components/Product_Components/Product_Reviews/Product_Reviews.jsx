@@ -1,32 +1,43 @@
-import { useEffect, useState } from "react";
-import { CiStar } from "react-icons/ci";
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { useEffect, useRef, useState } from "react";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import Logo from "../../../assets/Logos/pngfind.com-ecommerce-development-png-6429963.png";
 import { useParams } from "react-router-dom";
 
 export const DescriptionContent = () => {
   return (
-    <div className="w-full max-w-3xl ml-4 p-6 bg-white rounded-lg text-gray-800 break-words whitespace-pre-wrap">
-      <h1 className="text-xl font-semibold text-[#2b2b2b] mb-6">Framed Without Borders:</h1>
-
+    <div className="w-full max-w-3xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
+      <h1 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">
+        Framed Without Borders:
+      </h1>
       <ul className="list-disc pl-6 mb-6 space-y-3">
-        <li className="text-lg">Printed on High-Quality vinyl.</li>
-        <li className="text-lg">1-inch thick wooden back frame.</li>
-        <li className="text-lg">No additional hanging hardware is required.</li>
-        <li className="text-lg">Care: Dust with a soft, dry cloth.</li>
+        <li className="text-sm md:text-base">Printed on High-Quality vinyl.</li>
+        <li className="text-sm md:text-base">
+          1-inch thick wooden back frame.
+        </li>
+        <li className="text-sm md:text-base">
+          No additional hanging hardware is required.
+        </li>
+        <li className="text-sm md:text-base">Care: Dust with a soft, dry cloth.</li>
       </ul>
-
-      <h1 className="text-xl font-semibold text-[#2b2b2b] mb-6">Framed With Borders & Acrylic Glass:</h1>
-
+      <h1 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">
+        Framed With Borders & Acrylic Glass:
+      </h1>
       <ul className="list-disc pl-6 space-y-3">
-        <li className="text-lg">Printed on High-Quality matte photo paper.</li>
-        <li className="text-lg">Acrylic borders are used.</li>
-        <li className="text-lg">Highly durable acrylic glass is used on the top to protect it from damage.</li>
-        <li className="text-lg">Hooks are attached to the back of each frame for hanging.</li>
+        <li className="text-sm md:text-base">
+          Printed on High-Quality matte photo paper.
+        </li>
+        <li className="text-sm md:text-base">Acrylic borders are used.</li>
+        <li className="text-sm md:text-base">
+          Highly durable acrylic glass is used on the top to protect it from
+          damage.
+        </li>
+        <li className="text-sm md:text-base">
+          Hooks are attached to the back of each frame for hanging.
+        </li>
       </ul>
-
-      <p className="italic text-sm text-gray-600 mt-6">
-        Note: There may be a slight difference in actual color, due to the colors of the display.
+      <p className="italic text-xs md:text-sm text-gray-600 mt-6">
+        Note: There may be a slight difference in actual color, due to the
+        colors of the display.
       </p>
     </div>
   );
@@ -37,28 +48,35 @@ export const ReviewsContent = () => {
   const [Data, setdata] = useState({});
 
   useEffect(() => {
-    const data = sessionStorage.getItem('data');
+    const data = sessionStorage.getItem("data");
     const parsedData = JSON.parse(data);
-    console.log(parsedData);
     setdata(parsedData);
   }, []);
 
   return (
-    <div className="w-full max-w-3xl ml-4 p-6 bg-white rounded-lg text-gray-800">
-      <h2 className="text-2xl font-bold mb-4">Be the first to review {Data.Name}</h2>
-      <p className="mb-4">Your email address will not be published. Required fields are marked *</p>
-
+    <div className="w-full max-w-3xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
+      <h2 className="text-xl md:text-2xl font-bold mb-4">
+        Be the first to review {Data.Name}
+      </h2>
+      <p className="mb-4">
+        Your email address will not be published. Required fields are marked *
+      </p>
       <div className="mb-4">
-        <label htmlFor="rating" className="block font-medium mb-2">Your rating *</label>
+        <label htmlFor="rating" className="block font-medium mb-2">
+          Your rating *
+        </label>
         <div className="flex gap-2">
           {[1, 2, 3, 4, 5].map((rating) => (
-            <button key={rating} className="p-2 border rounded-full"><StarBorderIcon /></button>
+            <button key={rating} className="p-2 border rounded-full">
+              <StarBorderIcon />
+            </button>
           ))}
         </div>
       </div>
-
       <div className="mb-4">
-        <label htmlFor="review" className="block font-medium mb-2">Your review *</label>
+        <label htmlFor="review" className="block font-medium mb-2">
+          Your review *
+        </label>
         <textarea
           id="review"
           rows="4"
@@ -66,9 +84,10 @@ export const ReviewsContent = () => {
           className="w-full p-3 border rounded-md"
         ></textarea>
       </div>
-
       <div className="mb-4">
-        <label htmlFor="name" className="block font-medium mb-2">Name *</label>
+        <label htmlFor="name" className="block font-medium mb-2">
+          Name *
+        </label>
         <input
           id="name"
           type="text"
@@ -76,9 +95,10 @@ export const ReviewsContent = () => {
           className="w-full p-3 border rounded-md"
         />
       </div>
-
       <div className="mb-4">
-        <label htmlFor="email" className="block font-medium mb-2">Email *</label>
+        <label htmlFor="email" className="block font-medium mb-2">
+          Email *
+        </label>
         <input
           id="email"
           type="email"
@@ -86,17 +106,14 @@ export const ReviewsContent = () => {
           className="w-full p-3 border rounded-md"
         />
       </div>
-
       <div className="flex items-center mb-4">
-        <input
-          type="checkbox"
-          id="save-info"
-          className="mr-2"
-        />
-        <label htmlFor="save-info">Save my name, email, and website in this browser for the next time I comment.</label>
+        <input type="checkbox" id="save-info" className="mr-2" />
+        <label htmlFor="save-info">
+          Save my name, email, and website in this browser for the next time I
+          comment.
+        </label>
       </div>
-      
-      <button className="w-[124px] py-3 mt-4 bg-[#74a84a] text-white  hover:bg-[#2c541d] transition duration-300">
+      <button className="w-32 py-3 mt-4 bg-[#74a84a] text-white rounded-md hover:bg-[#2c541d] transition duration-300">
         Submit
       </button>
     </div>
@@ -105,6 +122,8 @@ export const ReviewsContent = () => {
 
 const Product_Reviews = () => {
   const [activeContent, setActiveContent] = useState("description");
+  const description = useRef();
+  const reviews = useRef();
 
   const renderContent = () => {
     if (activeContent === "description") {
@@ -114,23 +133,40 @@ const Product_Reviews = () => {
     }
   };
 
+  useEffect(() => {
+    const Change = () => {
+      if (activeContent === "description") {
+        description.current.style.borderTop = "2px solid #74a84a";
+        reviews.current.style.borderTop = "none";
+      } else if (activeContent === "reviews") {
+        reviews.current.style.borderTop = "2px solid #74a84a";
+        description.current.style.borderTop = "none";
+      }
+    };
+    Change();
+  }, [activeContent]);
+
   return (
-    <div className="py-6">
-      <div className="flex justify-start gap-6 mb-6 ">
+    <div className="pb-6 mt-10 border-t border-t-gray-300 px-4 lg:px-10">
+      <div className="flex justify-start gap-6 mb-4">
         <button
           onClick={() => setActiveContent("description")}
-          className="text-xl font-semibold text-gray-600 hover:text-blue-600"
+          className="text-sm md:text-lg font-semibold text-gray-600 hover:text-[#74a84a]"
+          ref={description}
         >
           Description
         </button>
         <button
           onClick={() => setActiveContent("reviews")}
-          className="text-xl font-semibold text-gray-600 hover:text-blue-600"
+          className="text-sm md:text-lg font-semibold text-gray-600 hover:text-[#74a84a]"
+          ref={reviews}
         >
           Reviews
         </button>
       </div>
-      <div className="w-full max-w-3xl lg:ml-4 md:ml-0 sm:ml-0">{renderContent()}</div>
+      <div className="flex flex-wrap gap-4 items-start">
+        <section className="flex-grow">{renderContent()}</section>
+      </div>
     </div>
   );
 };
