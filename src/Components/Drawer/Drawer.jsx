@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { RemoveProduct } from "../Features/CartSlice/CartSlice";
 import DeleteDilog from "../Dilogs/CartDilog/Delete";
 import { Link } from "react-router-dom";
+import { Increament , Decreament } from "../Features/CartSlice/CartSlice";
+
 
 const Drawers = ({ open, toggleDrawer }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const Product = useSelector((state) => state.Cart.Cart);
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch()
   useEffect(() => {
     console.log(Product);
   }, [Product]);
@@ -25,12 +26,13 @@ const Drawers = ({ open, toggleDrawer }) => {
     setSelectedProduct(null);
   };
 
-  const handleRemove = () => {
-    if (selectedProduct) {
-      dispatch(RemoveProduct(selectedProduct.ProductId));
-      closeDialog();
-    }
-  };
+  const increase = (item) => {
+    dispatch(Increament(item))
+  }
+
+  const decrease = (item) => {
+    dispatch(Decreament(item))
+  }
 
   return (
     <>
@@ -38,28 +40,28 @@ const Drawers = ({ open, toggleDrawer }) => {
         open={dialogOpen}
         toggleDrawer={closeDialog}
         Product={selectedProduct}
-        onConfirm={handleRemove}
+        onConfirm={() => {}}
       />
       <Drawer open={open} anchor="right" onClose={toggleDrawer}>
-        <div className="w-[350px] h-full flex flex-col bg-white shadow-lg">
+        <div className="w-[350px] h-full flex flex-col bg-gray-50 shadow-lg">
           {/* Header Section */}
-          <section className="flex items-center justify-between p-4 border-b">
-            <h1 className="text-lg font-semibold text-gray-800">Your Cart</h1>
+          <section className="flex items-center justify-between p-4 border-b bg-white">
+            <h1 className="text-lg font-bold text-gray-800">Your Cart</h1>
             <button
               onClick={toggleDrawer}
-              className="text-gray-600 hover:text-gray-900"
+              className="text-gray-500 hover:text-gray-800 transition"
             >
-              Close
+              ✕
             </button>
           </section>
 
           {/* Cart Items Section */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
             {Product.length > 0 ? (
               Product.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 p-4 border-b last:border-none"
+                  className="flex items-center gap-4 p-4 border-b bg-white rounded-md shadow-sm hover:shadow-md transition"
                 >
                   <img
                     src={item.ProductImage}
@@ -67,17 +69,30 @@ const Drawers = ({ open, toggleDrawer }) => {
                     className="w-16 h-16 object-cover rounded-md"
                   />
                   <div className="flex flex-col flex-grow">
-                    <h2 className="text-sm font-medium text-gray-800">
+                    <h2 className="text-sm font-semibold text-gray-800">
                       {item.ProductName}
                     </h2>
                     <p className="text-sm text-gray-500">{item.ProductType}</p>
-                    <p className="text-base font-semibold text-[#74a84a]">
+                    <p className="text-base font-bold text-green-600">
                       ${item.ProductPrice}
                     </p>
+                    <div className="flex items-center mt-2 gap-2">
+                      <button className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+                      onClick={() => decrease(item.ProductId)}>
+                        -
+                      </button>
+                      <span className="text-gray-800 font-medium">
+                        {item.ProductQuantity}
+                      </span>
+                      <button className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+                      onClick={() => increase(item.ProductId)}>
+                        +
+                      </button>
+                    </div>
                   </div>
                   <button
                     onClick={() => openDialog(item)}
-                    className="text-red-600 text-sm font-medium hover:underline"
+                    className="text-red-500 text-sm font-medium hover:underline"
                   >
                     Remove
                   </button>
@@ -90,15 +105,16 @@ const Drawers = ({ open, toggleDrawer }) => {
             )}
           </div>
 
-          <section className="p-4 border-t">
-            <Link to={'/cart'}>
-            <button className="w-full py-2 bg-[#74a84a] text-white text-sm font-semibold shadow-md hover:bg-[#2c541d] transition">
-                GO TO Cart
-            </button>
+          {/* Footer Section */}
+          <section className="p-4 border-t bg-white">
+            <Link to={"/cart"}>
+              <button className="w-full py-2 mb-2 bg-[#74a84a] text-white font-semibold rounded-md shadow hover:bg-green-600 transition">
+                Go to Cart
+              </button>
             </Link>
             <button
               onClick={toggleDrawer}
-              className="w-full py-2 bg-[#74a84a] text-white text-sm font-semibold shadow-md hover:bg-[#2c541d] transition"
+              className="w-full py-2 bg-red-500 text-white font-semibold rounded-md shadow hover:bg-red-600 transition"
             >
               Close Cart
             </button>

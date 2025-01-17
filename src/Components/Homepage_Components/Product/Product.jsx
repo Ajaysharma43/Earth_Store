@@ -5,12 +5,14 @@ import { FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SetCart } from "../../Features/CartSlice/CartSlice";
+import LoadingBar from "react-top-loading-bar";
 
 const URL = import.meta.env.VITE_API_URL;
 
 const Product = () => {
   const [products, setProducts] = useState([]);
   const Product = useSelector((state) => state.Cart.Cart);
+  const [progress  , setprogress] = useState(0)
   const dispatch = useDispatch();
   const cartRefs = useRef([]);
   const AddProduct = useRef([]);
@@ -18,8 +20,11 @@ const Product = () => {
   useEffect(() => {
     const GetProducts = async () => {
       try {
+        setprogress(30)
         const response = await axios.get(`${URL}/Data/data?limit=3`);
+        setprogress(60)
         setProducts(response.data.Data);
+        setprogress(100)
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -46,33 +51,14 @@ const Product = () => {
     visible: { opacity: 1, y: 0 }, 
   };
 
-  const HandleCart = (e, Product) => {
-    e.stopPropagation(); // Prevents event from triggering parent Link navigation
-
-    // Check if the product is already in the cart
-    const existingProduct = Product.find((item) => item.ProductId === Product._id);
-
-    if (existingProduct) {
-      // If the product is already in the cart, increment the quantity
-      const updatedCart = Product.map((item) => 
-        item.ProductId === Product._id ? { ...item, ProductQuantity: item.ProductQuantity + 1 } : item
-      );
-      dispatch(SetCart(updatedCart));
-    } else {
-      // If the product is not in the cart, add it
-      const Cart = {
-        ProductId: Product._id,
-        ProductName: Product.Name,
-        ProductType: Product.Type,
-        ProductImage: Product.Image,
-        ProductPrice: Product.Price,
-        ProductQuantity: 1, // Set initial quantity to 1
-      };
-      dispatch(SetCart([...Product, Cart]));
-    }
-  };
+  
 
   return (
+    <>
+    <LoadingBar
+    progress={progress}
+    onLoaderFinished={() => setprogress(0)}
+    color="#74a84a"/>
     <div className="p-8 flex flex-wrap justify-center mt-[6%] mb-[6%] w-full gap-6">
       {products.map((item, index) => (
         <motion.div
@@ -103,11 +89,12 @@ const Product = () => {
           <section>
             <h3 className="text-gray-500">{item.Type}</h3>
             <h1 className="font-semibold text-lg">{item.Name}</h1>
-            <h3 className="text-[#74a84a] font-bold">{item.Price}</h3>
+            <h3 className="text-[#74a84a] font-bold">${item.Price}</h3>
           </section>
         </motion.div>
       ))}
     </div>
+    </>
   );
 };
 

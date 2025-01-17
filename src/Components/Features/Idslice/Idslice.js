@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Initial state
 const initialState = {
-  ID: "", // Correct initial state type
+  ID: "", 
 };
 
 // Create the slice

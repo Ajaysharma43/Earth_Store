@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialState = {
   Cart: [], 
 };
@@ -29,12 +28,29 @@ const CartSlice = createSlice({
     UpdatePrice : (state , action) => {
         const Existed = state.Cart.find((item) => item.ProductId === action.payload.ProductId)
         console.log(Existed);
+    },
+    Increament : (state , action) => {
+        console.log(action.payload);
+        const Existed = state.Cart.find((item) => item.ProductId === action.payload)
+        Existed.ProductQuantity += 1
+        console.log(Existed);    
+    },
+    Decreament : (state , action) => {
+        const Existed = state.Cart.find((item) => item.ProductId === action.payload)
+        if(Existed.ProductQuantity == 1)
+        {
+            Existed.ProductQuantity = 1
+        }
+        else
+        {
+            Existed.ProductQuantity -= 1
+        }
     }
   },
 });
 
 
-export const { SetCart , UpdatePrice , RemoveProduct } = CartSlice.actions;
+export const { SetCart , UpdatePrice , RemoveProduct , Increament , Decreament } = CartSlice.actions;
 
 
 export default CartSlice.reducer;
