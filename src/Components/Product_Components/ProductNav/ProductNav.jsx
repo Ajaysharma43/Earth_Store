@@ -15,7 +15,6 @@ const ProductNav = () => {
   const Product = useSelector((state) => state.product.Product);
   const Quantity = useSelector((state) => state.Qunatity.Quantity);
   const [CartItems, setCartItems] = useState(Quantity);
-  const Price = useSelector((state) => state.Cart.Cart);
   const dispatch = useDispatch();
 
   const increase = () => {
@@ -31,8 +30,6 @@ const ProductNav = () => {
       dispatch(Reset());
     } else {
       dispatch(Decreament(1));
-      const Data = { ProductId: Product._id, Price: Price * Quantity };
-      dispatch(UpdatePrice(Data));
       // console.log(Price*Quantity);
     }
   };

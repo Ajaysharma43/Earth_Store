@@ -4,16 +4,30 @@ import { IoMdClose } from "react-icons/io";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Drawers from "../../Drawer/Drawer";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const Quantity = useSelector((state) => state.Cart)
+  const Product = useSelector((state) => state.Cart.Cart)
   const [CartItems, setCartItems] = useState(Quantity.length);
+  const [DrawerState , setDrawerState] = useState(false)
   const [icon,seticon] = useState(<FaBars/>)
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const ToggleDrawer = () => {
+    if(DrawerState == true)
+    {
+      setDrawerState(false)
+    }
+    else
+    {
+      setDrawerState(true)
+    }
+  }
 
   const updateicon = () => {
     toggleDropdown();
@@ -31,6 +45,7 @@ const Navbar = () => {
 
   return (
     <>
+    <Drawers open={DrawerState} toggleDrawer={ToggleDrawer}/>
       <nav id="Navbar">
         <section>
           <img
@@ -54,10 +69,10 @@ const Navbar = () => {
               <h3 className="Navbar_Element">SHOP</h3>
               <h3 className="Navbar_Element">CONTACT</h3>
 
-              <div id="Navbar_Icon_Cart">
-                <FaShoppingBag size={26} />
-                <h6 id="Navbar_Icon_Cart_Data">{CartItems}</h6>
-              </div>
+              <button id="Navbar_Icon_Cart">
+                <FaShoppingBag size={26} onClick={ToggleDrawer}/>
+                <h6 id="Navbar_Icon_Cart_Data">{Product.length}</h6>
+              </button>
 
               <h3 id="Navbar_Icon_User">
                 <FaUser size={26} />

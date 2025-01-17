@@ -1,14 +1,19 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { FaBagShopping } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { SetCart } from "../../Features/CartSlice/CartSlice";
 
 const URL = import.meta.env.VITE_API_URL;
 
 const ProductRelated = () => {
   const [related, setRelated] = useState([]);
+  const Product = useSelector((state) => state.product.Product);
+  const Quantity = useSelector((state) => state.Qunatity.Quantity);
+  const [CartItems, setCartItems] = useState(Quantity);
   const ID = useSelector((state) => state.ID.ID);
+  const dispatch = useDispatch()
   const cartRefs = useRef([]);
 
   useEffect(() => {
@@ -40,6 +45,18 @@ const ProductRelated = () => {
     }
   };
 
+  const HandleCart = (item) => {
+      const Cart = {
+        ProductId: item._id,
+        ProductName: item.Name,
+        ProductType: item.Type,
+        ProductImage: item.Image,
+        ProductPrice: item.Price,
+        ProductQuantity: Quantity,
+      };
+      dispatch(SetCart(Cart));
+    };
+
   return (
     <div className="p-8">
       <h1 className="text-center text-3xl font-semibold text-gray-800 mb-8">
@@ -59,6 +76,10 @@ const ProductRelated = () => {
                   <button
                     className="absolute top-4 right-4 bg-white text-[#74a84a] p-2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 scale-75 transition-all duration-300 ease-in-out shadow-md"
                     ref={(el) => (cartRefs.current[index] = el)}
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevents navigation when clicking inside the button
+                      HandleCart(item);
+                    }}
                   >
                     <FaBagShopping size={20} />
                   </button>
