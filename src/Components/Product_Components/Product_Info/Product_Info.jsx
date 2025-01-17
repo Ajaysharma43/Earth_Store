@@ -15,7 +15,9 @@ import { IoMdClose } from "react-icons/io";
 import { FaSearch, FaCompress } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { setproduct } from "../../Features/ProductSlice/Productslice";
+import { SetCart } from "../../Features/CartSlice/CartSlice";
 import { setID } from "../../Features/Idslice/Idslice";
+import { Increament , Decreament , Reset } from "../../Features/CartQuantity/CartQunatity";
 import TiitleSkeleton from "../../Sekeleton/ProductSekeleton/TitleSekeleton";
 import ImageSkeleton from "../../Sekeleton/ProductSekeleton/ImageSkeleton";
 import ParagraphSkeleton from "../../Sekeleton/ProductSekeleton/Paragraph";
@@ -29,10 +31,12 @@ const Product_Info = () => {
   const id = useParams();
   const product = useSelector((state) => state.product);
   const ID = useSelector((state) => state.ID.ID);
+  const CartData = useSelector((state)=> state.Cart)
+  const Qunatity = useSelector((state) => state.Qunatity.Quantity)
   const dispatch = useDispatch();
 
   const [Product, setProduct] = useState({});
-  const [CartItems, setCartItems] = useState(0);
+  const [CartItems, setCartItems] = useState(Qunatity);
   const [open, setOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [SizeAdjust, SetSizeAdjust] = useState(
@@ -108,14 +112,14 @@ const Product_Info = () => {
   };
 
   const AddCartItems = () => {
-    setCartItems(CartItems + 1);
+    dispatch(Increament(1))
   };
 
   const RemoveCartItems = () => {
     if (CartItems === 0) {
-      setCartItems(0);
+      dispatch(Reset())
     } else {
-      setCartItems(CartItems - 1);
+      dispatch(Decreament(1))
     }
   };
 
@@ -132,7 +136,15 @@ const Product_Info = () => {
     Image.style.object = Image.style.transform = "scale(1.9)";
   };
 
+  const HandleCart = () => {
+    const Cart = {ProductId:Product._id,ProductName:Product.Name,ProductType:Product.Type,ProductImage:Product.Image,ProductPrice:Product.Price,ProductQuantity:CartItems}
+    console.log(Cart);
+    dispatch(SetCart(Cart))
+    
+  }
+
   useEffect(() => {
+    dispatch(Reset())
     async function Getproducts() {
       const response = await axios.post(`${URL}/Data/Product`, { id });
       if(response.data != null)
@@ -232,7 +244,7 @@ const Product_Info = () => {
   </h1>
 
   <h1 className="mt-2 text-lg md:text-xl font-semibold text-gray-500">
-    {Product.Price ? Product.Price : <PriceSkeleton className="h-5 w-1/3" />}
+    ${Product.Price ? Product.Price : <PriceSkeleton className="h-5 w-1/3" />}
   </h1>
 
   <p className="w-full text-gray-600 mt-2 text-sm md:text-base">
@@ -252,7 +264,7 @@ const Product_Info = () => {
         -
       </button>
       <h1 className="w-10 h-10 text-center pt-2 border text-gray-500 text-sm md:text-base">
-        {CartItems}
+        {Qunatity}
       </h1>
       <button
         onClick={() => AddCartItems()}
@@ -263,7 +275,8 @@ const Product_Info = () => {
     </ButtonGroup>
 
     <span>
-      <button className="w-[140px] sm:w-[155px] h-10 ml-4 bg-[#74a84a] text-white uppercase tracking-wide text-sm md:text-base transition duration-500 hover:bg-[#2c541d]">
+      <button className="w-[140px] sm:w-[155px] h-10 ml-4 bg-[#74a84a] text-white uppercase tracking-wide text-sm md:text-base transition duration-500 hover:bg-[#2c541d]"
+      onClick={()=>HandleCart()}>
         Add to cart
       </button>
     </span>

@@ -3,9 +3,12 @@ import { FaShoppingBag, FaUser, FaBars   } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const Quantity = useSelector((state) => state.Cart)
+  const [CartItems, setCartItems] = useState(Quantity.length);
   const [icon,seticon] = useState(<FaBars/>)
 
   const toggleDropdown = () => {
@@ -53,7 +56,7 @@ const Navbar = () => {
 
               <div id="Navbar_Icon_Cart">
                 <FaShoppingBag size={26} />
-                <h6 id="Navbar_Icon_Cart_Data">5</h6>
+                <h6 id="Navbar_Icon_Cart_Data">{CartItems}</h6>
               </div>
 
               <h3 id="Navbar_Icon_User">
