@@ -89,7 +89,6 @@ const Drawers = ({ open, toggleDrawer }) => {
             )}
           </div>
 
-          {/* Footer Section */}
           <section className="p-4 border-t">
             <button
               onClick={toggleDrawer}

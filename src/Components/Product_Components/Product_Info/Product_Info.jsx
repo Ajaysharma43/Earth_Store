@@ -165,6 +165,8 @@ const Product_Info = () => {
     Getproducts();
   }, [id]);
 
+  
+
   return (
     <>
       <Dialog
