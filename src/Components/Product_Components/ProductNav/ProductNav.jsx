@@ -7,7 +7,7 @@ const ProductNav = () => {
   const Product = useSelector((state) => state.product.Product);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md flex items-center px-6 py-4 z-50">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md flex items-center px-6 py-4 z-50 justify-center 2xl:gap-[43%] xl:gap-[43%] lg:gap-[43%] md:gap-[43%] sm:gap-[43%] gap-[0%]">
       {/* Product Image and Name Section */}
       <section className="flex items-center gap-4">
         {Product ? (
@@ -29,7 +29,7 @@ const ProductNav = () => {
       </section>
 
       {/* Price and Cart Section */}
-      <section className="ml-auto flex items-center gap-6">
+      <section className="flex items-center gap-6">
         <h1 className="text-xl font-bold text-[#74a84a]">
           {Product?.Price ? `${Product.Price}` : <PriceSkeleton />}
         </h1>
