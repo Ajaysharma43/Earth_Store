@@ -24,6 +24,7 @@ import ParagraphSkeleton from "../../Sekeleton/ProductSekeleton/Paragraph";
 import PriceSkeleton from "../../Sekeleton/ProductSekeleton/PriceSkeleton";
 import CatageorySkeleton from "../../Sekeleton/ProductSekeleton/Catageory";
 import RouteBarSkeleton from "../../Sekeleton/ProductSekeleton/RouteBarSekeleton";
+import LoadingBar from "react-top-loading-bar";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -33,6 +34,7 @@ const Product_Info = () => {
   const ID = useSelector((state) => state.ID.ID);
   const CartData = useSelector((state)=> state.Cart)
   const Qunatity = useSelector((state) => state.Qunatity.Quantity)
+  const [progress , setprogress] = useState(0)
   const dispatch = useDispatch();
 
   const [Product, setProduct] = useState({});
@@ -146,15 +148,18 @@ const Product_Info = () => {
   useEffect(() => {
     dispatch(Reset())
     async function Getproducts() {
+      setprogress(30)
       const response = await axios.post(`${URL}/Data/Product`, { id });
       if(response.data != null)
       {
+        setprogress(60)
         console.log("Res: ", response.data.Product);
       dispatch(setproduct(response.data.Product));
       dispatch(setID(id));
 
         setProduct(response.data.Product);
       sessionStorage.setItem("data", JSON.stringify(response.data.Product));
+      setprogress(100)
       }
       else
       {
@@ -169,6 +174,12 @@ const Product_Info = () => {
 
   return (
     <>
+    <LoadingBar 
+    color="#74a84a"
+    progress={progress}
+    height={2}
+    onLoaderFinished={() => setprogress(0)}
+    />
       <Dialog
         open={open}
         onClose={handleDialogClose}
