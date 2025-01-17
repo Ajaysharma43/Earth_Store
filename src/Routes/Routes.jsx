@@ -4,12 +4,14 @@ import Homepage from "../Pages/Homepage/Homepage";
 import About from "../Pages/About/About";
 import Product from "../Pages/Product/Product";
 import Unknowm from "../Components/Unknown_Route/Unknown";
+import Cart from "../Pages/Cart/Cart";
 
 const Routes = () => {
     const Route = useRoutes([
         {element:<Homepage/>,path:"/"},
         {element:<About/>,path:"/About"},
         {element:<Product/>,path:"/Product/:id"},
+        {element:<Cart/>,path:"/cart"},
         {element:<Unknowm/>,path:"*"}
     ])
     

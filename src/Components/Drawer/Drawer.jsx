@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RemoveProduct } from "../Features/CartSlice/CartSlice";
 import DeleteDilog from "../Dilogs/CartDilog/Delete";
+import { Link } from "react-router-dom";
 
 const Drawers = ({ open, toggleDrawer }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -90,6 +91,11 @@ const Drawers = ({ open, toggleDrawer }) => {
           </div>
 
           <section className="p-4 border-t">
+            <Link to={'/cart'}>
+            <button className="w-full py-2 bg-[#74a84a] text-white text-sm font-semibold shadow-md hover:bg-[#2c541d] transition">
+                GO TO Cart
+            </button>
+            </Link>
             <button
               onClick={toggleDrawer}
               className="w-full py-2 bg-[#74a84a] text-white text-sm font-semibold shadow-md hover:bg-[#2c541d] transition"

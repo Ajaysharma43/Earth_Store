@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { FaBagShopping } from "react-icons/fa";
+import { FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SetCart } from "../../Features/CartSlice/CartSlice";
@@ -41,28 +41,13 @@ const Product = () => {
     }
   };
 
-  const RevealAddProduct = (index) => {
-    const Product = AddProduct.current[index];
-    if (Product) {
-      Product.style.display = "inline-block"; 
-    }
-  };
-
-  const HideAddProduct = (index) => {
-    const Product = AddProduct.current[index];
-    if (Product) {
-      Product.style.display = "none"; 
-    }
-  };
-
   const cardVariants = {
     hidden: { opacity: 0, y: 50 }, 
     visible: { opacity: 1, y: 0 }, 
   };
 
   const HandleCart = (e, Product) => {
-    // Prevent the Link from being triggered when clicking the cart icon
-    e.stopPropagation();
+    e.stopPropagation(); // Prevents event from triggering parent Link navigation
 
     // Check if the product is already in the cart
     const existingProduct = Product.find((item) => item.ProductId === Product._id);
@@ -109,14 +94,9 @@ const Product = () => {
               <div
                 style={{ backgroundImage: `url(${item.Image})` }}
                 className="bg-cover bg-center rounded-lg shadow-md overflow-hidden transition-transform duration-300 h-[300px]"
-                onClick={(e) => HandleCart(e, item)} // Call HandleCart on clicking the div
+                 // Call HandleCart on clicking the div
               >
-                <button
-                  className="absolute top-4 right-4 bg-white text-[#74a84a] p-2 rounded-full w-10 h-10 flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out shadow-md"
-                  onClick={(e) => e.stopPropagation()} // Prevent Link navigation when clicking the cart icon
-                >
-                  <FaBagShopping size={20} />
-                </button>
+                
               </div>
             </section>
           </Link>
