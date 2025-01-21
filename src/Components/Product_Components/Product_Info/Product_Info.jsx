@@ -30,13 +30,17 @@ import CatageorySkeleton from "../../Sekeleton/ProductSekeleton/Catageory";
 import RouteBarSkeleton from "../../Sekeleton/ProductSekeleton/RouteBarSekeleton";
 import LoadingBar from "react-top-loading-bar";
 import { Single_Product } from "../../Features/DataSlice/SingleProduct";
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const URL = import.meta.env.VITE_API_URL;
 
 const Product_Info = () => {
   const id = useParams();
   const product = useSelector((state) => state.product);
-  const {isloading,iserror,SingleProduct} = useSelector((state) => state.SingleProduct)
+  const { isloading, iserror, SingleProduct } = useSelector(
+    (state) => state.SingleProduct
+  );
   const ID = useSelector((state) => state.ID.ID);
   const CartData = useSelector((state) => state.Cart);
   const Qunatity = useSelector((state) => state.Qunatity.Quantity);
@@ -58,9 +62,9 @@ const Product_Info = () => {
 
   useEffect(() => {
     dispatch(Reset());
-    const Getproducts =  async() => {
+    const Getproducts = async () => {
       setprogress(30);
-      dispatch(Single_Product(id))
+      dispatch(Single_Product(id));
       console.log(SingleProduct);
       const response = await axios.post(`${URL}/Data/Product`, { id });
       if (response.data != null) {
@@ -75,10 +79,10 @@ const Product_Info = () => {
       } else {
         sessionStorage.removeItem("data");
       }
-    }
+    };
 
     Getproducts();
-  }, [id ]);
+  }, [id]);
 
   const Zoom = (e) => {
     const image = Imageref.current;
@@ -179,8 +183,6 @@ const Product_Info = () => {
     console.log(Cart);
     dispatch(SetCart(Cart));
   };
-
-
 
   return (
     <>
@@ -333,6 +335,19 @@ const Product_Info = () => {
           </h1>
         </section>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </>
   );
 };

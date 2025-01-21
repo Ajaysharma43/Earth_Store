@@ -118,7 +118,6 @@ const Shop_Products = () => {
       <Pagination page={currentPage} count={Totalpages} hidePrevButton hideNextButton onChange={Targetpage} className="flex justify-center"/>
       <button onClick={Nextpage} className="border-n rounded-md h-[40px] w-[90px] uppercase text-white bg-gradient-to-r from-orange-400 to bg-orange-500 focus:ring focus:ring-offset-1 focus:ring-orange-700">next</button>
       </div>
-      
     </>
   );
 };
