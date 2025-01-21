@@ -8,7 +8,7 @@ const Shop = () => {
             <Navbar/>
         </header>
 
-        <article>
+        <article className="mt-[90px] mb-[90px]">
             <Shop_Products/>
         </article>
         </>

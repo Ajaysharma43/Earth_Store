@@ -40,6 +40,9 @@ const Reducer = createSlice({
             {
                 state.initialpage  = state.initialpage - 1
             }
+        },
+        custom : (state , action) => {
+            state.initialpage = action.payload;
         }
 
     },
@@ -53,6 +56,6 @@ const Reducer = createSlice({
     }
 })
 
-export const {increament , decreament} = Reducer.actions;
+export const {increament , decreament , custom} = Reducer.actions;
 
 export default Reducer.reducer;

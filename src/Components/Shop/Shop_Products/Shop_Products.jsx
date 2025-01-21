@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { decreament, GetData, increament } from "../../Features/DataSlice/DataSlice";
+import { custom, decreament, GetData, increament } from "../../Features/DataSlice/DataSlice";
 import { FaBagShopping, FaUsersBetweenLines } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { Pagination } from "@mui/material";
+import { SetCart } from "../../Features/CartSlice/CartSlice";
 
 const Shop_Products = () => {
   const dispatch = useDispatch();
   const Data = useSelector((state) => state.Data.data);
   const Totalpages = useSelector((state) => state.Data.totalpages)
   const currentPage = useSelector((state) => state.Data.initialpage)
-  const [Limit , setlimit] = useState(6)
+  const Quantity = useSelector((state) => state.Qunatity.Quantity);
+  const [Limit , setlimit] = useState(4)
   const cartRefs = useRef([]);
 
   useEffect(() => {
@@ -53,6 +55,22 @@ const Shop_Products = () => {
         dispatch(decreament())
     }
   }
+
+  const Targetpage = (event, page) => {
+    dispatch(custom(page))
+  }
+
+  const HandleCart = (Product) => {
+      const Cart = {
+        ProductId: Product._id,
+        ProductName: Product.Name,
+        ProductType: Product.Type,
+        ProductImage: Product.Image,
+        ProductPrice: Product.Price,
+        ProductQuantity: Quantity,
+      };
+      dispatch(SetCart(Cart));
+    };
   return (
     <>
       <div className="flex flex-wrap justify-center gap-4 ">
@@ -95,10 +113,10 @@ const Shop_Products = () => {
         ))}
         
       </div>
-      <div className="flex justify-center">
-        <button onClick={PrevPage}>prev</button>
-      <Pagination page={currentPage} count={Totalpages} hidePrevButton hideNextButton className="flex justify-center"/>
-      <button onClick={Nextpage}>next</button>
+      <div className="flex justify-center ">
+        <button onClick={PrevPage} className=" rounded-md h-[40px] w-[90px] uppercase text-white bg-gradient-to-r from-emerald-400 to bg-emerald-500 focus:ring focus:ring-offset-1 focus:ring-emerald-700">prev</button>
+      <Pagination page={currentPage} count={Totalpages} hidePrevButton hideNextButton onChange={Targetpage} className="flex justify-center"/>
+      <button onClick={Nextpage} className="border-n rounded-md h-[40px] w-[90px] uppercase text-white bg-gradient-to-r from-orange-400 to bg-orange-500 focus:ring focus:ring-offset-1 focus:ring-orange-700">next</button>
       </div>
       
     </>
