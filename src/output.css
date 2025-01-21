@@ -610,6 +610,22 @@ video {
   z-index: 50;
 }
 
+.m-\[30px\] {
+  margin: 30px;
+}
+
+.m-\[40px\] {
+  margin: 40px;
+}
+
+.m-\[100px\] {
+  margin: 100px;
+}
+
+.m-\[10\%\] {
+  margin: 10%;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -768,6 +784,14 @@ video {
   height: 100vh;
 }
 
+.h-\[200px\] {
+  height: 200px;
+}
+
+.h-\[250px\] {
+  height: 250px;
+}
+
 .max-h-\[500px\] {
   max-height: 500px;
 }
@@ -908,6 +932,18 @@ video {
 
 .list-disc {
   list-style-type: disc;
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
 .flex-col {

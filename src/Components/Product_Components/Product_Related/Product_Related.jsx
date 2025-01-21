@@ -24,15 +24,18 @@ const ProductRelated = () => {
       const ParsedUser = JSON.parse(User);
       const GetData = async () => {
         try {
+          console.log(ParsedUser.Type);
+          const test = ParsedUser.Type;
           const id = ParsedUser._id;
-          dispatch(Related(id));
+          console.log(test, "Type");
+          dispatch(Related({id, test}));
           console.log(data);
         } catch (error) {
           console.log(error);
         }
       };
       GetData();
-      window.scrollTo({ top: 0});
+      window.scrollTo({ top: 0 });
     }
   }, [ID]);
 
@@ -73,7 +76,7 @@ const ProductRelated = () => {
               <section className="relative">
                 <div
                   style={{ backgroundImage: `url(${item.Image})` }}
-                  className="relative h-[300px] w-full bg-cover bg-center rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
+                  className="relative h-[200px] w-full bg-cover bg-center rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
                   onMouseEnter={() => ShowCart(index, true)}
                   onMouseLeave={() => ShowCart(index, false)}
                 >
