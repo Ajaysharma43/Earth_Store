@@ -6,12 +6,16 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SetCart } from "../../Features/CartSlice/CartSlice";
 import LoadingBar from "react-top-loading-bar";
+import { GetData } from "../../Features/DataSlice/DataSlice";
+import { CircularProgress } from "@mui/material";
+import Skeleton from "react-loading-skeleton";
+import Product_Skeleton from "../../Sekeleton/HomapageSkeleton/ProductSkeleton";
 
 const URL = import.meta.env.VITE_API_URL;
 
 const Product = () => {
-  const [products, setProducts] = useState([]);
   const Product = useSelector((state) => state.Cart.Cart);
+  const { isLoading, data, isError } = useSelector((state) => state.Data);
   const [progress  , setprogress] = useState(0)
   const dispatch = useDispatch();
   const cartRefs = useRef([]);
@@ -21,9 +25,8 @@ const Product = () => {
     const GetProducts = async () => {
       try {
         setprogress(30)
-        const response = await axios.get(`${URL}/Data/data?limit=3`);
+        dispatch(GetData())
         setprogress(60)
-        setProducts(response.data.Data);
         setprogress(100)
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -51,6 +54,19 @@ const Product = () => {
     visible: { opacity: 1, y: 0 }, 
   };
 
+
+  if(isLoading)
+  {
+    return(
+      <>
+      <div className="p-8 flex flex-wrap justify-center mt-[6%] mb-[6%] w-full gap-6">
+      <Product_Skeleton/>
+      <Product_Skeleton/>
+      <Product_Skeleton/>
+      </div>
+      </>
+    )
+  }
   
 
   return (
@@ -60,7 +76,7 @@ const Product = () => {
     onLoaderFinished={() => setprogress(0)}
     color="#74a84a"/>
     <div className="p-8 flex flex-wrap justify-center mt-[6%] mb-[6%] w-full gap-6">
-      {products.map((item, index) => (
+      {data.map((item, index) => (
         <motion.div
           className="w-[300px] flex flex-col gap-4 group"
           key={index}
