@@ -5,6 +5,9 @@ import About from "../Pages/About/About";
 import Product from "../Pages/Product/Product";
 import Unknowm from "../Components/Unknown_Route/Unknown";
 import Cart from "../Pages/Cart/Cart";
+import DashboardHomepage from "../Components/DashBoardPages/HomePage/HomePage";
+import UploadPage from "../Components/DashBoardPages/UploadPage/Upload";
+import Shop from "../Pages/Shop/Shop";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -12,7 +15,10 @@ const Routes = () => {
         {element:<About/>,path:"/About"},
         {element:<Product/>,path:"/Product/:id"},
         {element:<Cart/>,path:"/cart"},
-        {element:<Unknowm/>,path:"*"}
+        {element:<DashboardHomepage/>,path:"/dashboard"},
+        {element:<UploadPage/>,path:"/dashboard/upload"},
+        {element:<Unknowm/>,path:"*"},
+        {element:<Shop/>,path:"/Shop"}
     ])
     
     return Route;

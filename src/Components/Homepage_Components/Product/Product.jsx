@@ -16,6 +16,7 @@ const URL = import.meta.env.VITE_API_URL;
 const Product = () => {
   const Product = useSelector((state) => state.Cart.Cart);
   const { isLoading, data, isError } = useSelector((state) => state.Data);
+  const [Limit,setlimit] = useState(3)
   const [progress  , setprogress] = useState(0)
   const dispatch = useDispatch();
   const cartRefs = useRef([]);
@@ -25,7 +26,7 @@ const Product = () => {
     const GetProducts = async () => {
       try {
         setprogress(30)
-        dispatch(GetData())
+        dispatch(GetData(Limit))
         setprogress(60)
         setprogress(100)
       } catch (error) {

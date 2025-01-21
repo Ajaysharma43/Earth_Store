@@ -3,8 +3,8 @@ import axios from "axios";
 
 const URL = import.meta.env.VITE_API_URL;
 
-export const GetData = createAsyncThunk('FetchData' , async() => {
-    const Response = await axios.get(`${URL}/Data/data?limit=3`)
+export const GetData = createAsyncThunk('FetchData' , async(limit) => {
+    const Response = await axios.get(`${URL}/Data/data?limit=${limit}`)
     console.log(Response.data.Data);
     return Response.data.Data
 })

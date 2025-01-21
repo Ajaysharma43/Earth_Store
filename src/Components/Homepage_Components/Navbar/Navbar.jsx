@@ -66,7 +66,10 @@ const Navbar = () => {
               <h3 className="Navbar_Element">ABOUT</h3>
               </Link>
 
+              <Link to='/Shop'>
               <h3 className="Navbar_Element">SHOP</h3>
+              </Link>
+
               <h3 className="Navbar_Element">CONTACT</h3>
 
               <button id="Navbar_Icon_Cart">

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { FaBagShopping } from "react-icons/fa6";
-import { useSelector , useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { SetCart } from "../../Features/CartSlice/CartSlice";
+import { Related } from "../../Features/DataSlice/RelatedProducts";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -13,22 +14,25 @@ const ProductRelated = () => {
   const Quantity = useSelector((state) => state.Qunatity.Quantity);
   const [CartItems, setCartItems] = useState(Quantity);
   const ID = useSelector((state) => state.ID.ID);
-  const dispatch = useDispatch()
+  const { data } = useSelector((state) => state.related);
+  const dispatch = useDispatch();
   const cartRefs = useRef([]);
 
   useEffect(() => {
     const User = sessionStorage.getItem("data");
     if (User) {
       const ParsedUser = JSON.parse(User);
-
       const GetData = async () => {
-        const id = ParsedUser._id;
-        const response = await axios.post(`${URL}/Data/RelatedProduct`, { id });
-        setRelated(response.data.result);
+        try {
+          const id = ParsedUser._id;
+          dispatch(Related(id));
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
       };
-
       GetData();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0});
     }
   }, [ID]);
 
@@ -46,16 +50,16 @@ const ProductRelated = () => {
   };
 
   const HandleCart = (item) => {
-      const Cart = {
-        ProductId: item._id,
-        ProductName: item.Name,
-        ProductType: item.Type,
-        ProductImage: item.Image,
-        ProductPrice: item.Price,
-        ProductQuantity: Quantity,
-      };
-      dispatch(SetCart(Cart));
+    const Cart = {
+      ProductId: item._id,
+      ProductName: item.Name,
+      ProductType: item.Type,
+      ProductImage: item.Image,
+      ProductPrice: item.Price,
+      ProductQuantity: Quantity,
     };
+    dispatch(SetCart(Cart));
+  };
 
   return (
     <div className="p-8">
@@ -63,7 +67,7 @@ const ProductRelated = () => {
         Related Products
       </h1>
       <div className="flex flex-wrap justify-center gap-8">
-        {related.map((item, index) => (
+        {data.map((item, index) => (
           <Link to={`/Product/${item._id}`} key={item._id}>
             <div className="w-[300px] flex flex-col gap-4">
               <section className="relative">
@@ -88,8 +92,12 @@ const ProductRelated = () => {
 
               <section className="text-center">
                 <h1 className="text-sm text-gray-500">{item.Type}</h1>
-                <h1 className="text-lg font-semibold text-gray-800">{item.Name}</h1>
-                <h1 className="text-base text-[#74a84a] font-medium">{item.Price}</h1>
+                <h1 className="text-lg font-semibold text-gray-800">
+                  {item.Name}
+                </h1>
+                <h1 className="text-base text-[#74a84a] font-medium">
+                  {item.Price}
+                </h1>
               </section>
             </div>
           </Link>

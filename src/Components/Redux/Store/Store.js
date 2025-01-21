@@ -4,6 +4,8 @@ import idreducer from '../../Features/Idslice/Idslice'
 import Cartreducer from "../../Features/CartSlice/CartSlice"
 import QunaityReducer from "../../Features/CartQuantity/CartQunatity"
 import DataFetchReducer from "../../Features/DataSlice/DataSlice"
+import SingleProduct  from "../../Features/DataSlice/SingleProduct"
+import related from "../../Features/DataSlice/RelatedProducts"
 
 export default configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export default configureStore({
     ID : idreducer,
     Cart : Cartreducer,
     Qunatity : QunaityReducer,
-    Data : DataFetchReducer
+    Data : DataFetchReducer,
+    SingleProduct : SingleProduct,
+    related : related
   },
 })
