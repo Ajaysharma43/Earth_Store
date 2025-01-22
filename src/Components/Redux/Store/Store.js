@@ -6,6 +6,7 @@ import QunaityReducer from "../../Features/CartQuantity/CartQunatity"
 import DataFetchReducer from "../../Features/DataSlice/DataSlice"
 import SingleProduct  from "../../Features/DataSlice/SingleProduct"
 import related from "../../Features/DataSlice/RelatedProducts"
+import Otp from "../../Features/AuthSlice/Signup"
 
 export default configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export default configureStore({
     Qunatity : QunaityReducer,
     Data : DataFetchReducer,
     SingleProduct : SingleProduct,
-    related : related
+    related : related,
+    UserData : Otp
   },
 })

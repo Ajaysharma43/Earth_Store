@@ -8,6 +8,8 @@ import Cart from "../Pages/Cart/Cart";
 import DashboardHomepage from "../Components/DashBoardPages/HomePage/HomePage";
 import UploadPage from "../Components/DashBoardPages/UploadPage/Upload";
 import Shop from "../Pages/Shop/Shop";
+import Login from "../Pages/Login/Login";
+import Signup from "../Pages/Signup/Signup";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -15,10 +17,16 @@ const Routes = () => {
         {element:<About/>,path:"/About"},
         {element:<Product/>,path:"/Product/:id"},
         {element:<Cart/>,path:"/cart"},
+        {element:<Shop/>,path:"/Shop"},
+        {element:<Login/> , path:"/login"},
+        {element:<Signup/>,path:"/Signup"},
+
+        // {Unkown Routes}
+        {element:<Unknowm/>,path:"*"},
+
+        // {Dashboard Routers}
         {element:<DashboardHomepage/>,path:"/dashboard"},
         {element:<UploadPage/>,path:"/dashboard/upload"},
-        {element:<Unknowm/>,path:"*"},
-        {element:<Shop/>,path:"/Shop"}
     ])
     
     return Route;

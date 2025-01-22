@@ -21,7 +21,7 @@ const Reducer = createSlice({
     initialState,
     extraReducers : (builder) => {
         builder.addCase(Single_Product.fulfilled , (state , action) => {
-            state.SingleProduct = action.payload;4
+            state.SingleProduct = action.payload;
             state.isloading = false
             console.log(state.SingleProduct,"slicee");
         })
