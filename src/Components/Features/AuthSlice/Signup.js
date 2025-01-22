@@ -18,7 +18,8 @@ const initialState = {
     isLoading : false , 
     Data : {} , 
     OTP : "",
-    isError : false
+    isError : false,
+    PhoneNumber : null,
 }
 
 const Reducer = createSlice({
