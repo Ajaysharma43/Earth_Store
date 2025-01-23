@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { VerifyUser } from "../../Components/Features/AuthSlice/Login";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@fluentui/react-components";
 import Loader from "../../Components/Loaders/Loader";
+import Cookies from 'js-cookie'
 
 const Login = () => {
     const state = useSelector((state) => state.Login)
@@ -12,6 +13,10 @@ const Login = () => {
   const Username = useRef();
   const Password = useRef();
   const PhoneNumber = useRef();
+
+  useEffect(()=>{
+    Cookies.remove('Token')
+  },[])
 
   const Verify = () => {
     
@@ -26,12 +31,11 @@ const Login = () => {
         PhoneNumber: PhoneNumber.current.value,
       };
       dispatch(VerifyUser({Data}));
-      setTimeout(() => {
+      
         if(state.isLoading == false)
             {
               navigate('/')
             }
-      }, 5000);
       
     console.log(state);
     } else {

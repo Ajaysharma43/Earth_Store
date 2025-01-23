@@ -7,19 +7,10 @@ import LoadingBar from "react-top-loading-bar";
 
 const URL = import.meta.env.VITE_API_URL;
 
-export const VerifyUser = createAsyncThunk('VerifyUser', async ({ Data }) => {
-    return new Promise((resolve) => {
-        setTimeout(async () => {
-            const Response = await axios.post(`${URL}/Autheorize/Login`, {
-                UserName: Data.UserName,
-                Password: Data.Password,
-                PhoneNumber: Data.PhoneNumber,
-            });
-            resolve(Response.data);
-        }, 5000);
-    });
-});
-
+export const VerifyUser = createAsyncThunk('VerifyUser' , async({Data}) => {
+    const Response = await axios.post(`${URL}/Autheorize/Login` , {UserName : Data.UserName , Password : Data.Password , PhoneNumber : Data.PhoneNumber})
+    return Response.data
+})
 
 const initialState = {
     isLoading : false,
