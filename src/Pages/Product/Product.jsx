@@ -6,14 +6,43 @@ import ProductRelated from "../../Components/Product_Components/Product_Related/
 import Product_Reviews from "../../Components/Product_Components/Product_Reviews/Product_Reviews";
 import ProductNav from "../../Components/Product_Components/ProductNav/ProductNav";
 import "../Product/Product.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Cookie from 'js-cookie'
 
 const Product = () => {
   const [showNav, setShowNav] = useState(false);
   const ID = useSelector((state) => state.ID.ID)
+  const Navigate = useNavigate()
 
   useEffect(() => {
+
+     const Token = Cookie.get('Token')
+          const Authorize = async() => {
+            if(Token)
+            { 
+              console.log("called");
+            const Response = await axios.post(`${URL}/Autheorize/VerifyRoute`,{},{headers:{'Authorization': `Bearer ${Token}`}})
+            console.log(Response.data);
+            
+            if(Response.data.message == "expired")
+            {
+              console.log("expired");
+              Navigate('/login')
+            }
+            else
+            {
+              console.log("valid");
+            }
+          }
+          else
+          {
+            console.log("token not existed");
+            Navigate('/login')
+          }
+          }
+          Authorize()
+
     const handleScroll = () => {
       const scrollHeight = document.documentElement.scrollHeight; // Total page height
       const scrollPosition = window.scrollY + window.innerHeight; // Current scroll position + viewport height
@@ -27,6 +56,7 @@ const Product = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    
   }, []);
 
   useEffect(()=>{

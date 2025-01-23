@@ -31,11 +31,12 @@ const Login = () => {
         PhoneNumber: PhoneNumber.current.value,
       };
       dispatch(VerifyUser({Data}));
-      
+      setTimeout(() => {
         if(state.isLoading == false)
             {
               navigate('/')
             }
+      }, 5000);
       
     console.log(state);
     } else {
