@@ -10,6 +10,7 @@ import UploadPage from "../Components/DashBoardPages/UploadPage/Upload";
 import Shop from "../Pages/Shop/Shop";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
+import Loader from "../Components/Loaders/Loader";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -27,6 +28,9 @@ const Routes = () => {
         // {Dashboard Routers}
         {element:<DashboardHomepage/>,path:"/dashboard"},
         {element:<UploadPage/>,path:"/dashboard/upload"},
+
+        // {test component}
+        {element:<Loader/> , path:"/Loader"}
     ])
     
     return Route;

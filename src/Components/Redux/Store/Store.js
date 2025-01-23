@@ -7,6 +7,7 @@ import DataFetchReducer from "../../Features/DataSlice/DataSlice"
 import SingleProduct  from "../../Features/DataSlice/SingleProduct"
 import related from "../../Features/DataSlice/RelatedProducts"
 import Otp from "../../Features/AuthSlice/Signup"
+import Login from "../../Features/AuthSlice/Login"
 
 export default configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export default configureStore({
     Data : DataFetchReducer,
     SingleProduct : SingleProduct,
     related : related,
-    UserData : Otp
+    UserData : Otp,
+    Login : Login,
   },
 })
