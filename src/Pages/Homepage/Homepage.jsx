@@ -6,63 +6,22 @@ import Navbar from "../../Components/Homepage_Components/Navbar/Navbar";
 import Postcard from "../../Components/Homepage_Components/Postcard/Postcard";
 import Product from "../../Components/Homepage_Components/Product/Product";
 import Reviews from "../../Components/Homepage_Components/Reviews/Reviews";
-import Cookie from "js-cookie"
+import Cookie from "js-cookie";
 import "../Homepage/Homepage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import api from "../../../AxiosInterseptors/TokenVerify";
+import Cookies from "js-cookie";
 
 const URL = import.meta.env.VITE_API_URL;
+const AccessToken = sessionStorage.getItem("AccessToken");
+const RefreshToken = Cookies.get("RefreshToken");
 
-const Homepage = () => { 
+const Homepage = () => {
 
-  const Navigate = useNavigate()
-
-  useEffect(() => {
-    const AccessToken = sessionStorage.getItem('AccessToken')
-    const RefreshToken = Cookie.get('RefreshToken')
-    const Authorize = async() => {
-      if(AccessToken)
-      { 
-        console.log("called");
-      const Response = await axios.post(`${URL}/Autheorize/VerifyRoute`,{},{headers:{'Authorization': `Bearer ${AccessToken}`}})
-      console.log(Response.data);
-      
-      if(Response.data.message == "expired")
-      {
-        const Response = await axios.post(`${URL}/Autheorize/RefreshToken`,{RefreshToken})
-        console.log(Response.data.message);
-        if(Response.data.message == 'verified')
-        {
-          console.log("regenerated");
-          const AccessToken = Response.data.AccessToken;
-          sessionStorage.setItem('AccessToken' , AccessToken)
-        }
-        else if(Response.data.message == 'expired')
-        {
-          Navigate('/login')
-        }
-        else if(Response.data.message == 'NotExisted')
-        {
-          Navigate('/login')
-        }
-        
-      }
-      else
-      {
-        console.log("valid");
-      }
-    }
-    else
-    {
-      console.log("token not existed");
-      Navigate('/login')
-    }
-    }
-    Authorize()
+  useEffect(() =>{
   },[])
-
-
+  
 
   return (
     <>
@@ -84,17 +43,17 @@ const Homepage = () => {
         </article>
 
         <article id="Postcard_Article">
-            <Postcard/>
+          <Postcard />
         </article>
 
         <article id="Homepage_Ending_Article">
-          <Homepage_Ending/>
+          <Homepage_Ending />
         </article>
 
         <div id="Empty_Line"></div>
 
         <article id="Homepage_Footer">
-          <Footer/>
+          <Footer />
         </article>
       </article>
     </>

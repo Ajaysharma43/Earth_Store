@@ -5,7 +5,8 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const Removetoken = () => {
-    Cookies.remove("Token");
+    Cookies.remove("RefreshToken");
+    sessionStorage.removeItem('AccessToken')
     navigate("/login"); 
   };
 
