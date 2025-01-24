@@ -1,43 +1,68 @@
-import { Token } from "@mui/icons-material";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import Cookies from 'js-cookie'
-import { useNavigate } from "react-router-dom";
-import LoadingBar from "react-top-loading-bar";
+import Cookies from "js-cookie";
 
 const URL = import.meta.env.VITE_API_URL;
 
-export const VerifyUser = createAsyncThunk('VerifyUser', async ({ Data }) => {
-    return new Promise((resolve) => {
-        setTimeout(async () => {
-            const Response = await axios.post(`${URL}/Autheorize/Login`, {
-                UserName: Data.UserName,
-                Password: Data.Password,
-                PhoneNumber: Data.PhoneNumber,
-            });
-            resolve(Response.data);
-        }, 5000);
-    });
+// Asynchronous thunk for user verification
+export const VerifyUser = createAsyncThunk(
+  "VerifyUser",
+  async ({Data}, { rejectWithValue }) => {
+    try {
+        console.log(Data);
+      const response = await axios.post(`${URL}/Autheorize/Login`, {
+        UserName: Data.UserName,
+        Password: Data.Password,
+        PhoneNumber: Data.PhoneNumber,
+      });
+      return response.data; // Contains token and other data
+    } catch (error) {
+      // Return error response using rejectWithValue for better error handling
+      return rejectWithValue(
+        error.response?.data?.message || "Something went wrong!"
+      );
+    }
+  }
+);
+
+// Initial state
+const initialState = {
+  isLoading: false,
+  isAuthenticated: false,
+  isError: false,
+  errorMessage: "",
+};
+
+// Reducer and extra reducers
+const Reducer = createSlice({
+  name: "LoginReducer",
+  initialState,
+  reducers: {
+    logout: (state) => {
+      state.isAuthenticated = false;
+      Cookies.remove("Token"); // Remove token on logout
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(VerifyUser.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = "";
+      })
+      .addCase(VerifyUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        Cookies.set("RefreshToken", action.payload.refreshToken , {expires : 10});
+        sessionStorage.setItem("AccessToken" , action.payload.token)
+      })
+      .addCase(VerifyUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload; // Store error message
+      });
+  },
 });
 
-
-const initialState = {
-    isLoading : false,
-    isError : false
-}
-
-const Reducer  = createSlice({
-    name : "LoginReducer",
-    initialState , 
-    extraReducers : (builder) => {
-        builder.addCase(VerifyUser.fulfilled , (state , action) => {
-            state.isLoading = false
-            Cookies.set('Token', action.payload.token)
-        })
-        builder.addCase(VerifyUser.pending , (state , action) => {
-            state.isLoading = true
-        })
-    }
-})
-
+export const { logout } = Reducer.actions; // Export logout action
 export default Reducer.reducer;

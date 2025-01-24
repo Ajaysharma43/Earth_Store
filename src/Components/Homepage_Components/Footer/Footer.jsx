@@ -1,6 +1,12 @@
+import { useEffect } from "react";
+import Logout from "../../Logout/Logout";
 import "./Footer.css";
 
 const Footer = () => {
+
+  useEffect(() => {
+
+  },[Logout])
   return (
     <>
       <div id="HomapageFooter">
@@ -19,7 +25,7 @@ const Footer = () => {
         </div>
 
         <div>
-            <h1 id="Homepage_Footer_Info">Copyright © 2024 Planet Earth Store</h1>
+            <Logout/>
         </div>
       </div>
     </>

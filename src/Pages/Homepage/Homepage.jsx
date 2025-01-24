@@ -19,18 +19,34 @@ const Homepage = () => {
   const Navigate = useNavigate()
 
   useEffect(() => {
-    const Token = Cookie.get('Token')
+    const AccessToken = sessionStorage.getItem('AccessToken')
+    const RefreshToken = Cookie.get('RefreshToken')
     const Authorize = async() => {
-      if(Token)
+      if(AccessToken)
       { 
         console.log("called");
-      const Response = await axios.post(`${URL}/Autheorize/VerifyRoute`,{},{headers:{'Authorization': `Bearer ${Token}`}})
+      const Response = await axios.post(`${URL}/Autheorize/VerifyRoute`,{},{headers:{'Authorization': `Bearer ${AccessToken}`}})
       console.log(Response.data);
       
       if(Response.data.message == "expired")
       {
-        console.log("expired");
-        Navigate('/login')
+        const Response = await axios.post(`${URL}/Autheorize/RefreshToken`,{RefreshToken})
+        console.log(Response.data.message);
+        if(Response.data.message == 'verified')
+        {
+          console.log("regenerated");
+          const AccessToken = Response.data.AccessToken;
+          sessionStorage.setItem('AccessToken' , AccessToken)
+        }
+        else if(Response.data.message == 'expired')
+        {
+          Navigate('/login')
+        }
+        else if(Response.data.message == 'NotExisted')
+        {
+          Navigate('/login')
+        }
+        
       }
       else
       {
@@ -45,6 +61,9 @@ const Homepage = () => {
     }
     Authorize()
   },[])
+
+
+
   return (
     <>
       <header id="Homepage_Header">

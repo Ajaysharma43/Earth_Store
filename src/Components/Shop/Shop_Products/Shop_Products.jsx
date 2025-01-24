@@ -20,6 +20,7 @@ const Shop_Products = () => {
     
     dispatch(GetData({Limit , currentPage}));
     console.log(Data);
+    window.scrollTo({ top: 0 });
   }, [currentPage]);
 
   const ShowCart = (index, show) => {
