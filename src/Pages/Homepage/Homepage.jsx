@@ -14,14 +14,32 @@ import api from "../../../AxiosInterseptors/TokenVerify";
 import Cookies from "js-cookie";
 
 const URL = import.meta.env.VITE_API_URL;
-const AccessToken = sessionStorage.getItem("AccessToken");
-const RefreshToken = Cookies.get("RefreshToken");
 
 const Homepage = () => {
+  const navigate = useNavigate();
 
-  useEffect(() =>{
-  },[])
-  
+  useEffect(() => {
+    const AccessToken = sessionStorage.getItem("AccessToken");
+    const RefreshToken = Cookies.get("RefreshToken");
+    if (RefreshToken) {
+      const req = async () => {
+        const response = await api.post("/VerifyRoute");
+        if (response.data.message == "expired") {
+          const response = await api.post("/RefreshToken", { RefreshToken });
+          console.log(response.data);
+          if (response.data.message == "NotExisted") {
+            navigate("/login");
+          } else if (response.data.message == "expired") {
+            navigate("/login");
+          }
+          sessionStorage.setItem("AccessToken", response.data.AccessToken);
+        }
+      };
+      req();
+    } else {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <>

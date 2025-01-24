@@ -14,32 +14,21 @@ const About = () => {
     const Navigate = useNavigate()
 
     useEffect(() => {
-      const Token = Cookie.get('Token')
-      const Authorize = async() => {
-        if(Token)
-        { 
-          console.log("called");
-        const Response = await axios.post(`${URL}/Autheorize/VerifyRoute`,{},{headers:{'Authorization': `Bearer ${Token}`}})
-        console.log(Response.data);
-        
-        if(Response.data.message == "expired")
-        {
-          console.log("expired");
-          Navigate('/login')
+      const req = async () => {
+        const response = await api.post("/VerifyRoute");
+        if (response.data.message == "expired") {
+          const response = await api.post("/RefreshToken", { RefreshToken });
+          console.log(response.data);
+          if (response.data.message == "NotExisted") {
+            Navigate("/login");
+          } else if (response.data.message == "expired") {
+            Navigate("/login");
+          }
+          sessionStorage.setItem("AccessToken", response.data.AccessToken);
         }
-        else
-        {
-          console.log("valid");
-        }
-      }
-      else
-      {
-        console.log("token not existed");
-        Navigate('/login')
-      }
-      }
-      Authorize()
-    },[])
+      };
+      req();
+    }, []);
 
     return(
         <>
