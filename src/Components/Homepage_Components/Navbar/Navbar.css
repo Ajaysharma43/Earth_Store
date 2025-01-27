@@ -209,7 +209,7 @@
   .Navbar_Elements {
     display: flex;
     align-items: center;
-    gap: 21%;
+    gap: 15%;
     margin-left: -222%;
   }
 }

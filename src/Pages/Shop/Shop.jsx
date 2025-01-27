@@ -2,11 +2,36 @@ import { useNavigate } from "react-router-dom"
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar"
 import Shop_Products from "../../Components/Shop/Shop_Products/Shop_Products"
 import { useEffect } from "react"
-import Cookie from 'js-cookie'
+import api from "../../../AxiosInterseptors/TokenVerify"
+import Cookies from 'js-cookie'
 
 const Shop = () => {
 
     const Navigate = useNavigate()
+
+    useEffect(() => {
+        const AccessToken = sessionStorage.getItem("AccessToken");
+      const RefreshToken = Cookies.get("RefreshToken");
+      if (RefreshToken) {
+        const req = async () => {
+          const response = await api.post("/VerifyRoute");
+          if (response.data.message == "expired") {
+            const response = await api.post("/RefreshToken", { RefreshToken });
+            console.log(response.data);
+            if (response.data.message == "NotExisted") {
+              Navigate("/login");
+            } else if (response.data.message == "expired") {
+              Navigate("/login");
+            }
+            sessionStorage.setItem("AccessToken", response.data.AccessToken);
+          }
+        };
+        req();
+      } else {
+        Navigate("/login");
+      }
+    },[])
+
     return(
         <>
         <header>

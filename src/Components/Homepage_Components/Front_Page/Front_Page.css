@@ -12,6 +12,8 @@
 #Front_Page {
     height: 578px;
     margin-top: 8%;
+    word-break: break-all;
+        white-space: pre-wrap;
 }
 #Front_Page_Title {
     font-family: var(--Global-font-1);

@@ -4,7 +4,8 @@ import Footer from "../../Components/Homepage_Components/Footer/Footer";
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar";
 import Postcard from "../../Components/Homepage_Components/Postcard/Postcard";
 import image from "../../assets/Homapage_Images/a9588ac4be92480bbf420071afe1043d.png"
-import Cookie from "js-cookie"
+import Cookies from "js-cookie"
+import api from "../../../AxiosInterseptors/TokenVerify";
 import "../About/About.css"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -14,20 +15,26 @@ const About = () => {
     const Navigate = useNavigate()
 
     useEffect(() => {
-      const req = async () => {
-        const response = await api.post("/VerifyRoute");
-        if (response.data.message == "expired") {
-          const response = await api.post("/RefreshToken", { RefreshToken });
-          console.log(response.data);
-          if (response.data.message == "NotExisted") {
-            Navigate("/login");
-          } else if (response.data.message == "expired") {
-            Navigate("/login");
+      const AccessToken = sessionStorage.getItem("AccessToken");
+      const RefreshToken = Cookies.get("RefreshToken");
+      if (RefreshToken) {
+        const req = async () => {
+          const response = await api.post("/VerifyRoute");
+          if (response.data.message == "expired") {
+            const response = await api.post("/RefreshToken", { RefreshToken });
+            console.log(response.data);
+            if (response.data.message == "NotExisted") {
+              Navigate("/login");
+            } else if (response.data.message == "expired") {
+              Navigate("/login");
+            }
+            sessionStorage.setItem("AccessToken", response.data.AccessToken);
           }
-          sessionStorage.setItem("AccessToken", response.data.AccessToken);
-        }
-      };
-      req();
+        };
+        req();
+      } else {
+        Navigate("/login");
+      }
     }, []);
 
     return(

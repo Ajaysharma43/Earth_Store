@@ -60,7 +60,20 @@ const Reducer = createSlice({
           secure: true,         // Only send over HTTPS
           // domain attribute should be omitted for localhost
         });
-                localStorage.setItem("RefreshToken", action.payload.refreshToken)
+        Cookies.set("Username", action.payload.Username, {
+          expires: 7,          
+          path: '/',            
+          sameSite: 'Strict',   
+          secure: true,         
+          
+        });
+        Cookies.set("Password", action.payload.Password, {
+          expires: 7,           
+          path: '/',            
+          sameSite: 'Strict',   
+          secure: true,         
+          
+        });
         sessionStorage.setItem("AccessToken" , action.payload.token)
       })
       .addCase(VerifyUser.rejected, (state, action) => {

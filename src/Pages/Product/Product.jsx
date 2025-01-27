@@ -8,7 +8,8 @@ import ProductNav from "../../Components/Product_Components/ProductNav/ProductNa
 import "../Product/Product.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Cookie from 'js-cookie'
+import api from "../../../AxiosInterseptors/TokenVerify";
+import Cookies from 'js-cookie'
 
 const Product = () => {
   const [showNav, setShowNav] = useState(false);
@@ -16,6 +17,28 @@ const Product = () => {
   const Navigate = useNavigate()
 
   useEffect(() => {
+
+    const AccessToken = sessionStorage.getItem("AccessToken");
+    const RefreshToken = Cookies.get("RefreshToken");
+    if (RefreshToken) {
+      const req = async () => {
+        const response = await api.post("/VerifyRoute");
+        if (response.data.message == "expired") {
+          const response = await api.post("/RefreshToken", { RefreshToken });
+          console.log(response.data);
+          if (response.data.message == "NotExisted") {
+            Navigate("/login");
+          } else if (response.data.message == "expired") {
+            Navigate("/login");
+          }
+          sessionStorage.setItem("AccessToken", response.data.AccessToken);
+        }
+      };
+      req();
+    } else {
+      Navigate("/login");
+    }
+
     const handleScroll = () => {
       const scrollHeight = document.documentElement.scrollHeight; // Total page height
       const scrollPosition = window.scrollY + window.innerHeight; // Current scroll position + viewport height
