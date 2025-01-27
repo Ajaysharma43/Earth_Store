@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { Upload_Review } from "./Review_Functions/Review_Functions";
+import { Email } from "@mui/icons-material";
 
 export const DescriptionContent = () => {
   return (
@@ -46,11 +50,21 @@ export const ReviewsContent = () => {
   const { id } = useParams();
   const [Data, setdata] = useState({});
 
+  const Review_Name = useRef();
+  const Review_Email = useRef();
+  const Review = useRef();
+  const Review_Rating = useRef();
+
   useEffect(() => {
     const data = sessionStorage.getItem("data");
     const parsedData = JSON.parse(data);
     setdata(parsedData);
   }, []);
+
+  const Upload = () => {
+    const Reviews = {Name : Review_Name.current.value , Email : Review_Email.current.value , Review : Review.current.value , Rating : Review_Rating.current.value}
+    Upload_Review(Reviews)
+  }
 
   return (
     <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
@@ -66,8 +80,8 @@ export const ReviewsContent = () => {
         </label>
         <div className="flex gap-2">
           {[1, 2, 3, 4, 5].map((rating) => (
-            <button key={rating} className="p-2 border rounded-full">
-              <StarBorderIcon />
+            <button key={rating} className="p-2 border rounded-full" ref={Review_Rating}>
+              <CiStar />
             </button>
           ))}
         </div>
@@ -79,6 +93,7 @@ export const ReviewsContent = () => {
         <textarea
           id="review"
           rows="4"
+          ref={Review}
           placeholder="Write your review here"
           className="w-full p-3 border rounded-md"
         ></textarea>
@@ -91,6 +106,7 @@ export const ReviewsContent = () => {
           id="name"
           type="text"
           placeholder="Enter your name"
+          ref={Review_Name}
           className="w-full p-3 border rounded-md"
         />
       </div>
@@ -101,6 +117,7 @@ export const ReviewsContent = () => {
         <input
           id="email"
           type="email"
+          ref={Review_Email}
           placeholder="Enter your email"
           className="w-full p-3 border rounded-md"
         />
@@ -112,7 +129,8 @@ export const ReviewsContent = () => {
           comment.
         </label>
       </div>
-      <button className="w-32 py-3 mt-4 bg-[#74a84a] text-white rounded-md hover:bg-[#2c541d] transition duration-300">
+      <button className="w-32 py-3 mt-4 bg-[#74a84a] text-white rounded-md hover:bg-[#2c541d] transition duration-300"
+      onClick={() => Upload()}>
         Submit
       </button>
     </div>
