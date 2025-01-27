@@ -53,7 +53,14 @@ const Reducer = createSlice({
       .addCase(VerifyUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
-        Cookies.set("RefreshToken", action.payload.refreshToken , {expires : 10});
+        Cookies.set("RefreshToken", action.payload.refreshToken, {
+          expires: 7,           // Expires in 7 days
+          path: '/',            // Accessible across the entire site
+          sameSite: 'Strict',   // Restrict cross-site requests
+          secure: true,         // Only send over HTTPS
+          // domain attribute should be omitted for localhost
+        });
+                localStorage.setItem("RefreshToken", action.payload.refreshToken)
         sessionStorage.setItem("AccessToken" , action.payload.token)
       })
       .addCase(VerifyUser.rejected, (state, action) => {

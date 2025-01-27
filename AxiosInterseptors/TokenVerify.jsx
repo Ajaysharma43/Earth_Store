@@ -12,6 +12,7 @@ api.interceptors.request.use(
     const AccessToken = sessionStorage.getItem("AccessToken");
     if (AccessToken) {
       config.headers["Authorization"] = `Bearer ${AccessToken}`;
+      return config;
       
     }
     return config;
@@ -48,7 +49,7 @@ api.interceptors.response.use(
         api.defaults.headers.common['Authorization'] = `Bearer ${response.data.AccessToken}`
         return api(originalRequest)
       } catch (error) {
-        Cookies.remove('RefreshToken')
+        // Cookies.remove('RefreshToken')
         sessionStorage.removeItem('AccessToken')
         const navigate = useNavigate();
         navigate('/login')
