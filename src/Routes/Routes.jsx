@@ -11,6 +11,7 @@ import Shop from "../Pages/Shop/Shop";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
 import Loader from "../Components/Loaders/Loader";
+import DashBoardProducts from "../Components/DashBoardPages/DashboardProductsPage/DashBoardProductsPage";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -28,6 +29,7 @@ const Routes = () => {
         // {Dashboard Routers}
         {element:<DashboardHomepage/>,path:"/dashboard"},
         {element:<UploadPage/>,path:"/dashboard/upload"},
+        {element:<DashBoardProducts/> , path:"/dashboard/products"},
 
         // {test component}
         {element:<Loader/> , path:"/Loader"}

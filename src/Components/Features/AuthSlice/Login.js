@@ -54,11 +54,7 @@ const Reducer = createSlice({
         state.isLoading = false;
         state.isAuthenticated = true;
         Cookies.set("RefreshToken", action.payload.refreshToken, {
-          expires: 7,           // Expires in 7 days
-          path: '/',            // Accessible across the entire site
-          sameSite: 'Strict',   // Restrict cross-site requests
-          secure: true,         // Only send over HTTPS
-          // domain attribute should be omitted for localhost
+          expires: 7
         });
         Cookies.set("Username", action.payload.Username, {
           expires: 7,          

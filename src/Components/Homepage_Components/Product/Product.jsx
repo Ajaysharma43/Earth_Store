@@ -25,6 +25,8 @@ const Product = () => {
   useEffect(() => {
     const GetProducts = async () => {
       try {
+        console.log(data);
+        
         setprogress(30)
         dispatch(GetData({Limit}))
         setprogress(60)

@@ -11,25 +11,43 @@ const Shop = () => {
 
     useEffect(() => {
         const AccessToken = sessionStorage.getItem("AccessToken");
-      const RefreshToken = Cookies.get("RefreshToken");
-      if (RefreshToken) {
-        const req = async () => {
-          const response = await api.post("/VerifyRoute");
-          if (response.data.message == "expired") {
-            const response = await api.post("/RefreshToken", { RefreshToken });
-            console.log(response.data);
-            if (response.data.message == "NotExisted") {
-              Navigate("/login");
-            } else if (response.data.message == "expired") {
-              Navigate("/login");
-            }
-            sessionStorage.setItem("AccessToken", response.data.AccessToken);
+        const RefreshToken = Cookies.get("RefreshToken");
+        if(AccessToken)
+        {
+          if (RefreshToken) {
+            const req = async () => {
+              const response = await api.post("/VerifyRoute");
+              if (response.data.message == "expired") {
+                const response = await api.post("/RefreshToken", { RefreshToken });
+                console.log(response.data);
+                if (response.data.message == "NotExisted") {
+                  Navigate("/login");
+                } else if (response.data.message == "expired") {
+                  Navigate("/login");
+                }
+                sessionStorage.setItem("AccessToken", response.data.AccessToken);
+              }
+            };
+            req();
+          } else {
+            Navigate("/login");
           }
-        };
-        req();
-      } else {
-        Navigate("/login");
-      }
+        }
+        else
+        {
+          if(RefreshToken)
+          {
+            const getaccesstoken = async() => {
+              const response = await api.post("/RefreshToken", { RefreshToken });
+              console.log(response.data);
+              sessionStorage.setItem("AccessToken", response.data.AccessToken);
+            }
+            getaccesstoken()
+          }
+          else{
+            Navigate('/login')
+          }
+        }
     },[])
 
     return(

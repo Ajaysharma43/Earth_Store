@@ -71,7 +71,7 @@ export const ReviewsContent = () => {
     console.log(Data._id);
     const parsedData = JSON.parse(data);
     setdata(parsedData);
-  }, []);
+  }, [Product]);
 
   const Upload = async () => {
     if (
@@ -91,7 +91,12 @@ export const ReviewsContent = () => {
       );
       if(Response == 'Reviewd')
       {
-        dispatch(Single_Product())
+        dispatch(Single_Product(id))
+        setReviewData((prevData) => [...prevData, Reviews]);
+        Review_Name.current.value = "";
+      Review_Email.current.value = "";
+      Review.current.value = "";
+      setvalue(0); 
       }
     } else {
       console.log("data is not fill completely");
