@@ -5,6 +5,7 @@ import Cartreducer from "../../Features/CartSlice/CartSlice"
 import QunaityReducer from "../../Features/CartQuantity/CartQunatity"
 import DataFetchReducer from "../../Features/DataSlice/DataSlice"
 import SingleProduct  from "../../Features/DataSlice/SingleProduct"
+import Product from "../../Features/ProductSlice/Productslice"
 import related from "../../Features/DataSlice/RelatedProducts"
 import Otp from "../../Features/AuthSlice/Signup"
 import Login from "../../Features/AuthSlice/Login"
@@ -15,6 +16,7 @@ export default configureStore({
     ID : idreducer,
     Cart : Cartreducer,
     Qunatity : QunaityReducer,
+    Product : Product,
     Data : DataFetchReducer,
     SingleProduct : SingleProduct,
     related : related,

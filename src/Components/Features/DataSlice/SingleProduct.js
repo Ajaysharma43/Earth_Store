@@ -4,7 +4,6 @@ import axios from "axios";
 const URL = import.meta.env.VITE_API_URL;
 
 export const Single_Product = createAsyncThunk('Single_Product' , async(id) =>{
-    
     const Response = await axios.post(`${URL}/Data/Product`, { id })
     console.log(Response.data.Product);
     return Response.data.Product
