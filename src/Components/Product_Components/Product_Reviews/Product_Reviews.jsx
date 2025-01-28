@@ -9,8 +9,12 @@ import { Email } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { Single_Product } from "../../Features/DataSlice/SingleProduct";
 import { ImCross } from "react-icons/im";
+import Cookies from 'js-cookie'
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FindUserReviews } from "../../Features/ProductSlice/Productslice";
+
+const Userid = Cookies.get('ID')
 
 export const DescriptionContent = () => {
   return (
@@ -69,6 +73,12 @@ export const ReviewsContent = () => {
   const Review = useRef();
 
   useEffect(() => {
+    dispatch(FindUserReviews(id))
+    
+  },[])
+
+  useEffect(() => {
+    
     console.log(Product + "here is the product reviews");
 
     const data = sessionStorage.getItem("data");
@@ -89,8 +99,9 @@ export const ReviewsContent = () => {
         Email: Review_Email.current.value,
         Review: Review.current.value,
         Rating: value,
+        Userid : Userid
       };
-      const Response = await Upload_Review({ Reviews, id });
+      const Response = await Upload_Review({ Reviews, id , Userid});
       if(Response == "Already Reviwed")
       {
         toast.error('Already Review', {

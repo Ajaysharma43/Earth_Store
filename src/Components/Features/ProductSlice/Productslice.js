@@ -1,11 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import  Cookies  from "js-cookie";
+import axios from "axios";
+
+const URL = import.meta.env.VITE_API_URL;
+
+export const FindUserReviews = createAsyncThunk('FindUserReviews' , async(id) => {
+    const USERID = Cookies.get('ID')
+    console.log("find user is called");
+    
+    const FindUser = await axios.get(`${URL}/Data/UserReview?id=${USERID}&productid=${id}`)
+    return FindUser.data.message
+})
 
 const initialState = {
     Product: {},
-    Reviews : []
+    Reviews : [],
+    UserReviews : []
   }; 
 
-export const ProductSlice  = createSlice({
+ const ProductSlice  = createSlice({
     name:"Product",
     initialState,
     reducers:{
@@ -14,7 +27,14 @@ export const ProductSlice  = createSlice({
             state.Product = action.payload;
             state.Reviews = action.payload.Reviews;
         }
+    },
+    extraReducers:(builder)=>{
+         builder.addCase(FindUserReviews.fulfilled , (state , action) => {
+            console.log(action.payload);
+            state.Reviews = action.payload
+         })
     }
+
 });
 
 export const {setproduct} = ProductSlice.actions;
