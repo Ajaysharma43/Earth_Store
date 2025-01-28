@@ -2,11 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
+import { BiLike, BiSolidLike } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import { Upload_Review } from "./Review_Functions/Review_Functions";
 import { Email } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { Single_Product } from "../../Features/DataSlice/SingleProduct";
+import { ImCross } from "react-icons/im";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const DescriptionContent = () => {
   return (
@@ -53,10 +57,10 @@ export const DescriptionContent = () => {
 export const ReviewsContent = () => {
   const { id } = useParams();
   const Reviews = useSelector((state) => state.Product.Reviews);
-  const Product = useSelector((state) => state.SingleProduct.SingleProduct)
-  const dispatch = useDispatch()
+  const Product = useSelector((state) => state.SingleProduct.SingleProduct);
+  const dispatch = useDispatch();
   const [Data, setdata] = useState(Product);
-  const [ReviewData , setReviewData] = useState(Reviews)
+  const [ReviewData, setReviewData] = useState(Reviews);
   const [Star, SetStar] = useState(<CiStar />);
   const [value, setvalue] = useState(0);
 
@@ -87,51 +91,98 @@ export const ReviewsContent = () => {
         Rating: value,
       };
       const Response = await Upload_Review({ Reviews, id });
-      console.log(Response , Product.SingleProduct
-      );
-      if(Response == 'Reviewd')
+      if(Response == "Already Reviwed")
       {
-        dispatch(Single_Product(id))
-        setReviewData((prevData) => [...prevData, Reviews]);
-        Review_Name.current.value = "";
-      Review_Email.current.value = "";
-      Review.current.value = "";
-      setvalue(0); 
+        toast.error('Already Review', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+          });
       }
+      else
+      {
+        console.log(Response, Product.SingleProduct);
+        if (Response == "Reviewd") {
+          dispatch(Single_Product(id));
+          setReviewData((prevData) => [...prevData, Reviews]);
+          Review_Name.current.value = "";
+          Review_Email.current.value = "";
+          Review.current.value = "";
+          setvalue(0);
+          toast.success('Review Added', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+            });
+        }
+      }
+      
     } else {
       console.log("data is not fill completely");
+      toast.error('data is not fill completely', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
+        
     }
   };
-
-  
-
   return (
     <>
-     <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300 mb-[11px]">
-  {ReviewData && ReviewData.length > 0 ? (
-    ReviewData.map((item, index) => (
-      <div key={index} className="p-4 border-b border-gray-300">
-        <h1 className="font-bold text-lg">{item.UserName}</h1>
-        <p className="text-gray-600">{item.Review}</p>
-        <div className="flex items-center space-x-1">
-          {[...Array(5)].map((_, i) => (
-            <span key={i}>
-              {i < item.Rating ? (
-                <FaStar className="h-5 w-5 text-[#74a84a]" />
-              ) : (
-                <FaStar className="h-5 w-5 text-gray-300" />
-              )}
-            </span>
-          ))}
-          
-        </div>
-      </div>
-    ))
-  ) : (
-    <h1 className="text-center text-gray-600">No reviews yet</h1>
-  )}
-</div>
+      <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300 mb-[11px]">
+        {ReviewData && ReviewData.length > 0 ? (
+          ReviewData.map((item, index) => (
+            <div
+              key={index}
+              className="p-4 border-b border-gray-300 flex items-start justify-between"
+            >
+              {/* Review Content */}
+              <div className="flex-1">
+                <h1 className="font-bold text-lg">{item.UserName}</h1>
+                <p className="text-gray-600">{item.Review}</p>
+                <div className="flex items-center space-x-1">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i}>
+                      {i < item.Rating ? (
+                        <FaStar className="h-5 w-5 text-[#74a84a]" />
+                      ) : (
+                        <FaStar className="h-5 w-5 text-gray-300" />
+                      )}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
+              <button
+                className="ml-4 p-2 rounded-full text-[#74a84a] hover:text-white hover:bg-[#74a84a] transition duration-200"
+                title="Remove Review"
+              >
+                <ImCross className="h-5 w-5" />
+              </button>
+            </div>
+          ))
+        ) : (
+          <h1 className="text-center text-gray-600 uppercase">No reviews yet</h1>
+        )}
+      </div>
 
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
         <h2 className="text-xl md:text-2xl font-bold mb-4">
@@ -209,6 +260,19 @@ export const ReviewsContent = () => {
         >
           Submit
         </button>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
       </div>
     </>
   );
@@ -229,8 +293,8 @@ const Product_Reviews = () => {
   };
 
   useEffect(() => {
-    setActiveContent('description')
-  },[id])
+    setActiveContent("description");
+  }, [id]);
 
   useEffect(() => {
     const Change = () => {
@@ -247,7 +311,7 @@ const Product_Reviews = () => {
 
   return (
     <div className="pb-6 mt-10 border-t border-t-gray-300 px-4 lg:px-10">
-      <div className="flex justify-start gap-6 mb-4">
+      <div className="flex justify-start gap-6 mb-4 ml-[70px]">
         <button
           onClick={() => setActiveContent("description")}
           className="text-sm md:text-lg font-semibold text-gray-600 hover:text-[#74a84a]"

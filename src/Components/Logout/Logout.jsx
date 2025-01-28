@@ -6,8 +6,6 @@ const Logout = () => {
 
   const Removetoken = () => {
     Cookies.remove("RefreshToken");
-    Cookies.remove('')
-    Cookies.remove('')
     sessionStorage.removeItem('AccessToken')
     navigate("/login"); 
   };
@@ -15,7 +13,7 @@ const Logout = () => {
   return (
     <div>
       <button
-        onClick={Removetoken}
+        onClick={()=>Removetoken()}
         className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
       >
         Logout

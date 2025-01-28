@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 const URL = import.meta.env.VITE_API_URL;
 
-// Asynchronous thunk for user verification
+
 export const VerifyUser = createAsyncThunk(
   "VerifyUser",
   async ({Data}, { rejectWithValue }) => {
@@ -15,9 +15,8 @@ export const VerifyUser = createAsyncThunk(
         Password: Data.Password,
         PhoneNumber: Data.PhoneNumber,
       });
-      return response.data; // Contains token and other data
+      return response.data; 
     } catch (error) {
-      // Return error response using rejectWithValue for better error handling
       return rejectWithValue(
         error.response?.data?.message || "Something went wrong!"
       );
@@ -25,7 +24,7 @@ export const VerifyUser = createAsyncThunk(
   }
 );
 
-// Initial state
+
 const initialState = {
   isLoading: false,
   isAuthenticated: false,
@@ -33,14 +32,14 @@ const initialState = {
   errorMessage: "",
 };
 
-// Reducer and extra reducers
+
 const Reducer = createSlice({
   name: "LoginReducer",
   initialState,
   reducers: {
     logout: (state) => {
       state.isAuthenticated = false;
-      Cookies.remove("Token"); // Remove token on logout
+      Cookies.remove("Token"); 
     },
   },
   extraReducers: (builder) => {
@@ -51,31 +50,30 @@ const Reducer = createSlice({
         state.errorMessage = "";
       })
       .addCase(VerifyUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isAuthenticated = true;
-        Cookies.set("RefreshToken", action.payload.refreshToken, {
-          expires: 7
-        });
-        Cookies.set("Username", action.payload.Username, {
-          expires: 7,          
-          path: '/',            
-          sameSite: 'Strict',   
-          secure: true,         
+        if(action.payload.message == 'Valid')
+        {
+          state.isLoading = false;
+          state.isAuthenticated = true;
+          Cookies.set("RefreshToken", action.payload.refreshToken, {
+            expires: 7
+          });
           
-        });
-        Cookies.set("Password", action.payload.Password, {
-          expires: 7,           
-          path: '/',            
-          sameSite: 'Strict',   
-          secure: true,         
+          Cookies.set("ID" , action.payload.ID , {
+            expires: 7
+          })
+          sessionStorage.setItem("AccessToken" , action.payload.token)
+        }
+        else
+        {
+          alert('Check Letter casing')
           
-        });
-        sessionStorage.setItem("AccessToken" , action.payload.token)
+        }
+        
       })
       .addCase(VerifyUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.errorMessage = action.payload; // Store error message
+        state.errorMessage = action.payload; 
       });
   },
 });
