@@ -9,7 +9,7 @@ export const FindUserReviews = createAsyncThunk('FindUserReviews' , async(id) =>
     console.log("find user is called");
     
     const FindUser = await axios.get(`${URL}/Data/UserReview?id=${USERID}&productid=${id}`)
-    return FindUser.data.message
+    return FindUser.data.reviews
 })
 
 const initialState = {
@@ -31,7 +31,7 @@ const initialState = {
     extraReducers:(builder)=>{
          builder.addCase(FindUserReviews.fulfilled , (state , action) => {
             console.log(action.payload);
-            state.Reviews = action.payload
+            state.UserReviews = action.payload
          })
     }
 

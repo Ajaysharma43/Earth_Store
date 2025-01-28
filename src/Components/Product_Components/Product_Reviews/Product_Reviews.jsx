@@ -9,12 +9,10 @@ import { Email } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { Single_Product } from "../../Features/DataSlice/SingleProduct";
 import { ImCross } from "react-icons/im";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FindUserReviews } from "../../Features/ProductSlice/Productslice";
-
-const Userid = Cookies.get('ID')
 
 export const DescriptionContent = () => {
   return (
@@ -60,10 +58,12 @@ export const DescriptionContent = () => {
 
 export const ReviewsContent = () => {
   const { id } = useParams();
+  const UserReviews = useSelector((state) => state.Product.UserReviews);
   const Reviews = useSelector((state) => state.Product.Reviews);
   const Product = useSelector((state) => state.SingleProduct.SingleProduct);
   const dispatch = useDispatch();
   const [Data, setdata] = useState(Product);
+  const [UserData, setuserdata] = useState(UserReviews);
   const [ReviewData, setReviewData] = useState(Reviews);
   const [Star, SetStar] = useState(<CiStar />);
   const [value, setvalue] = useState(0);
@@ -72,22 +72,28 @@ export const ReviewsContent = () => {
   const Review_Email = useRef();
   const Review = useRef();
 
-  useEffect(() => {
-    dispatch(FindUserReviews(id))
-    
-  },[])
 
   useEffect(() => {
-    
+    dispatch(FindUserReviews(id));
+
     console.log(Product + "here is the product reviews");
 
     const data = sessionStorage.getItem("data");
     console.log(Data._id);
     const parsedData = JSON.parse(data);
     setdata(parsedData);
+  }, [dispatch, Product]);
+
+
+
+  useEffect(() => {
+    if (Product) {
+      console.log(UserReviews, "here is the product reviews");
+    }
   }, [Product]);
 
   const Upload = async () => {
+    const Userid = Cookies.get("ID");
     if (
       Review_Name.current.value &&
       Review_Email.current.value &&
@@ -99,12 +105,11 @@ export const ReviewsContent = () => {
         Email: Review_Email.current.value,
         Review: Review.current.value,
         Rating: value,
-        Userid : Userid
+        Userid: Userid,
       };
-      const Response = await Upload_Review({ Reviews, id , Userid});
-      if(Response == "Already Reviwed")
-      {
-        toast.error('Already Review', {
+      const Response = await Upload_Review({ Reviews, id, Userid });
+      if (Response == "Already Reviwed") {
+        toast.error("Already Review", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -114,10 +119,8 @@ export const ReviewsContent = () => {
           progress: undefined,
           theme: "colored",
           transition: Bounce,
-          });
-      }
-      else
-      {
+        });
+      } else {
         console.log(Response, Product.SingleProduct);
         if (Response == "Reviewd") {
           dispatch(Single_Product(id));
@@ -126,23 +129,22 @@ export const ReviewsContent = () => {
           Review_Email.current.value = "";
           Review.current.value = "";
           setvalue(0);
-          toast.success('Review Added', {
+          toast.success("Review Added", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
-            closeOnClick: false,
+            closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
             transition: Bounce,
-            });
+          });
         }
       }
-      
     } else {
       console.log("data is not fill completely");
-      toast.error('data is not fill completely', {
+      toast.error("data is not fill completely", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -152,13 +154,48 @@ export const ReviewsContent = () => {
         progress: undefined,
         theme: "colored",
         transition: Bounce,
-        });
-        
+      });
     }
   };
   return (
     <>
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300 mb-[11px]">
+      <h1>your review</h1>
+        {
+          UserData.map((item , index) => (
+            <>
+            <div
+              key={index}
+              className="p-4 border-b border-gray-300 flex items-start justify-between"
+            >
+              {/* Review Content */}
+              <div className="flex-1">
+                <h1 className="font-bold text-lg">{item.UserName}</h1>
+                <p className="text-gray-600">{item.Review}</p>
+                <div className="flex items-center space-x-1">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i}>
+                      {i < item.Rating ? (
+                        <FaStar className="h-5 w-5 text-[#74a84a]" />
+                      ) : (
+                        <FaStar className="h-5 w-5 text-gray-300" />
+                      )}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                className="ml-4 p-2 rounded-full text-[#74a84a] hover:text-white hover:bg-[#74a84a] transition duration-200"
+                title="Remove Review"
+              >
+                <ImCross className="h-5 w-5" />
+              </button>
+            </div>
+            </>
+          ))
+        }
+        <h1>all reviews</h1>
         {ReviewData && ReviewData.length > 0 ? (
           ReviewData.map((item, index) => (
             <div
@@ -191,7 +228,9 @@ export const ReviewsContent = () => {
             </div>
           ))
         ) : (
-          <h1 className="text-center text-gray-600 uppercase">No reviews yet</h1>
+          <h1 className="text-center text-gray-600 uppercase">
+            No reviews yet
+          </h1>
         )}
       </div>
 
@@ -281,7 +320,7 @@ export const ReviewsContent = () => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="light"
+          theme="colored"
           transition={Bounce}
         />
       </div>
