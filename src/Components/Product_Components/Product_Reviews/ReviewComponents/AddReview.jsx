@@ -38,9 +38,11 @@ const ReviewsContent = () => {
   const Review_Email = useRef();
   const Review = useRef();
 
+  
+
   useEffect(() => {
     dispatch(FindUserReviews(id)); // Fetch updated reviews
-  }, [dispatch, id, UserData, ReviewData]); 
+  }, [dispatch, id, UserData, ReviewData ]); 
 
   useEffect(() => {
     dispatch(FindUserReviews(id));
@@ -91,6 +93,7 @@ const ReviewsContent = () => {
         if (Response == "Reviewd") {
           dispatch(Single_Product(id));
           setReviewData((prevData) => [...prevData, Reviews]);
+          setuserdata((prevData) => [...prevData , Reviews]);
           Review_Name.current.value = "";
           Review_Email.current.value = "";
           Review.current.value = "";
@@ -137,12 +140,25 @@ const ReviewsContent = () => {
     }
   }
 
-  const DeleteDilog = () => {
-
+  const DeleteDilog = (item) => {
+    if(Deletedilog == false)
+    {
+        SetDeletedDilog(item)
+        SetDeleteDilog(true)
+    }
+    else
+    {
+        SetDeletedDilog(null)
+        SetDeleteDilog(false)
+    }
   }
   
-  const onDelete = () => {
-
+  const onDelete = (ReviewID) => {
+   const reviewIndex = UserReviews.findIndex((item) => item._id === ReviewID)
+   if (reviewIndex !== -1) {
+    UserReviews.splice(reviewIndex, 1); 
+  }
+    
   }
 
   const onSave = ({ modifiedReview, userid }) => {
@@ -157,7 +173,7 @@ const ReviewsContent = () => {
           review._id === userid ? { ...review, ...modifiedReview } : review
         )
       );
-    SetUpdateDilog(false); // Close the dialog after update
+    SetUpdateDilog(false); 
   };
 
   return (
@@ -197,7 +213,7 @@ const ReviewsContent = () => {
                     className="ml-4 p-2 rounded-full text-[#74a84a] hover:text-white hover:bg-[#74a84a] transition duration-200"
                     title="Remove Review"
                   >
-                    <ImCross className="h-5 w-5" onClick={()=>DeleteDilog()}/>
+                    <ImCross className="h-5 w-5" onClick={()=>DeleteDilog(item)}/>
                   </button>
                   <button onClick={()=>OpenDilog(item)} className="ml-4 p-2 rounded-full text-[#74a84a] hover:text-white hover:bg-[#74a84a] transition duration-200">
                     <MdEdit className="h-5 w-5"/>
@@ -245,7 +261,17 @@ const ReviewsContent = () => {
 
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
         <h2 className="text-xl md:text-2xl font-bold mb-4">
-          Be the first to review {Data.Name}
+            {
+                ReviewData.length == 0 ? 
+                (
+                    <h1 className="text-xl md:text-2xl font-bold mb-4">Be the first to review {Data.Name}</h1>
+                )
+                :
+                (
+                    <h1 className="text-xl md:text-2xl font-bold mb-4">Share your Review to {Data.Name}</h1>
+                )
+            }
+          
         </h2>
         <p className="mb-4">
           Your email address will not be published. Required fields are marked *
