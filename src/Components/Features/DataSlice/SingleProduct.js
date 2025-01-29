@@ -10,13 +10,7 @@ export const Single_Product = createAsyncThunk('Single_Product' , async(id) =>{
     return Response.data.Product
 })
 
-export const UpdateUserReveiws = createAsyncThunk('UpdateUserReviews' , async({ProductID,ID,Review}) => { 
-    const USERID = Cookies.get('ID')
-    console.log(USERID);
-    
-    const response = await axios.put(`${URL}/Data/UpdateReview`,{USERID , ID , Review , ProductID})
-    return response.data
-})
+
 
 const initialState = {
     SingleProduct: {},
@@ -33,10 +27,6 @@ const Reducer = createSlice({
             state.isloading = false
             console.log(state.SingleProduct,"slicee");
         })
-        builder.addCase(UpdateUserReveiws.fulfilled , (state , action) => {
-            console.log(action.payload.updatedProduct);
-            state.SingleProduct = action.payload.updatedProduct 
-         })
     }
 })
 

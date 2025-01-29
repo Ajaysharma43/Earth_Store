@@ -28,13 +28,19 @@ const ReviewsContent = () => {
   const [UserData, setuserdata] = useState(UserReviews);
   const [ReviewData, setReviewData] = useState(Reviews);
   const [UpdateDilog , SetUpdateDilog] = useState(false)
+  const [Deletedilog , SetDeleteDilog] = useState(false)
   const [UpdateReviews , setudpateReview] = useState({})
+  const [DeletedDilog , SetDeletedDilog] = useState({})
   const [Star, SetStar] = useState(<CiStar />);
   const [value, setvalue] = useState(0);
 
   const Review_Name = useRef();
   const Review_Email = useRef();
   const Review = useRef();
+
+  useEffect(() => {
+    dispatch(FindUserReviews(id)); // Fetch updated reviews
+  }, [dispatch, id, UserData, ReviewData]); 
 
   useEffect(() => {
     dispatch(FindUserReviews(id));
@@ -131,14 +137,32 @@ const ReviewsContent = () => {
     }
   }
 
-  const onSave = ({data , id}) => {
-    const review = UserData.find((item) => item._id === id)
-    console.log(review);
+  const DeleteDilog = () => {
+
   }
+  
+  const onDelete = () => {
+
+  }
+
+  const onSave = ({ modifiedReview, userid }) => {
+    setuserdata((prevUserData) =>
+      prevUserData.map((review) =>
+        review._id === userid ? { ...review, ...modifiedReview } : review
+      )
+    );
+
+    setReviewData((prevReviewData) =>
+        prevReviewData.map((review) =>
+          review._id === userid ? { ...review, ...modifiedReview } : review
+        )
+      );
+    SetUpdateDilog(false); // Close the dialog after update
+  };
 
   return (
     <>
-    <DeleteReview/>
+    <DeleteReview open={Deletedilog} OpenDilog={DeleteDilog} Review={DeletedDilog}onDelete={onDelete} />
     <UpdateReview open={UpdateDilog} OpenDilog={OpenDilog} Review={UpdateReviews} onSave={onSave}/>
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300 mb-6">
         {/* Your Reviews Section */}
@@ -173,7 +197,7 @@ const ReviewsContent = () => {
                     className="ml-4 p-2 rounded-full text-[#74a84a] hover:text-white hover:bg-[#74a84a] transition duration-200"
                     title="Remove Review"
                   >
-                    <ImCross className="h-5 w-5" />
+                    <ImCross className="h-5 w-5" onClick={()=>DeleteDilog()}/>
                   </button>
                   <button onClick={()=>OpenDilog(item)} className="ml-4 p-2 rounded-full text-[#74a84a] hover:text-white hover:bg-[#74a84a] transition duration-200">
                     <MdEdit className="h-5 w-5"/>

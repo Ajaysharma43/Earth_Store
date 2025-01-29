@@ -1,6 +1,6 @@
 import { Dialog, DialogContent } from "@mui/material"
 
-const DeleteReview = () => {
+const DeleteReview = ({ open, OpenDilog, Review, onDelete }) => {
     return(
         <>
         <Dialog>

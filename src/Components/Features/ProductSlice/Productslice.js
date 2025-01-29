@@ -12,6 +12,14 @@ export const FindUserReviews = createAsyncThunk('FindUserReviews' , async(id) =>
     return FindUser.data.reviews
 })
 
+export const UpdateUserReveiws = createAsyncThunk('UpdateUserReviews' , async({ProductID,ID,Review}) => { 
+    const USERID = Cookies.get('ID')
+    console.log(USERID);
+    
+    const response = await axios.put(`${URL}/Data/UpdateReview`,{USERID , ID , Review , ProductID})
+    return response.data
+})
+
 const initialState = {
     Product: {},
     Reviews : [],
@@ -32,6 +40,11 @@ const initialState = {
          builder.addCase(FindUserReviews.fulfilled , (state , action) => {
             console.log(action.payload);
             state.UserReviews = action.payload
+         })
+
+         builder.addCase(UpdateUserReveiws.fulfilled , (state , action) => {
+            console.log(action.payload.updatedProduct);
+            state.Product = action.payload.updatedProduct
          })
     }
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { UpdateUserReveiws } from "../../../Features/DataSlice/SingleProduct";
+import { UpdateUserReveiws } from "../../../Features/ProductSlice/Productslice";
 
 const UpdateReview = ({ open, OpenDilog, Review, onSave }) => {
 
@@ -28,8 +28,8 @@ const UpdateReview = ({ open, OpenDilog, Review, onSave }) => {
         Rating: updatedRating 
       };
       dispatch(UpdateUserReveiws({ProductID : id , ID : Review._id , Review : modifiedReview}))
-      
-      onSave({modifiedReview ,id :  Review})
+      const userid =Review._id
+      onSave({modifiedReview , userid})
       OpenDilog();
     }
   };
