@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FindUserReviews } from "../../../Features/ProductSlice/Productslice";
 import DescriptionContent from "../ReviewComponents/ProductDescription";
 import UpdateReview from "./UpdateComponent";
+import DeleteReview from "./DeleteReview";
 
 const ReviewsContent = () => {
   const { id } = useParams();
@@ -37,14 +38,13 @@ const ReviewsContent = () => {
 
   useEffect(() => {
     dispatch(FindUserReviews(id));
-
     console.log(Product + "here is the product reviews");
 
     const data = sessionStorage.getItem("data");
     console.log(Data._id);
     const parsedData = JSON.parse(data);
     setdata(parsedData);
-  }, [dispatch, Product]);
+  }, [dispatch, Product , UpdateDilog]);
 
   useEffect(() => {
     if (Product) {
@@ -131,9 +131,15 @@ const ReviewsContent = () => {
     }
   }
 
+  const onSave = ({data , id}) => {
+    const review = UserData.find((item) => item._id === id)
+    console.log(review);
+  }
+
   return (
     <>
-    <UpdateReview open={UpdateDilog} OpenDilog={OpenDilog} Review={UpdateReviews}/>
+    <DeleteReview/>
+    <UpdateReview open={UpdateDilog} OpenDilog={OpenDilog} Review={UpdateReviews} onSave={onSave}/>
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300 mb-6">
         {/* Your Reviews Section */}
         {UserData.length > 0 && (
