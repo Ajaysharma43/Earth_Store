@@ -74,7 +74,7 @@ const Product_Info = () => {
           setprogress(60);
           console.log("Res: ", response.data.Product);
   
-          // Restrict the number of reviews displayed
+          
           const totalReviews = response.data.Product.Reviews || [];
           const limitedReviews = totalReviews.slice(0, limit);
   
