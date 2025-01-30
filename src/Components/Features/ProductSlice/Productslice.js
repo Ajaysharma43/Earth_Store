@@ -23,7 +23,9 @@ export const UpdateUserReveiws = createAsyncThunk('UpdateUserReviews' , async({P
 const initialState = {
     Product: {},
     Reviews : [],
-    UserReviews : []
+    UserReviews : [],
+    limit : 1,
+    ReviewLength : null,
   }; 
 
  const ProductSlice  = createSlice({
@@ -32,8 +34,28 @@ const initialState = {
     reducers:{
         setproduct :(state,action) => {
             console.log(action.payload);
-            state.Product = action.payload;
-            state.Reviews = action.payload.Reviews;
+            state.Product = action.payload.data;
+            state.Reviews = action.payload.data.Reviews;
+            state.ReviewLength = action.payload.length
+            console.log(state.ReviewLength + "review lenght");
+            console.log(state.limit + "limit")
+        },
+        LoadMore : (state , action) => {
+            console.log(state.ReviewLength + "review lenght");
+            console.log(state.limit + "limit")
+            
+            if(state.limit >= state.ReviewLength)
+            {
+                state.limit = state.ReviewLength
+            }
+            else
+            {
+                state.limit = state.limit + 2
+                if(state.limit >= state.ReviewLength)
+                {
+                    state.limit = state.ReviewLength
+                }
+            }
         }
     },
     extraReducers:(builder)=>{
@@ -50,6 +72,6 @@ const initialState = {
 
 });
 
-export const {setproduct} = ProductSlice.actions;
+export const {setproduct , LoadMore} = ProductSlice.actions;
 
 export default ProductSlice.reducer;

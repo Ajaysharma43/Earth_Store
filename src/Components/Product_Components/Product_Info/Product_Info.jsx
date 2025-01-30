@@ -14,7 +14,7 @@ import { MdZoomOutMap } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { FaSearch, FaCompress } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { setproduct } from "../../Features/ProductSlice/Productslice";
+import { LoadMore, setproduct } from "../../Features/ProductSlice/Productslice";
 import { SetCart } from "../../Features/CartSlice/CartSlice";
 import { setID } from "../../Features/Idslice/Idslice";
 import {
@@ -44,6 +44,7 @@ const Product_Info = () => {
   const ID = useSelector((state) => state.ID.ID);
   const CartData = useSelector((state) => state.Cart);
   const Qunatity = useSelector((state) => state.Qunatity.Quantity);
+  const limit = useSelector((state) => state.Product.limit);
   const [progress, setprogress] = useState(0);
   const dispatch = useDispatch();
   const [Product, setProduct] = useState({});
@@ -70,9 +71,11 @@ const Product_Info = () => {
       if (response.data != null) {
         setprogress(60);
         console.log("Res: ", response.data.Product);
-        dispatch(setproduct(response.data.Product));
+        const length  = response.data.Product.Reviews.length
+        response.data.Product.Reviews.length = limit;
+        dispatch(setproduct({data : response.data.Product , length : length}));
         dispatch(setID(id));
-
+        dispatch(LoadMore())
         setProduct(response.data.Product);
         sessionStorage.setItem("data", JSON.stringify(response.data.Product));
         setprogress(100);
@@ -82,7 +85,7 @@ const Product_Info = () => {
     };
 
     Getproducts();
-  }, [id]);
+  }, [id , limit]);
 
   const Zoom = (e) => {
     const image = Imageref.current;

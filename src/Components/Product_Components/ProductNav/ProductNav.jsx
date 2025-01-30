@@ -17,6 +17,9 @@ const ProductNav = () => {
   const [CartItems, setCartItems] = useState(Quantity);
   const dispatch = useDispatch();
 
+  console.log("product nav" + Product);
+  
+
   const increase = () => {
     dispatch(Increament(1));
     const Data = { ProductId: Product._id, Price: Price * Quantity };

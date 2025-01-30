@@ -13,7 +13,7 @@ import { ImCross } from "react-icons/im";
 import Cookies from "js-cookie";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FindUserReviews } from "../../../Features/ProductSlice/Productslice";
+import { FindUserReviews, LoadMore } from "../../../Features/ProductSlice/Productslice";
 import DescriptionContent from "../ReviewComponents/ProductDescription";
 import UpdateReview from "./UpdateComponent";
 import DeleteReview from "./DeleteReview";
@@ -23,6 +23,7 @@ const ReviewsContent = () => {
   const UserReviews = useSelector((state) => state.Product.UserReviews);
   const Reviews = useSelector((state) => state.Product.Reviews);
   const Product = useSelector((state) => state.SingleProduct.SingleProduct);
+  const limit = useSelector((state) => state.Product.limit);
   const dispatch = useDispatch();
   const [Data, setdata] = useState(Product);
   const [UserData, setuserdata] = useState(UserReviews);
@@ -41,8 +42,8 @@ const ReviewsContent = () => {
   
 
   useEffect(() => {
-    dispatch(FindUserReviews(id)); // Fetch updated reviews
-  }, [dispatch, id, UserData, ReviewData ]); 
+    dispatch(FindUserReviews(id));
+  }, [dispatch, id, Reviews, limit , ReviewData]);
 
   useEffect(() => {
     dispatch(FindUserReviews(id));
@@ -52,13 +53,13 @@ const ReviewsContent = () => {
     console.log(Data._id);
     const parsedData = JSON.parse(data);
     setdata(parsedData);
-  }, [dispatch, Product , UpdateDilog]);
+  }, [dispatch, Product , UpdateDilog , limit ]);
 
   useEffect(() => {
     if (Product) {
       console.log(UserReviews, "here is the product reviews");
     }
-  }, [Product]);
+  }, [Product , limit]);
 
   const Upload = async () => {
     const Userid = Cookies.get("ID");
@@ -154,11 +155,9 @@ const ReviewsContent = () => {
   }
   
   const onDelete = (ReviewID) => {
-   const reviewIndex = UserReviews.findIndex((item) => item._id === ReviewID)
-   if (reviewIndex !== -1) {
-    UserReviews.splice(reviewIndex, 1); 
-  }
-    
+    setuserdata((prevUserData) => prevUserData.filter((item) => item._id !== ReviewID));
+    setReviewData((prevReviewData) => prevReviewData.filter((item) => item._id !== ReviewID));
+    SetDeleteDilog(false);
   }
 
   const onSave = ({ modifiedReview, userid }) => {
@@ -225,7 +224,7 @@ const ReviewsContent = () => {
           </>
         )}
 
-        {/* All Reviews Section */}
+        
         <h1 className="text-xl font-bold mb-4">All Reviews</h1>
         {ReviewData && ReviewData.length > 0 ? (
           <div className="space-y-4">
@@ -251,6 +250,14 @@ const ReviewsContent = () => {
                 </div>
               </div>
             ))}
+            <button
+  onClick={() => {
+    dispatch(LoadMore()); // This updates the limit in Redux, triggering the useEffect to fetch more reviews.
+  }}
+  className="px-4 py-2 bg-[#74a84a] text-white rounded-md hover:bg-[#2c541d] transition duration-300"
+>
+  Load More
+</button>
           </div>
         ) : (
           <p className="text-center text-gray-600 uppercase mt-4">
@@ -294,6 +301,7 @@ const ReviewsContent = () => {
                 />
               </button>
             ))}
+  
           </div>
         </div>
         <div className="mb-4">
