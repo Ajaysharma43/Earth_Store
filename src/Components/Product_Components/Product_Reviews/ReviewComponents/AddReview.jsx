@@ -4,22 +4,24 @@ import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { BiLike, BiSolidLike } from "react-icons/bi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Upload_Review } from "../Review_Functions/Review_Functions";
 import { Email } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { Single_Product } from "../../../Features/DataSlice/SingleProduct";
 import { ImCross } from "react-icons/im";
 import Cookies from "js-cookie";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FindUserReviews, LoadMore } from "../../../Features/ProductSlice/Productslice";
 import DescriptionContent from "../ReviewComponents/ProductDescription";
 import UpdateReview from "./UpdateComponent";
 import DeleteReview from "./DeleteReview";
+import apiinstance from "../../../../../AxiosInterseptors/RefetchData";
+import axios from "axios";
 
 const ReviewsContent = () => {
-  const { id } = useParams();
+  const {id}  = useParams();
   const UserReviews = useSelector((state) => state.Product.UserReviews);
   const Reviews = useSelector((state) => state.Product.Reviews);
   const Product = useSelector((state) => state.SingleProduct.SingleProduct);
@@ -38,12 +40,13 @@ const ReviewsContent = () => {
   const Review_Name = useRef();
   const Review_Email = useRef();
   const Review = useRef();
-
+  
+  const navigate = useNavigate()
   
 
   useEffect(() => {
     dispatch(FindUserReviews(id));
-  }, [dispatch, id, Reviews, limit , ReviewData]);
+  }, [dispatch, id, limit]);
 
   useEffect(() => {
     dispatch(FindUserReviews(id));
@@ -53,7 +56,7 @@ const ReviewsContent = () => {
     console.log(Data._id);
     const parsedData = JSON.parse(data);
     setdata(parsedData);
-  }, [dispatch, Product , UpdateDilog , limit ]);
+  }, [dispatch, Product , UpdateDilog , limit  , navigate]);
 
   useEffect(() => {
     if (Product) {
@@ -62,6 +65,7 @@ const ReviewsContent = () => {
   }, [Product , limit]);
 
   const Upload = async () => {
+    const paramsid  = id
     const Userid = Cookies.get("ID");
     if (
       Review_Name.current.value &&
@@ -87,29 +91,33 @@ const ReviewsContent = () => {
           draggable: true,
           progress: undefined,
           theme: "colored",
-          transition: Bounce,
+          transition: Slide,
         });
       } else {
         console.log(Response, Product.SingleProduct);
         if (Response == "Reviewd") {
-          dispatch(Single_Product(id));
-          setReviewData((prevData) => [...prevData, Reviews]);
+          
+          const response = await axios.post(`${import.meta.env.VITE_API_URL}/Data/Product` , {id : paramsid})
+          console.log(" api data is " + response.data);
+          setReviewData(response.data.Product.Reviews)
+          // setReviewData((prevData) => [...prevData, Reviews]);
           setuserdata((prevData) => [...prevData , Reviews]);
-          Review_Name.current.value = "";
-          Review_Email.current.value = "";
-          Review.current.value = "";
-          setvalue(0);
-          toast.success("Review Added", {
+          Review_Name.current.value = null;
+          Review_Email.current.value = null;
+          Review.current.value = null;
+          setvalue(0)
+          toast.success('Reviewd', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
-            closeOnClick: true,
+            closeOnClick: false,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
-            transition: Bounce,
-          });
+            transition: Slide,
+            });
+            
         }
       }
     } else {
@@ -123,7 +131,7 @@ const ReviewsContent = () => {
         draggable: true,
         progress: undefined,
         theme: "colored",
-        transition: Bounce,
+        transition: Slide,
       });
     }
   };
@@ -267,6 +275,7 @@ const ReviewsContent = () => {
       </div>
 
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
+        <form action="" onSubmit={(e) => e.preventDefault()}>
         <h2 className="text-xl md:text-2xl font-bold mb-4">
             {
                 ReviewData.length == 0 ? 
@@ -353,20 +362,20 @@ const ReviewsContent = () => {
         >
           Submit
         </button>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          transition={Bounce}
-        />
+        </form>
       </div>
+      <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored"
+      transition={Slide}/>
     </>
   );
 };

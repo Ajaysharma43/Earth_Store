@@ -12,7 +12,10 @@ import { ImCross } from "react-icons/im";
 import Cookies from "js-cookie";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FindUserReviews, LoadMore } from "../../Features/ProductSlice/Productslice";
+import {
+  FindUserReviews,
+  LoadMore,
+} from "../../Features/ProductSlice/Productslice";
 import DescriptionContent from "./ReviewComponents/ProductDescription";
 import ReviewsContent from "./ReviewComponents/AddReview";
 
@@ -35,14 +38,13 @@ const Product_Reviews = () => {
   };
 
   useEffect(() => {
-    dispatch(LoadMore())
     setActiveContent("description");
   }, [id]);
 
   useEffect(() => {
     const Change = () => {
       dispatch(FindUserReviews(id));
-      dispatch(LoadMore())
+      dispatch(LoadMore());
       if (activeContent === "description") {
         description.current.style.borderTop = "2px solid #74a84a";
         reviews.current.style.borderTop = "none";
@@ -52,7 +54,7 @@ const Product_Reviews = () => {
       }
     };
     Change();
-  }, [activeContent,Product,limit]);
+  }, [activeContent, Product, limit]);
 
   return (
     <div className="pb-6 mt-10 border-t border-t-gray-300 px-4 lg:px-10">

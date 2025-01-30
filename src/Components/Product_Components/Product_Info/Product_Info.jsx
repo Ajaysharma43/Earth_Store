@@ -36,7 +36,7 @@ import "react-toastify/dist/ReactToastify.css";
 const URL = import.meta.env.VITE_API_URL;
 
 const Product_Info = () => {
-  const id = useParams();
+  const {id} = useParams();
   const product = useSelector((state) => state.product);
   const { isloading, iserror, SingleProduct } = useSelector(
     (state) => state.SingleProduct
