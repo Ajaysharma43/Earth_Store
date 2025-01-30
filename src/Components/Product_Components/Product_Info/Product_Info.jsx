@@ -66,26 +66,39 @@ const Product_Info = () => {
     const Getproducts = async () => {
       setprogress(30);
       dispatch(Single_Product(id));
-      console.log(SingleProduct);
-      const response = await axios.post(`${URL}/Data/Product`, { id });
-      if (response.data != null) {
-        setprogress(60);
-        console.log("Res: ", response.data.Product);
-        const length  = response.data.Product.Reviews.length
-        response.data.Product.Reviews.length = limit;
-        dispatch(setproduct({data : response.data.Product , length : length}));
-        dispatch(setID(id));
-        dispatch(LoadMore())
-        setProduct(response.data.Product);
-        sessionStorage.setItem("data", JSON.stringify(response.data.Product));
-        setprogress(100);
-      } else {
-        sessionStorage.removeItem("data");
+  
+      try {
+        const response = await axios.post(`${URL}/Data/Product`, { id });
+  
+        if (response.data) {
+          setprogress(60);
+          console.log("Res: ", response.data.Product);
+  
+          // Restrict the number of reviews displayed
+          const totalReviews = response.data.Product.Reviews || [];
+          const limitedReviews = totalReviews.slice(0, limit);
+  
+          dispatch(
+            setproduct({ data: { ...response.data.Product, Reviews: limitedReviews }, length: totalReviews.length })
+          );
+          
+          dispatch(setID(id));
+          dispatch(LoadMore());
+          setProduct({ ...response.data.Product, Reviews: limitedReviews }); // Update local state with limited reviews
+  
+          sessionStorage.setItem("data", JSON.stringify({ ...response.data.Product, Reviews: limitedReviews }));
+  
+          setprogress(100);
+        } else {
+          sessionStorage.removeItem("data");
+        }
+      } catch (error) {
+        console.error("Error fetching product data:", error);
       }
     };
-
+  
     Getproducts();
-  }, [id , limit]);
+  }, [id, limit]);
 
   const Zoom = (e) => {
     const image = Imageref.current;

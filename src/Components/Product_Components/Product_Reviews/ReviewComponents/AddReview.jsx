@@ -28,6 +28,7 @@ const ReviewsContent = () => {
   const limit = useSelector((state) => state.Product.limit);
   const dispatch = useDispatch();
   const [Data, setdata] = useState(Product);
+  const [Datalimit , setlimit] = useState(limit)
   const [UserData, setuserdata] = useState(UserReviews);
   const [ReviewData, setReviewData] = useState(Reviews);
   const [UpdateDilog , SetUpdateDilog] = useState(false)
@@ -45,6 +46,7 @@ const ReviewsContent = () => {
   
 
   useEffect(() => {
+    console.log("Current limit:", limit); // Debugging limit updates
     dispatch(FindUserReviews(id));
   }, [dispatch, id, limit]);
 
@@ -56,7 +58,7 @@ const ReviewsContent = () => {
     console.log(Data._id);
     const parsedData = JSON.parse(data);
     setdata(parsedData);
-  }, [dispatch, Product , UpdateDilog , limit  , navigate]);
+  }, [dispatch, Product , UpdateDilog , limit  , navigate , ReviewData]);
 
   useEffect(() => {
     if (Product) {
@@ -65,8 +67,9 @@ const ReviewsContent = () => {
   }, [Product , limit]);
 
   const Upload = async () => {
-    const paramsid  = id
+    const paramsid = id;
     const Userid = Cookies.get("ID");
+  
     if (
       Review_Name.current.value &&
       Review_Email.current.value &&
@@ -80,9 +83,11 @@ const ReviewsContent = () => {
         Rating: value,
         Userid: Userid,
       };
+  
       const Response = await Upload_Review({ Reviews, id, Userid });
-      if (Response == "Already Reviwed") {
-        toast.error("Already Review", {
+  
+      if (Response === "Already Reviwed") {
+        toast.error("Already Reviewed", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -94,35 +99,47 @@ const ReviewsContent = () => {
           transition: Slide,
         });
       } else {
-        console.log(Response, Product.SingleProduct);
-        if (Response == "Reviewd") {
-          
-          const response = await axios.post(`${import.meta.env.VITE_API_URL}/Data/Product` , {id : paramsid})
-          console.log(" api data is " + response.data);
-          setReviewData(response.data.Product.Reviews)
-          // setReviewData((prevData) => [...prevData, Reviews]);
-          setuserdata((prevData) => [...prevData , Reviews]);
-          Review_Name.current.value = null;
-          Review_Email.current.value = null;
-          Review.current.value = null;
-          setvalue(0)
-          toast.success('Reviewd', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Slide,
-            });
+        if (Response === "Reviewd") {
+          try {
+            const USERID = Cookies.get('ID')
+            const Reviews  = await apiinstance.get(`/UserReview?id=${USERID}&productid=${paramsid}`)
+            console.log("Review Data id " + Reviews.data.reviews);
             
+            const response = await apiinstance.post(`/Product`, { id: paramsid });
+  
+            console.log("API Data: ", response.data.Product.Reviews);
+            setReviewData(response.data.Product.Reviews);
+            setuserdata(Reviews.data.reviews);
+            console.log("reviews data is " + ReviewData);
+            
+            // Reset form fields
+            Review_Name.current.value = "";
+            Review_Email.current.value = "";
+            Review.current.value = "";
+            setvalue(0);
+  
+            toast.success("Review submitted successfully!", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Slide,
+            });
+  
+            // **Re-fetch the updated reviews from the database**
+            dispatch(FindUserReviews(id));
+          } catch (error) {
+            console.error("Error fetching updated reviews:", error);
+          }
         }
       }
     } else {
-      console.log("data is not fill completely");
-      toast.error("data is not fill completely", {
+      console.log("Data is not filled completely");
+      toast.error("Please fill in all required fields", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -135,6 +152,7 @@ const ReviewsContent = () => {
       });
     }
   };
+  
 
   const OpenDilog = (item) => {
     if(UpdateDilog == false)
@@ -181,6 +199,10 @@ const ReviewsContent = () => {
         )
       );
     SetUpdateDilog(false); 
+  };
+
+  const handleLoadMore = () => {
+    dispatch(LoadMore()); // Updates limit in Redux
   };
 
   return (
@@ -259,12 +281,10 @@ const ReviewsContent = () => {
               </div>
             ))}
             <button
-  onClick={() => {
-    dispatch(LoadMore()); // This updates the limit in Redux, triggering the useEffect to fetch more reviews.
-  }}
-  className="px-4 py-2 bg-[#74a84a] text-white rounded-md hover:bg-[#2c541d] transition duration-300"
+ onClick={handleLoadMore}
+ className="px-4 py-2 bg-[#74a84a] text-white rounded-md hover:bg-[#2c541d] transition duration-300"
 >
-  Load More
+ Load More
 </button>
           </div>
         ) : (
