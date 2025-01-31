@@ -626,6 +626,10 @@ video {
   margin: 21px;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -634,6 +638,11 @@ video {
 .my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .mb-1 {
@@ -913,6 +922,10 @@ video {
   width: 100%;
 }
 
+.w-40 {
+  width: 10rem;
+}
+
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -995,6 +1008,10 @@ video {
 
 .list-disc {
   list-style-type: disc;
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-col {
@@ -1101,6 +1118,12 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2rem * var(--tw-space-x-reverse));
+  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .overflow-hidden {
@@ -1790,6 +1813,11 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.hover\:text-gray-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
@@ -1927,6 +1955,11 @@ video {
 }
 
 @media (min-width: 768px) {
+  .md\:my-0 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
   .md\:block {
     display: block;
   }
@@ -1957,6 +1990,10 @@ video {
 
   .md\:max-w-\[500px\] {
     max-width: 500px;
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
   }
 
   .md\:gap-\[43\%\] {
@@ -2028,6 +2065,10 @@ video {
     display: block;
   }
 
+  .lg\:flex {
+    display: flex;
+  }
+
   .lg\:h-\[571px\] {
     height: 571px;
   }
@@ -2066,6 +2107,12 @@ video {
 
   .lg\:gap-\[43\%\] {
     gap: 43%;
+  }
+
+  .lg\:space-x-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(2rem * var(--tw-space-x-reverse));
+    margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
   .lg\:px-10 {
@@ -2123,6 +2170,10 @@ video {
     display: block;
   }
 
+  .xl\:flex {
+    display: flex;
+  }
+
   .xl\:h-full {
     height: 100%;
   }
@@ -2137,6 +2188,12 @@ video {
 
   .xl\:gap-\[43\%\] {
     gap: 43%;
+  }
+
+  .xl\:space-x-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(2rem * var(--tw-space-x-reverse));
+    margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
   .xl\:px-24 {
@@ -2180,7 +2237,17 @@ video {
     display: block;
   }
 
+  .\32xl\:flex {
+    display: flex;
+  }
+
   .\32xl\:gap-\[43\%\] {
     gap: 43%;
+  }
+
+  .\32xl\:space-x-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(2rem * var(--tw-space-x-reverse));
+    margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
   }
 }
