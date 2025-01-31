@@ -37,6 +37,7 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
   const [loading, setLoading] = useState(false);
   const [UpdateLoader , SetUpdateLoader] = useState(false) 
   const [DeleteLoader , setDeleteLoader] = useState(false)
+  const [uploadLoader , setUploadLoader] = useState(false)
   const [UserData, setuserdata] = useState(UserReviews);
   const [ReviewData, setReviewData] = useState(Reviews);
   const [UpdateDilog, SetUpdateDilog] = useState(false);
@@ -351,6 +352,7 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
           </p>
         )}
       </div>
+
 
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
         <form action="" onSubmit={(e) => e.preventDefault()}>
