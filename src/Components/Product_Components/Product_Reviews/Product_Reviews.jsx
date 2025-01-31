@@ -25,6 +25,7 @@ const Product_Reviews = () => {
   const Product = useSelector((state) => state.SingleProduct.SingleProduct);
   const Reviews = useSelector((state) => state.Product.Reviews);
   const limit = useSelector((state) => state.Product.limit);
+  const [datalimit, setdatalimit] = useState(Reviews.length);
   const dispatch = useDispatch();
   const description = useRef();
   const reviews = useRef();
@@ -33,9 +34,15 @@ const Product_Reviews = () => {
     if (activeContent === "description") {
       return <DescriptionContent />;
     } else if (activeContent === "reviews") {
-      return <ReviewsContent />;
+      return <ReviewsContent datalimit={datalimit} setdatalimit={setdatalimit}/>;
     }
   };
+
+  useEffect(() => {
+    if (Reviews.length > 0) {
+      setdatalimit(Reviews.length);
+    }
+  }, [Reviews]);
 
   useEffect(() => {
     setActiveContent("description");
@@ -71,7 +78,7 @@ const Product_Reviews = () => {
           className="text-sm md:text-lg font-semibold text-gray-600 hover:text-[#74a84a]"
           ref={reviews}
         >
-          Reviews({Reviews.length})
+          Reviews({datalimit})
         </button>
       </div>
       <div className="flex flex-wrap gap-4 items-start">
