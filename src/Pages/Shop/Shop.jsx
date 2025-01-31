@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import api from "../../../AxiosInterseptors/TokenVerify"
 import Cookies from 'js-cookie'
 import LoadingBar from "react-top-loading-bar"
+import Footer from "../../Components/Homepage_Components/Footer/Footer"
 
 const Shop = () => {
 
@@ -51,6 +52,7 @@ const Shop = () => {
             Navigate('/login')
           }
         }
+        window.scrollTo({ top: 0 });
         setprogress(100)
     },[])
 
@@ -67,6 +69,10 @@ const Shop = () => {
         <article className="mt-[90px] mb-[90px]">
             <Shop_Products/>
         </article>
+
+        <footer>
+          <Footer/>
+        </footer>
         </>
     )
 }

@@ -101,8 +101,9 @@ const Navbar = () => {
               <Link to='/About' style={{textDecorationLine:"none"}}>
               <li>ABOUT</li>
               </Link>
-              
+              <Link to='/Shop'>
               <li>SHOP</li>
+              </Link>
               <li>CONTACT</li>
             </ul>
           </div>

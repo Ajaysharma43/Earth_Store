@@ -56,6 +56,7 @@ const About = () => {
           Navigate('/login')
         }
       }
+      window.scrollTo({ top: 0 });
       setprogress(100)
     }, []);
 

@@ -56,6 +56,7 @@ const Product = () => {
       else{
         Navigate('/login')
       }
+      window.scrollTo({ top: 0 });
     }
 
     const handleScroll = () => {

@@ -34,6 +34,9 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
   const [Data, setdata] = useState(Product);
   const [Datalimit, setlimit] = useState(limit);
   const [Displayimit, setDisplayimit] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [UpdateLoader , SetUpdateLoader] = useState(false) 
+  const [DeleteLoader , setDeleteLoader] = useState(false)
   const [UserData, setuserdata] = useState(UserReviews);
   const [ReviewData, setReviewData] = useState(Reviews);
   const [UpdateDilog, SetUpdateDilog] = useState(false);
@@ -190,38 +193,51 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
   };
 
   const onDelete = (ReviewID) => {
-    setuserdata((prevUserData) =>
-      prevUserData.filter((item) => item._id !== ReviewID)
-    );
-    setReviewData((prevReviewData) =>
-      prevReviewData.filter((item) => item._id !== ReviewID)
-    );
-    setdatalimit(datalimit - 1);
-    SetDeleteDilog(false);
+    setDeleteLoader(true)
+    setTimeout(() => {
+      setuserdata((prevUserData) =>
+        prevUserData.filter((item) => item._id !== ReviewID)
+      );
+      setReviewData((prevReviewData) =>
+        prevReviewData.filter((item) => item._id !== ReviewID)
+      );
+      setdatalimit(datalimit - 1);
+      SetDeleteDilog(false);
+      setDeleteLoader(false)
+    }, 2000);
+    
   };
 
   const onSave = ({ modifiedReview, userid }) => {
-
-    SetUpdateDilog(false);
+    SetUpdateLoader(true)
+    setTimeout(() => {
+      setuserdata((prevUserData) =>
+        prevUserData.map((review) =>
+          review._id === userid ? { ...review, ...modifiedReview } : review
+        )
+      );
   
-    setuserdata((prevUserData) =>
-      prevUserData.map((review) =>
-        review._id === userid ? { ...review, ...modifiedReview } : review
-      )
-    );
+      setReviewData((prevReviewData) =>
+        prevReviewData.map((review) =>
+          review._id === userid ? { ...review, ...modifiedReview } : review
+        )
+      );
 
-    setReviewData((prevReviewData) =>
-      prevReviewData.map((review) =>
-        review._id === userid ? { ...review, ...modifiedReview } : review
-      )
-    );
+      SetUpdateLoader(false)
+      SetUpdateDilog(false);
+    }, 3000);
+    
   };
 
   const Loadmore = () => {
-    if (Displayimit == datalimit) {
+    if (Displayimit === datalimit) {
       setDisplayimit(datalimit);
     } else {
-      setDisplayimit(Displayimit + 1);
+      setLoading(true); // Set loading to true when more products are being loaded
+      setTimeout(() => {
+        setDisplayimit(Displayimit + 1);
+        setLoading(false); // Set loading to false after data is loaded
+      }, 3000); // Simulating an API request delay
     }
   };
 
@@ -232,12 +248,15 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
         OpenDilog={DeleteDilog}
         Review={DeletedDilog}
         onDelete={onDelete}
+        DeleteLoader={DeleteLoader}
       />
       <UpdateReview
         open={UpdateDilog}
         OpenDilog={OpenDilog}
         Review={UpdateReviews}
         onSave={onSave}
+        UpdateLoader={UpdateLoader}
+        SetUpdateLoader={SetUpdateLoader}
       />
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300 mb-6">
         {/* Your Reviews Section */}
@@ -319,7 +338,11 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
               onClick={Loadmore}
               className="px-4 py-2 bg-[#74a84a] text-white rounded-md hover:bg-[#2c541d] transition duration-300"
             >
-              Load More
+              {loading ? (
+                <div className="w-6 h-6 border-4 border-t-4 border-gray-200 border-t-[#74a84a] rounded-full animate-spin"></div>
+              ) : (
+                "Load More"
+              )}
             </button>
           </div>
         ) : (

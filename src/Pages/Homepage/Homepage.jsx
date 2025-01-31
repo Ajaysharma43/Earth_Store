@@ -57,7 +57,7 @@ const Homepage = () => {
         navigate('/login')
       }
     }
-    
+    window.scrollTo({ top: 0 });
   }, []);
 
   return (

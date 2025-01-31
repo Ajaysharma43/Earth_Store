@@ -39,14 +39,14 @@ const Product_Reviews = () => {
   };
 
   useEffect(() => {
-    if (Reviews.length > 0) {
+    setActiveContent("description");
+  }, [id]);
+
+  useEffect(() => {
+    if (Reviews.length >= 0) {
       setdatalimit(Reviews.length);
     }
   }, [Reviews]);
-
-  useEffect(() => {
-    setActiveContent("description");
-  }, [id]);
 
   useEffect(() => {
     const Change = () => {
