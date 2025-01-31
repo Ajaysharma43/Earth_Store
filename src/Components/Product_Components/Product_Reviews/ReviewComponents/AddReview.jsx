@@ -201,6 +201,9 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
   };
 
   const onSave = ({ modifiedReview, userid }) => {
+
+    SetUpdateDilog(false);
+  
     setuserdata((prevUserData) =>
       prevUserData.map((review) =>
         review._id === userid ? { ...review, ...modifiedReview } : review
@@ -212,7 +215,6 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
         review._id === userid ? { ...review, ...modifiedReview } : review
       )
     );
-    SetUpdateDilog(false);
   };
 
   const Loadmore = () => {

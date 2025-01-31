@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import api from "../../../AxiosInterseptors/TokenVerify";
 import Cookies from 'js-cookie'
+import ProductNavbar from "../../Components/Product_Components/Product_nav/Product_nav";
 
 const Product = () => {
   const [showNav, setShowNav] = useState(false);
@@ -79,18 +80,18 @@ const Product = () => {
 
   return (
     <>
-        <Navbar />
+    <Navbar/>
       <article className="w-full border-t border-t-gray-600 ">
         <Product_Info />
       </article>
 
       <article
-        className={` fixed top-0 w-full z-50 transition duration-500 ease-in-out ${
-          showNav ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-        }`}
-      >
-        <ProductNav />
-      </article>
+  className={`fixed top-0 w-full z-50 transition-transform transition-opacity duration-500 ease-in-out ${
+    showNav ? "opacity-100 translate-y-0 block" : "opacity-0 -translate-y-full hidden"
+  }`}
+>
+  <ProductNav />
+</article>
 
       <article className="w-full">
         <Product_Reviews />

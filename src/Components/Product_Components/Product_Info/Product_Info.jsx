@@ -36,7 +36,7 @@ import "react-toastify/dist/ReactToastify.css";
 const URL = import.meta.env.VITE_API_URL;
 
 const Product_Info = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   const product = useSelector((state) => state.product);
   const { isloading, iserror, SingleProduct } = useSelector(
     (state) => state.SingleProduct
@@ -66,28 +66,36 @@ const Product_Info = () => {
     const Getproducts = async () => {
       setprogress(30);
       dispatch(Single_Product(id));
-  
+
       try {
         const response = await axios.post(`${URL}/Data/Product`, { id });
-  
+
         if (response.data) {
           setprogress(60);
           console.log("Res: ", response.data.Product);
-  
-          
+
           const totalReviews = response.data.Product.Reviews || [];
           const limitedReviews = totalReviews.slice(0, limit);
-  
+
           dispatch(
-            setproduct({ data: { ...response.data.Product, Reviews: limitedReviews }, length: totalReviews.length })
+            setproduct({
+              data: { ...response.data.Product, Reviews: limitedReviews },
+              length: totalReviews.length,
+            })
           );
-          
+
           dispatch(setID(id));
           dispatch(LoadMore());
           setProduct({ ...response.data.Product, Reviews: limitedReviews }); // Update local state with limited reviews
-  
-          sessionStorage.setItem("data", JSON.stringify({ ...response.data.Product, Reviews: limitedReviews }));
-  
+
+          sessionStorage.setItem(
+            "data",
+            JSON.stringify({
+              ...response.data.Product,
+              Reviews: limitedReviews,
+            })
+          );
+
           setprogress(100);
         } else {
           sessionStorage.removeItem("data");
@@ -96,7 +104,7 @@ const Product_Info = () => {
         console.error("Error fetching product data:", error);
       }
     };
-  
+
     Getproducts();
   }, [id, limit]);
 
@@ -213,19 +221,18 @@ const Product_Info = () => {
         onClose={handleDialogClose}
         style={{ backgroundColor: "#000000b8" }}
       >
-        <div
-          ref={dilog}
-          className={`object-cover ${isFullScreen ? "fullscreen" : ""}`}
-        >
-          <div className="fixed top-4 right-4 z-20 flex gap-[20px]">
-            <button onClick={() => handleScale()}>{ZoomIcon}</button>
-            <button onClick={() => ImageFullScreen()}>{SizeAdjust}</button>
-            <button onClick={() => handleDialogClose()}>
-              <IoMdClose color="gray" size={30} />
-            </button>
-          </div>
-
-          <DialogContent className="p-0 items-center" style={{ padding: 0 }}>
+        <DialogContent className="p-0 items-center" style={{ padding: 0 }}>
+          <div
+            ref={dilog}
+            className={`object-cover ${isFullScreen ? "fullscreen" : ""}`}
+          >
+            <div className="fixed top-4 right-4 z-20 flex gap-[20px]">
+              <button onClick={() => handleScale()}>{ZoomIcon}</button>
+              <button onClick={() => ImageFullScreen()}>{SizeAdjust}</button>
+              <button onClick={() => handleDialogClose()}>
+                <IoMdClose color="gray" size={30} />
+              </button>
+            </div>
             <CardActionArea>
               <img
                 ref={DilogImage}
@@ -234,9 +241,9 @@ const Product_Info = () => {
                 className="w-[80vw] object-contain"
               />
             </CardActionArea>
-          </DialogContent>
-          <h1 className="text-center text-gray-500">{Product.Name}</h1>
-        </div>
+          </div>
+        </DialogContent>
+        <h1 className="text-center text-gray-500">{Product.Name}</h1>
       </Dialog>
 
       <div className="flex flex-wrap justify-center mt-[5%] mb-[5%] w-full h-full pl-[5%]">
