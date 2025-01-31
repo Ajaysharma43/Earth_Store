@@ -73,8 +73,8 @@ const Drawers = ({ open, toggleDrawer }) => {
                       {item.ProductName}
                     </h2>
                     <p className="text-sm text-gray-500">{item.ProductType}</p>
-                    <p className="text-base font-bold text-green-600">
-                      ${item.ProductPrice}
+                    <p className="text-base font-bold text-green-600 ">
+                      ${item.ProductPrice*item.ProductQuantity}
                     </p>
                     <div className="flex items-center mt-2 gap-2">
                       <button className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
@@ -105,7 +105,7 @@ const Drawers = ({ open, toggleDrawer }) => {
             )}
           </div>
 
-          {/* Footer Section */}
+          
           <section className="p-4 border-t bg-white">
             <Link to={"/cart"}>
               <button className="w-full py-2 mb-2 bg-[#74a84a] text-white font-semibold rounded-md shadow hover:bg-green-600 transition">

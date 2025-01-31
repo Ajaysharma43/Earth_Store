@@ -38,8 +38,10 @@ const Reducer = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      Cookies.remove("RefreshToken"); 
+      Cookies.remove("ID");
+      sessionStorage.removeItem('AccessToken')
       state.isAuthenticated = false;
-      Cookies.remove("Token"); 
     },
   },
   extraReducers: (builder) => {

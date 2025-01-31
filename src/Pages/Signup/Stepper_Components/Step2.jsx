@@ -79,7 +79,7 @@ const Step2 = ({ nextStep }) => {
     <h1
       onClick={() => ReSendOPT()}
       ref={Resend}
-      className=" hidden cursor-pointer text-blue-500 hover:text-blue-600 focus:outline-none transition duration-200"
+      className=" hidden cursor-pointer text-[#74a84a] hover:text-[#2c541d] focus:outline-none transition duration-200"
     >
       ReSend OTP
     </h1>
@@ -88,7 +88,7 @@ const Step2 = ({ nextStep }) => {
   {/* Submit Button Section */}
   <button
     type="submit"
-    className="w-full bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 active:bg-blue-700 transition duration-200"
+    className="w-full flex justify-center py-3 px-6 text-white font-medium bg-[#74a84a] hover:bg-[#2c541d]  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2c541d]"
     onClick={() => VerifyOTP()}
   >
     Submit

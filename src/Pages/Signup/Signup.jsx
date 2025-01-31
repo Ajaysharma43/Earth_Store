@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import Step1 from "./Stepper_Components/Step1";
 import Step2 from "./Stepper_Components/Step2";
 import Step3 from "./Stepper_Components/Step3";
+import SignupBG from "../../assets/Login_Images/Landscape2.jpg";
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -36,7 +37,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="p-4 max-w-lg mx-auto">
+      <div className="grid items-center justify-center min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url(${SignupBG})` }}>
         {/* Stepper */}
         <Stepper activeStep={currentStep}>
           {steps.map((step, index) => (

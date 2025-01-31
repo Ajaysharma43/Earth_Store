@@ -48,11 +48,13 @@ const Navbar = () => {
     <Drawers open={DrawerState} toggleDrawer={ToggleDrawer}/>
       <nav id="Navbar">
         <section>
+        <Link to='/' style={{textDecorationLine:"none"}}>
           <img
             src="https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/11/EARTH-STORE-200x35.png"
             alt=""
             id="Navbar_Title"
           />
+          </Link>
         </section>
 
         <section>

@@ -74,7 +74,7 @@ const Cart_Body = () => {
                   />
                 </div>
                 <span className="text-lg text-gray-800">{item.ProductName}</span>
-                <span className="text-lg text-green-600">{item.ProductPrice}</span>
+                <span className="text-lg text-green-600">{item.ProductPrice*item.ProductQuantity}</span>
                 <span className="text-lg text-gray-700">{item.ProductQuantity}</span>
                 <button
                   className="text-red-600 text-sm font-medium hover:underline"

@@ -8,13 +8,16 @@ import Cookies from "js-cookie"
 import api from "../../../AxiosInterseptors/TokenVerify";
 import "../About/About.css"
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import LoadingBar from "react-top-loading-bar";
 
 const About = () => {
 
     const Navigate = useNavigate()
+    const [progress , setprogress] = useState(0)
 
     useEffect(() => {
+      setprogress(30)
       const AccessToken = sessionStorage.getItem("AccessToken");
       const RefreshToken = Cookies.get("RefreshToken");
       if(AccessToken)
@@ -53,10 +56,15 @@ const About = () => {
           Navigate('/login')
         }
       }
+      setprogress(100)
     }, []);
 
     return(
         <>
+        <LoadingBar
+    progress={progress}
+    onLoaderFinished={() => setprogress(0)}
+    color="#74a84a"/>
         <header className="
         xl:h-full xl:w-full bg-cover bg-no-repeat
         lg:w-full lg:h-[571px]

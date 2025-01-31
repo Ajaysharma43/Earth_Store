@@ -183,7 +183,10 @@ const Product_Info = () => {
   };
 
   const handleDialogClose = () => {
+    setIsFullScreen(false);
     setOpen(false);
+    SetSizeAdjust(<MdZoomOutMap color="gray" size={20} />);
+    SetZoomIcon(<FaSearch color="gray" size={20} />);
   };
 
   const handleDialogOpen = () => {
@@ -301,7 +304,7 @@ const Product_Info = () => {
           <h1 className="mt-2 text-lg md:text-xl font-semibold text-gray-500">
             $
             {Product.Price ? (
-              Product.Price
+              Product.Price*Qunatity
             ) : (
               <PriceSkeleton className="h-5 w-1/3" />
             )}

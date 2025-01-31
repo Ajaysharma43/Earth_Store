@@ -1,12 +1,14 @@
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../Features/AuthSlice/Login";
 
 const Logout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const Removetoken = () => {
-    Cookies.remove("RefreshToken");
-    sessionStorage.removeItem('AccessToken')
+    dispatch(logout())
     navigate("/login"); 
   };
 

@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router-dom"
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar"
 import Shop_Products from "../../Components/Shop/Shop_Products/Shop_Products"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import api from "../../../AxiosInterseptors/TokenVerify"
 import Cookies from 'js-cookie'
+import LoadingBar from "react-top-loading-bar"
 
 const Shop = () => {
 
     const Navigate = useNavigate()
+    const [progress , setprogress] = useState(0)
 
     useEffect(() => {
+      setprogress(30)
         const AccessToken = sessionStorage.getItem("AccessToken");
         const RefreshToken = Cookies.get("RefreshToken");
         if(AccessToken)
@@ -48,10 +51,15 @@ const Shop = () => {
             Navigate('/login')
           }
         }
+        setprogress(100)
     },[])
 
     return(
         <>
+        <LoadingBar
+    progress={progress}
+    onLoaderFinished={() => setprogress(0)}
+    color="#74a84a"/>
         <header>
             <Navbar/>
         </header>
