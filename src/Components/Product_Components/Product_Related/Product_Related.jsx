@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Cart, SetCart } from "../../Features/CartSlice/CartSlice";
 import { Related } from "../../Features/DataSlice/RelatedProducts";
+import AddToCartLoader from "../../Loaders/CartLoader/CartLoader2";
+import AddToCartLoader2 from "../../Loaders/CartLoader/CartLoader3";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -15,6 +17,7 @@ const ProductRelated = () => {
   const [CartItems, setCartItems] = useState(Quantity);
   const ID = useSelector((state) => state.ID.ID);
   const { data } = useSelector((state) => state.related);
+  const [Addcart, setaddcart] = useState(false);
   const dispatch = useDispatch();
   const cartRefs = useRef([]);
 
@@ -28,7 +31,7 @@ const ProductRelated = () => {
           const test = ParsedUser.Type;
           const id = ParsedUser._id;
           console.log(test, "Type");
-          dispatch(Related({id, test}));
+          dispatch(Related({ id, test }));
           console.log(data);
         } catch (error) {
           console.log(error);
@@ -54,15 +57,20 @@ const ProductRelated = () => {
 
   const HandleCart = (Product) => {
     const CartData = {
-      ProductID : Product._id,
-      Name : Product.Name,
-      Type : Product.Type,
-      Price : Product.Price,
-      Image : Product.Image,
-      Description : Product.Description,
-      Quantity : Quantity
+      ProductID: Product._id,
+      Name: Product.Name,
+      Type: Product.Type,
+      Price: Product.Price,
+      Image: Product.Image,
+      Description: Product.Description,
+      Quantity: Quantity,
     };
-    dispatch(Cart({CartData}));
+    setaddcart(true)
+    setTimeout(() => {
+      dispatch(Cart({ CartData }));
+      setaddcart(false)
+    }, 3000);
+    
   };
 
   return (
@@ -89,7 +97,11 @@ const ProductRelated = () => {
                       HandleCart(item);
                     }}
                   >
-                    <FaBagShopping size={20} />
+                    {Addcart ? (
+                      <AddToCartLoader2 />
+                    ) : (
+                      <FaBagShopping size={20} />
+                    )}
                   </button>
                 </div>
               </section>

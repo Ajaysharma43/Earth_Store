@@ -1,72 +1,51 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const AddToCartLoader = () => {
   return (
     <StyledWrapper>
       <div className="loader">
-        <div className="circle" />
-        <div className="circle" />
-        <div className="circle" />
-        <div className="circle" />
+        <div className="box-load1" />
+        <div className="box-load2" />
+        <div className="box-load3" />
       </div>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .loader {
-    position: relative;
+    display: flex;
+    transition: all 0.4s;
   }
 
-  .circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 0px;
-    height: 0px;
-    border-radius: 100%;
-    opacity: 0;
-    animation: pulse_4923 4s infinite linear;
-    border: 0.5px solid #f3f3f3;
-    box-shadow: 0px 0px 5px #eef0e5;
+  .loader div {
+    margin-left: 0.8rem;
+    background-color: transparent;
+    box-shadow: 0px 2px 2px black;
+    border-radius: 3em;
+    height: 1rem;
+    width: 2rem;
   }
 
-  .circle:nth-child(1) {
-    animation-delay: .2s;
+  .box-load1 {
+    animation: brighten 1.5s infinite;
   }
 
-  .circle:nth-child(2) {
-    animation-delay: .4s;
+  .box-load2 {
+    animation: brighten 1.5s infinite;
+    animation-delay: .3s;
   }
 
-  .circle:nth-child(3) {
-    animation-delay: .8s;
+  .box-load3 {
+    animation: brighten 1.5s infinite;
+    animation-delay: .6s;
   }
 
-  .circle:nth-child(4) {
-    animation-delay: 1s;
-  }
-
-  @keyframes pulse_4923 {
-    0% {
-      opacity: 0.0;
-      width: 0px;
-      height: 0px;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    10% {
-      opacity: 0.5;
-      transform: translate(-50%, -50%) scale(2);
-    }
-
+  @keyframes brighten {
     100% {
-      opacity: 0.0;
-      width: 100px;
-      height: 100px;
-      transform: translate(-50%, -50%) scale(1);
+       background-color: #2c541d;
+    box-shadow: none;
     }
   }`;
 

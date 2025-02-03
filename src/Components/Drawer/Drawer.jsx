@@ -9,6 +9,7 @@ import {
   RemoveProduct,
 } from "../Features/CartSlice/CartSlice";
 import DeleteDilog from "../Dilogs/CartDilog/Delete";
+import { TiDeleteOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { Increament, Decreament } from "../Features/CartSlice/CartSlice";
 import Loader from "../Loaders/Loader";
@@ -18,21 +19,30 @@ const Drawers = ({ open, toggleDrawer }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [DeletedDilog, SetDeletedDilog] = useState(false);
+  const [Loading , setLoading] = useState(false)
   const [TotalPrice, setTotalPrice] = useState(0);
   const Product = useSelector((state) => state.Cart.Cart);
   const IsLoading = useSelector((state) => state.Cart.Loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(GetCart());
-      console.log(Product);
-      const total = Product.reduce(
-        (acc, item) => acc + item.Price * item.Quantity,
-        0
-      );
-      setTotalPrice(total);
-    }, 1000);
+    try
+    {
+      setTimeout(() => {
+        dispatch(GetCart());
+        console.log(Product);
+        const total = Product.reduce(
+          (acc, item) => acc + item.Price * item.Quantity,
+          0
+        );
+        setTotalPrice(total);
+      }, 100);
+    }
+    catch(error)
+    {
+      console.error("the error is " + error);
+    }
+    
   }, [Product.length]);
 
   const openDialog = (product) => {
@@ -86,7 +96,6 @@ const Drawers = ({ open, toggleDrawer }) => {
         open={open}
         anchor="right"
         onClose={toggleDrawer}
-        onLoad={(e) => e.preventDefault()}
       >
         <div className="w-[350px] h-full flex flex-col bg-gray-50 shadow-lg">
           {/* Header Section */}
@@ -103,6 +112,7 @@ const Drawers = ({ open, toggleDrawer }) => {
           {/* Cart Items Section */}
           <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
             {Product.length > 0 ? (
+              
               Product.map((item, index) => (
                 <div
                   key={index}
@@ -141,9 +151,9 @@ const Drawers = ({ open, toggleDrawer }) => {
                   </div>
                   <button
                     onClick={() => openDialog(item)}
-                    className="text-red-500 text-sm font-medium hover:underline"
+                    className="text-gray-500 transition-all duration-500  text-2xl font-medium hover:underline hover:text-blue-400"
                   >
-                    Remove
+                    <TiDeleteOutline />
                   </button>
                 </div>
               ))
@@ -156,13 +166,14 @@ const Drawers = ({ open, toggleDrawer }) => {
 
           <section className="p-4 border-t bg-white">
             <div className="w-full py-2 mb-2 bg-[#2c541d] text-white font-semibold rounded-md shadow hover:bg-green-600 transition text-center">
-              {Product.length > 0 ? (
-                <h1>Total Price : {TotalPrice}</h1>
-              ) : (
-                <div className="flex justify-center">
-                  <CartLoader />
-                </div>
-              )}
+              {DeletedDilog ? (
+  <div className="flex justify-center">
+    <CartLoader />
+  </div>
+) : (
+  <h1>Total Price: {TotalPrice}</h1>
+)}
+
             </div>
             <Link to={"/cart"}>
               <button className="w-full py-2 mb-2 bg-[#74a84a] text-white font-semibold rounded-md shadow hover:bg-[#2c541d] transition">
