@@ -8,7 +8,7 @@ import {
   Increament,
   Reset,
 } from "../../Features/CartQuantity/CartQunatity";
-import { SetCart, UpdatePrice } from "../../Features/CartSlice/CartSlice";
+import { Cart, SetCart, UpdatePrice } from "../../Features/CartSlice/CartSlice";
 import { Update } from "@mui/icons-material";
 
 const ProductNav = () => {
@@ -38,17 +38,16 @@ const ProductNav = () => {
   };
 
   const HandleCart = () => {
-    const Cart = {
-      ProductId: Product._id,
-      ProductName: Product.Name,
-      ProductType: Product.Type,
-      ProductImage: Product.Image,
-      ProductPrice: Product.Price,
-      ProductQuantity: Quantity,
+    const CartData = {
+      ProductID : Product._id,
+      Name : Product.Name,
+      Type : Product.Type,
+      Price : Product.Price,
+      Image : Product.Image,
+      Description : Product.Description,
+      Quantity : Quantity
     };
-    dispatch(SetCart(Cart));
-
-    console.log(Product);
+    dispatch(Cart({CartData}));
   };
 
   return (

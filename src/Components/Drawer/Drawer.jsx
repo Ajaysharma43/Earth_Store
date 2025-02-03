@@ -11,6 +11,7 @@ import Loader from "../Loaders/Loader";
 const Drawers = ({ open, toggleDrawer }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [DeletedDilog , SetDeletedDilog] = useState(false)
   const Product = useSelector((state) => state.Cart.Cart);
   const IsLoading = useSelector((state) => state.Cart.Loading);
   const dispatch = useDispatch()
@@ -26,7 +27,6 @@ const Drawers = ({ open, toggleDrawer }) => {
 
   const closeDialog = () => {
     setDialogOpen(false);
-    setSelectedProduct(null);
   };
 
   const increase = (item) => {
@@ -39,10 +39,15 @@ const Drawers = ({ open, toggleDrawer }) => {
     dispatch(DecreaseQunatity(item))
   }
 
-  const Remove = () => {
+  const Remove = (item) => {
     console.log(item);
-    dispatch(DeleteProduct({ProductID : selectedProduct.ProductID}))
+    SetDeletedDilog(true)
+    setTimeout(() => {
+      dispatch(DeleteProduct({ProductID : item.ProductID}))
+      SetDeletedDilog(false)
     setDialogOpen(false)
+    }, 3000);
+    
   }
 
   if(IsLoading == true)
@@ -61,6 +66,8 @@ const Drawers = ({ open, toggleDrawer }) => {
         toggleDrawer={closeDialog}
         Product={selectedProduct}
         onConfirm={Remove}
+        DeleteDilog={DeletedDilog}
+        setDeleteDilog={SetDeletedDilog}
       />
       <Drawer open={open} anchor="right" onClose={toggleDrawer} onLoad={(e) => e.preventDefault()}>
         <div className="w-[350px] h-full flex flex-col bg-gray-50 shadow-lg">

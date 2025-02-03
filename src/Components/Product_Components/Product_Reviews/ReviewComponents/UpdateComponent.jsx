@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { UpdateUserReveiws } from "../../../Features/ProductSlice/Productslice";
+import Loader from "../../../Loaders/Loader";
 
 const UpdateReview = ({
   open,
@@ -50,11 +51,7 @@ const UpdateReview = ({
           {Review ? (
             UpdateLoader ? (
               /* From Uiverse.io by Javierrocadev */
-              <div class="flex flex-row gap-2">
-                <div class="w-4 h-4 rounded-full bg-[#74a84a] animate-bounce [animation-delay:.7s]"></div>
-                <div class="w-4 h-4 rounded-full bg-[#74a84a] animate-bounce [animation-delay:.3s]"></div>
-                <div class="w-4 h-4 rounded-full bg-[#74a84a] animate-bounce [animation-delay:.7s]"></div>
-              </div>
+              <Loader/>
             ) : (
               <div className="space-y-4">
                 {/* Editable Input Field */}

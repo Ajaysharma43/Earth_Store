@@ -16,7 +16,7 @@ export const GetCart = createAsyncThunk("GetCart", async () => {
   return Response.data; // You forgot to return data
 });
 
-export const  DeleteProduct = createAsyncThunk('DeleteProduct' , async({Product}) => {
+export const  DeleteProduct = createAsyncThunk('DeleteProduct' , async({ProductID}) => {
     
     const UserID = Cookies.get('ID');
     const Response = await CartInstance.delete(`/DeleteProduct?UserID=${UserID}&ProductID=${ProductID}`)

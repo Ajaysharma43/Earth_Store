@@ -1,6 +1,7 @@
 import { Dialog, DialogContent } from "@mui/material";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Loader from "../../../Loaders/Loader";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -25,11 +26,7 @@ const DeleteReview = ({ open, OpenDilog, Review, onDelete, DeleteLoader }) => {
         <DialogContent>
           {Review ? (
             DeleteLoader ? (
-              <div class="flex flex-row gap-2">
-                <div class="w-4 h-4 rounded-full bg-[#74a84a] animate-bounce [animation-delay:.7s]"></div>
-                <div class="w-4 h-4 rounded-full bg-[#74a84a] animate-bounce [animation-delay:.3s]"></div>
-                <div class="w-4 h-4 rounded-full bg-[#74a84a] animate-bounce [animation-delay:.7s]"></div>
-              </div>
+              <Loader/>
             ) : (
               <div className="bg-white p-6 rounded-lg max-w-md mx-auto text-center">
                 <h1 className="text-xl font-bold mb-4 text-gray-800">

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaBagShopping } from "react-icons/fa6";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { SetCart } from "../../Features/CartSlice/CartSlice";
+import { Cart, SetCart } from "../../Features/CartSlice/CartSlice";
 import { Related } from "../../Features/DataSlice/RelatedProducts";
 
 const URL = import.meta.env.VITE_API_URL;
@@ -52,16 +52,17 @@ const ProductRelated = () => {
     }
   };
 
-  const HandleCart = (item) => {
-    const Cart = {
-      ProductId: item._id,
-      ProductName: item.Name,
-      ProductType: item.Type,
-      ProductImage: item.Image,
-      ProductPrice: item.Price,
-      ProductQuantity: Quantity,
+  const HandleCart = (Product) => {
+    const CartData = {
+      ProductID : Product._id,
+      Name : Product.Name,
+      Type : Product.Type,
+      Price : Product.Price,
+      Image : Product.Image,
+      Description : Product.Description,
+      Quantity : Quantity
     };
-    dispatch(SetCart(Cart));
+    dispatch(Cart({CartData}));
   };
 
   return (

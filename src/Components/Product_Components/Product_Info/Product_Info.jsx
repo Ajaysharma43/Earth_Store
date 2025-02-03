@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../Product_Info/Product_Info.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -290,7 +290,7 @@ const Product_Info = () => {
         <section className="w-[90%] md:w-[72%] flex flex-col lg:w-[38%] md:px-6 lg:px-8">
           {Product.Type && Product.Name ? (
             <h3 className="mt-2 text-sm md:text-base text-gray-500">
-              Home / {Product.Type} / {Product.Name}
+              <Link to={'/'}>Home</Link> / {Product.Type} / {Product.Name}
             </h3>
           ) : (
             <>
