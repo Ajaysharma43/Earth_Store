@@ -21,7 +21,7 @@ const Routes = () => {
         {element:<Cart/>,path:"/cart"},
         {element:<Shop/>,path:"/Shop"},
         {element:<Login/> , path:"/login"},
-        {element:<Signup/>,path:"/Signup"},
+        {element:<Signup/>,path:"/Signup" },
 
         // {Unkown Routes}
         {element:<Unknowm/>,path:"*"},

@@ -16,16 +16,32 @@ export const GetCart = createAsyncThunk("GetCart", async () => {
   return Response.data; // You forgot to return data
 });
 
-export const  DeleteProduct = createAsyncThunk('DeleteProduct' , async({ProductID}) => {
+export const  DeleteProduct = createAsyncThunk('DeleteProduct' , async({Product}) => {
+    
     const UserID = Cookies.get('ID');
     const Response = await CartInstance.delete(`/DeleteProduct?UserID=${UserID}&ProductID=${ProductID}`)
     console.log("delete data is "+Response.data);
     return Response.data;
 })
 
+export const IncreaseQunatity = createAsyncThunk('IncreaseQunatity' , async(item) => {
+    console.log("The product is : " + item);
+    const UserID = Cookies.get('ID');
+    const Response = await CartInstance.put('/IncreaseQunatity' , {UserID , ProductID:item.ProductID , Qunatity : item.Quantity})
+    return Response.data.Message;
+})
+
+export const DecreaseQunatity = createAsyncThunk('DecreaseQunatity' , async(item) => {
+    console.log("The product is : " + item);
+    const UserID = Cookies.get('ID');
+    const Response = await CartInstance.put('/DecreaseQunatity' , {UserID , ProductID:item.ProductID , Qunatity : item.Quantity})
+    return Response.data.Message;
+})
+
 const initialState = {
-  Cart: [], // Changed to array for correct state handling
+  Cart: [], 
   Message: null,
+  Loading : false
 };
 
 const CartSlice = createSlice({
@@ -60,6 +76,8 @@ const CartSlice = createSlice({
       }
     },
   },
+
+
   extraReducers: (builder) => {
     builder
       .addCase(Cart.fulfilled, (state, action) => {
@@ -74,6 +92,13 @@ const CartSlice = createSlice({
       })
       .addCase(DeleteProduct.fulfilled , (state , action) => {
         state.Cart = action.payload.Products
+      })
+      .addCase(IncreaseQunatity.fulfilled , (state , action) => {
+            state.Cart = action.payload
+      })
+      .addCase(DecreaseQunatity.fulfilled , (state , action) => {
+        state.Cart = action.payload
+        state.Loading = false
       })
   },
 });

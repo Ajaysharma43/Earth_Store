@@ -1,16 +1,18 @@
 import { Drawer } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { DeleteProduct, GetCart, RemoveProduct } from "../Features/CartSlice/CartSlice";
+import { DecreaseQunatity, DeleteProduct, GetCart, IncreaseQunatity, RemoveProduct } from "../Features/CartSlice/CartSlice";
 import DeleteDilog from "../Dilogs/CartDilog/Delete";
 import { Link } from "react-router-dom";
 import { Increament , Decreament } from "../Features/CartSlice/CartSlice";
+import Loader from "../Loaders/Loader";
 
 
 const Drawers = ({ open, toggleDrawer }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const Product = useSelector((state) => state.Cart.Cart);
+  const IsLoading = useSelector((state) => state.Cart.Loading);
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(GetCart())
@@ -28,16 +30,28 @@ const Drawers = ({ open, toggleDrawer }) => {
   };
 
   const increase = (item) => {
-    dispatch(Increament(item))
+    console.log(item);
+    dispatch(IncreaseQunatity(item))
   }
 
   const decrease = (item) => {
-    dispatch(Decreament(item))
+    console.log(item);
+    dispatch(DecreaseQunatity(item))
   }
 
   const Remove = () => {
+    console.log(item);
     dispatch(DeleteProduct({ProductID : selectedProduct.ProductID}))
     setDialogOpen(false)
+  }
+
+  if(IsLoading == true)
+  {
+    return(
+      <>
+      <Loader/>
+      </>
+    )
   }
 
   return (
@@ -48,7 +62,7 @@ const Drawers = ({ open, toggleDrawer }) => {
         Product={selectedProduct}
         onConfirm={Remove}
       />
-      <Drawer open={open} anchor="right" onClose={toggleDrawer}>
+      <Drawer open={open} anchor="right" onClose={toggleDrawer} onLoad={(e) => e.preventDefault()}>
         <div className="w-[350px] h-full flex flex-col bg-gray-50 shadow-lg">
           {/* Header Section */}
           <section className="flex items-center justify-between p-4 border-b bg-white">
@@ -84,14 +98,14 @@ const Drawers = ({ open, toggleDrawer }) => {
                     </p>
                     <div className="flex items-center mt-2 gap-2">
                       <button className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
-                      onClick={() => decrease(item.ProductID)}>
+                      onClick={() => decrease(item)}>
                         -
                       </button>
                       <span className="text-gray-800 font-medium">
                         {item.Quantity}
                       </span>
                       <button className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
-                      onClick={() => increase(item.ProductID)}>
+                      onClick={() => increase(item)}>
                         +
                       </button>
                     </div>
