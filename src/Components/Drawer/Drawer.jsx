@@ -6,28 +6,25 @@ import {
   DeleteProduct,
   GetCart,
   IncreaseQunatity,
-  RemoveProduct,
 } from "../Features/CartSlice/CartSlice";
 import DeleteDilog from "../Dilogs/CartDilog/Delete";
 import { TiDeleteOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
-import { Increament, Decreament } from "../Features/CartSlice/CartSlice";
-import Loader from "../Loaders/Loader";
 import CartLoader from "../Loaders/CartLoader/CartLoader";
+import Loader from "../Loaders/Loader";
 
 const Drawers = ({ open, toggleDrawer }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [DeletedDilog, SetDeletedDilog] = useState(false);
-  const [Loading , setLoading] = useState(false)
+  const [Loading, setLoading] = useState(false);
   const [TotalPrice, setTotalPrice] = useState(0);
   const Product = useSelector((state) => state.Cart.Cart);
   const IsLoading = useSelector((state) => state.Cart.Loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    try
-    {
+    try {
       setTimeout(() => {
         dispatch(GetCart());
         console.log(Product);
@@ -37,12 +34,9 @@ const Drawers = ({ open, toggleDrawer }) => {
         );
         setTotalPrice(total);
       }, 100);
-    }
-    catch(error)
-    {
+    } catch (error) {
       console.error("the error is " + error);
     }
-    
   }, [Product.length]);
 
   const openDialog = (product) => {
@@ -92,11 +86,7 @@ const Drawers = ({ open, toggleDrawer }) => {
         DeleteDilog={DeletedDilog}
         setDeleteDilog={SetDeletedDilog}
       />
-      <Drawer
-        open={open}
-        anchor="right"
-        onClose={toggleDrawer}
-      >
+      <Drawer open={open} anchor="right" onClose={toggleDrawer}>
         <div className="w-[350px] h-full flex flex-col bg-gray-50 shadow-lg">
           {/* Header Section */}
           <section className="flex items-center justify-between p-4 border-b bg-white">
@@ -112,12 +102,12 @@ const Drawers = ({ open, toggleDrawer }) => {
           {/* Cart Items Section */}
           <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
             {Product.length > 0 ? (
-              
               Product.map((item, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-4 p-4 border-b bg-white rounded-md shadow-sm hover:shadow-md transition"
                 >
+                  {/* Product Image */}
                   <img
                     src={item.Image}
                     alt={item.Name}
@@ -151,41 +141,42 @@ const Drawers = ({ open, toggleDrawer }) => {
                   </div>
                   <button
                     onClick={() => openDialog(item)}
-                    className="text-gray-500 transition-all duration-500  text-2xl font-medium hover:underline hover:text-blue-400"
+                    className="text-gray-500 transition-all duration-500 text-2xl font-medium hover:underline hover:text-blue-400"
                   >
                     <TiDeleteOutline />
                   </button>
+
+                  {/* Loader for each product while removing */}
+                  {DeletedDilog && (
+                    <div className="absolute inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
+                      <CartLoader />
+                    </div>
+                  )}
                 </div>
               ))
             ) : (
               <p className="text-center text-gray-500 mt-8 flex justify-center">
-                <CartLoader />
+                No products available
               </p>
             )}
           </div>
 
+          {/* Total Price & Go to Cart Button */}
           <section className="p-4 border-t bg-white">
             <div className="w-full py-2 mb-2 bg-[#2c541d] text-white font-semibold rounded-md shadow hover:bg-green-600 transition text-center">
               {DeletedDilog ? (
-  <div className="flex justify-center">
-    <CartLoader />
-  </div>
-) : (
-  <h1>Total Price: {TotalPrice}</h1>
-)}
-
+                <div className="flex justify-center">
+                  <CartLoader />
+                </div>
+              ) : (
+                <h1>Total Price: ${TotalPrice}</h1>
+              )}
             </div>
             <Link to={"/cart"}>
               <button className="w-full py-2 mb-2 bg-[#74a84a] text-white font-semibold rounded-md shadow hover:bg-[#2c541d] transition">
                 Go to Cart
               </button>
             </Link>
-            {/* <button
-              onClick={toggleDrawer}
-              className="w-full py-2 bg-red-500 text-white font-semibold rounded-md shadow hover:bg-red-600 transition"
-            >
-              Close Cart
-            </button> */}
           </section>
         </div>
       </Drawer>
