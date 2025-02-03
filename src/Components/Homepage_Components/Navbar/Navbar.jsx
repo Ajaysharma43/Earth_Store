@@ -76,7 +76,7 @@ const Navbar = () => {
 
               <button id="Navbar_Icon_Cart">
                 <FaShoppingBag size={26} onClick={ToggleDrawer}/>
-                <h6 id="Navbar_Icon_Cart_Data">{Product.length}</h6>
+                <h6 id="Navbar_Icon_Cart_Data">{Product.length ? Product.length : "0"}</h6>
               </button>
 
               <h3 id="Navbar_Icon_User">

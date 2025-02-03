@@ -1,6 +1,7 @@
 import { Dialog, DialogContent } from "@mui/material";
 
 const DeleteDilog = ({ open, toggleDrawer, Product, onConfirm }) => {
+  console.log(Product);
   return (
     <Dialog open={open} onClose={toggleDrawer}>
       <DialogContent>
@@ -8,17 +9,17 @@ const DeleteDilog = ({ open, toggleDrawer, Product, onConfirm }) => {
           <div className="flex flex-col items-center p-6 gap-6 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center gap-4">
               <img
-                src={Product.ProductImage}
-                alt={Product.ProductName}
+                src={Product.Image}
+                alt={Product.Name}
                 className="w-24 h-24 object-cover rounded-full shadow-lg"
               />
               <div className="text-center">
                 <h2 className="text-xl font-semibold text-gray-800">
-                  {Product.ProductName}
+                  {Product.Name}
                 </h2>
-                <p className="text-sm text-gray-500">{Product.ProductType}</p>
+                <p className="text-sm text-gray-500">{Product.Type}</p>
                 <p className="text-xl font-bold text-[#74a84a]">
-                  ${Product.ProductPrice}
+                  ${Product.Price}
                 </p>
               </div>
             </div>
@@ -26,7 +27,7 @@ const DeleteDilog = ({ open, toggleDrawer, Product, onConfirm }) => {
             {/* Confirmation Message */}
             <p className="text-center text-gray-600 text-base font-medium">
               Are you sure you want to remove{" "}
-              <span className="text-gray-800 font-semibold">{Product.ProductName}</span>{" "}
+              <span className="text-gray-800 font-semibold">{Product.Name}</span>{" "}
               from your cart?
             </p>
 

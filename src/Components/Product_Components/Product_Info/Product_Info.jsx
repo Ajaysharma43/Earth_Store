@@ -15,7 +15,7 @@ import { IoMdClose } from "react-icons/io";
 import { FaSearch, FaCompress } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { LoadMore, setproduct } from "../../Features/ProductSlice/Productslice";
-import { SetCart } from "../../Features/CartSlice/CartSlice";
+import { Cart, SetCart } from "../../Features/CartSlice/CartSlice";
 import { setID } from "../../Features/Idslice/Idslice";
 import {
   Increament,
@@ -198,18 +198,31 @@ const Product_Info = () => {
     Image.style.object = Image.style.transform = "scale(1.9)";
   };
 
-  const HandleCart = () => {
-    const Cart = {
-      ProductId: Product._id,
-      ProductName: Product.Name,
-      ProductType: Product.Type,
-      ProductImage: Product.Image,
-      ProductPrice: Product.Price,
-      ProductQuantity: CartItems,
-    };
-    console.log(Cart);
-    dispatch(SetCart(Cart));
-  };
+  // const HandleCart = () => {
+  //   const Cart = {
+  //     ProductId: Product._id,
+  //     ProductName: Product.Name,
+  //     ProductType: Product.Type,
+  //     ProductImage: Product.Image,
+  //     ProductPrice: Product.Price,
+  //     ProductQuantity: CartItems,
+  //   };
+  //   console.log(Cart);
+  //   dispatch(SetCart(Cart));
+  // };
+
+  const AddCart = () => {
+    const CartData = {
+      ProductID : Product._id,
+      Name : Product.Name,
+      Type : Product.Type,
+      Price : Product.Price,
+      Image : Product.Image,
+      Description : Product.Description,
+      Quantity : Qunatity
+    }
+    dispatch(Cart({CartData}))
+  }
 
   return (
     <>
@@ -340,7 +353,7 @@ const Product_Info = () => {
             <span>
               <button
                 className="w-[140px] sm:w-[155px] h-10 ml-4 bg-[#74a84a] text-white uppercase tracking-wide text-sm md:text-base transition duration-500 hover:bg-[#2c541d]"
-                onClick={() => HandleCart()}
+                onClick={() => AddCart()}
               >
                 Add to cart
               </button>

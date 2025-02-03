@@ -2,7 +2,7 @@ import errorImage from "../../../assets/Homapage_Images/a9588ac4be92480bbf420071
 import { useDispatch, useSelector } from "react-redux";
 import DeleteDilog from "../../Dilogs/CartDilog/Delete";
 import { useState } from "react";
-import { RemoveProduct } from "../../Features/CartSlice/CartSlice";
+import { DeleteProduct, RemoveProduct } from "../../Features/CartSlice/CartSlice";
 
 const Cart_Body = () => {
   const Cart = useSelector((state) => state.Cart.Cart);
@@ -17,10 +17,12 @@ const Cart_Body = () => {
   };
 
   // Remove product from the cart using the selected product
-  const remove = () => {
+  const remove = (Product) => {
     if (selectedProduct) {
-      dispatch(RemoveProduct(selectedProduct.ProductId));
-      setDilogState(false); // Close the dialog after removing the product
+      console.log(Product);
+      
+      dispatch(DeleteProduct({ProductID : Product.ProductID}));
+      setDilogState(false); 
     }
   };
 
@@ -30,7 +32,7 @@ const Cart_Body = () => {
       {Cart.map((item) => (
         <DeleteDilog
           key={item.ProductId}
-          open={DilogState && selectedProduct?.ProductId === item.ProductId}
+          open={DilogState && selectedProduct?.ProductID === item.ProductID}
           toggleDrawer={ToggleDilog}
           Product={item}
           onConfirm={remove}
@@ -68,14 +70,14 @@ const Cart_Body = () => {
               >
                 <div className="flex items-center">
                   <img
-                    src={item.ProductImage}
-                    alt={item.ProductName}
+                    src={item.Image}
+                    alt={item.Name}
                     className="w-20 h-20 object-cover rounded-md"
                   />
                 </div>
-                <span className="text-lg text-gray-800">{item.ProductName}</span>
-                <span className="text-lg text-green-600">{item.ProductPrice*item.ProductQuantity}</span>
-                <span className="text-lg text-gray-700">{item.ProductQuantity}</span>
+                <span className="text-lg text-gray-800">{item.Name}</span>
+                <span className="text-lg text-green-600">{item.Price*item.Quantity}</span>
+                <span className="text-lg text-gray-700">{item.Quantity}</span>
                 <button
                   className="text-red-600 text-sm font-medium hover:underline"
                   onClick={() => ToggleDilog(item)} // Trigger dialog for removal
