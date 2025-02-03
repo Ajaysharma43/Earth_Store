@@ -32,6 +32,8 @@ import LoadingBar from "react-top-loading-bar";
 import { Single_Product } from "../../Features/DataSlice/SingleProduct";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CartLoader from "../../Loaders/CartLoader/CartLoader";
+import AddToCartLoader from "../../Loaders/CartLoader/CartLoader2";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -51,6 +53,7 @@ const Product_Info = () => {
   const [CartItems, setCartItems] = useState(Qunatity);
   const [open, setOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [AddToCart, setAddToCart] = useState(false);
   const [SizeAdjust, SetSizeAdjust] = useState(
     <MdZoomOutMap color="gray" size={20} />
   );
@@ -213,16 +216,20 @@ const Product_Info = () => {
 
   const AddCart = () => {
     const CartData = {
-      ProductID : Product._id,
-      Name : Product.Name,
-      Type : Product.Type,
-      Price : Product.Price,
-      Image : Product.Image,
-      Description : Product.Description,
-      Quantity : Qunatity
-    }
-    dispatch(Cart({CartData}))
-  }
+      ProductID: Product._id,
+      Name: Product.Name,
+      Type: Product.Type,
+      Price: Product.Price,
+      Image: Product.Image,
+      Description: Product.Description,
+      Quantity: Qunatity,
+    };
+    setAddToCart(true);
+    setTimeout(() => {
+      dispatch(Cart({ CartData }));
+      setAddToCart(false);
+    }, 5000);
+  };
 
   return (
     <>
@@ -290,7 +297,7 @@ const Product_Info = () => {
         <section className="w-[90%] md:w-[72%] flex flex-col lg:w-[38%] md:px-6 lg:px-8">
           {Product.Type && Product.Name ? (
             <h3 className="mt-2 text-sm md:text-base text-gray-500">
-              <Link to={'/'}>Home</Link> / {Product.Type} / {Product.Name}
+              <Link to={"/"}>Home</Link> / {Product.Type} / {Product.Name}
             </h3>
           ) : (
             <>
@@ -317,7 +324,7 @@ const Product_Info = () => {
           <h1 className="mt-2 text-lg md:text-xl font-semibold text-gray-500">
             $
             {Product.Price ? (
-              Product.Price*Qunatity
+              Product.Price * Qunatity
             ) : (
               <PriceSkeleton className="h-5 w-1/3" />
             )}
@@ -355,7 +362,13 @@ const Product_Info = () => {
                 className="w-[140px] sm:w-[155px] h-10 ml-4 bg-[#74a84a] text-white uppercase tracking-wide text-sm md:text-base transition duration-500 hover:bg-[#2c541d]"
                 onClick={() => AddCart()}
               >
-                Add to cart
+                {AddToCart == true ? (
+                  <div className="">
+                    <AddToCartLoader />
+                  </div>
+                ) : (
+                  "Add to cart"
+                )}
               </button>
             </span>
           </h1>

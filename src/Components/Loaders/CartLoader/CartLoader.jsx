@@ -20,7 +20,7 @@ const StyledWrapper = styled.div`
 
   .loader {
     fill: none;
-    stroke: #106ee8;
+    stroke: #74a84a;
     stroke-width: 10;
     stroke-dasharray: 2, 200;
     stroke-dashoffset: 0;
