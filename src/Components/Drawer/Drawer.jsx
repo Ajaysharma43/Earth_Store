@@ -43,7 +43,7 @@ const Drawers = ({ open, toggleDrawer }) => {
     } catch (error) {
       console.error("the error is " + error);
     }
-  }, []);
+  }, [Product.length]);
 
   const openDialog = (product) => {
     setSelectedProduct(product);
@@ -65,6 +65,11 @@ const Drawers = ({ open, toggleDrawer }) => {
     console.log(item);
     dispatch(DecreaseQunatity(item));
     dispatch(Decreament(item._id))
+    CalCulateTotal()
+    if(item.Quantity == 0)
+    {
+      dispatch(DeleteProduct({ ProductID: item.ProductID }));
+    }
     CalCulateTotal()
   };
 
