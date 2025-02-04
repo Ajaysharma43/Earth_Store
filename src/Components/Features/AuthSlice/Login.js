@@ -38,8 +38,7 @@ const Reducer = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      Cookies.remove("RefreshToken"); 
-      Cookies.remove("ID");
+      Cookies.remove("RefreshToken");
       sessionStorage.removeItem('AccessToken')
       state.isAuthenticated = false;
     },
@@ -59,10 +58,6 @@ const Reducer = createSlice({
           Cookies.set("RefreshToken", action.payload.refreshToken, {
             expires: 7
           });
-          
-          Cookies.set("ID" , action.payload.ID , {
-            expires: 7
-          })
           sessionStorage.setItem("AccessToken" , action.payload.AccessToken)
         }
         else

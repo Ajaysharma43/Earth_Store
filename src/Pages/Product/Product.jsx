@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import api from "../../../AxiosInterseptors/TokenVerify";
 import Cookies from 'js-cookie'
 import ProductNavbar from "../../Components/Product_Components/Product_nav/Product_nav";
+import { jwtDecode } from "jwt-decode";
 
 const Product = () => {
   const [showNav, setShowNav] = useState(false);
@@ -20,44 +21,45 @@ const Product = () => {
   useEffect(() => {
 
     const AccessToken = sessionStorage.getItem("AccessToken");
-    const RefreshToken = Cookies.get("RefreshToken");
-    if(AccessToken)
-    {
-      if (RefreshToken) {
-        const req = async () => {
-          const response = await api.post("/VerifyRoute");
-          if (response.data.message == "expired") {
-            const response = await api.post("/RefreshToken", { RefreshToken });
-            console.log(response.data);
-            if (response.data.message == "NotExisted") {
-              Navigate("/login");
-            } else if (response.data.message == "expired") {
-              Navigate("/login");
+      const RefreshToken = Cookies.get("RefreshToken");
+      const Decoded = jwtDecode(RefreshToken)
+      if(AccessToken)
+      { 
+        if (RefreshToken) {
+          const req = async () => {
+            const response = await api.post("/VerifyRoute");
+            if (response.data.message == "expired") {
+              const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID });
+              console.log(response.data);
+              if (response.data.message == "NotExisted") {
+                Navigate("/login");
+              } else if (response.data.message == "expired") {
+                Navigate("/login");
+              }
+              sessionStorage.setItem("AccessToken", response.data.AccessToken);
             }
+          };
+          req();
+        } else {
+          Navigate("/login");
+        }
+      }
+      else
+      {
+        if(RefreshToken)
+        {
+          const getaccesstoken = async() => {
+            const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID });
+            console.log(response.data);
             sessionStorage.setItem("AccessToken", response.data.AccessToken);
           }
-        };
-        req();
-      } else {
-        Navigate("/login");
-      }
-    }
-    else
-    {
-      if(RefreshToken)
-      {
-        const getaccesstoken = async() => {
-          const response = await api.post("/RefreshToken", { RefreshToken });
-          console.log(response.data);
-          sessionStorage.setItem("AccessToken", response.data.AccessToken);
+          getaccesstoken()
         }
-        getaccesstoken()
-      }
-      else{
-        Navigate('/login')
+        else{
+          Navigate('/login')
+        }
       }
       window.scrollTo({ top: 0 });
-    }
 
     const handleScroll = () => {
       const scrollHeight = document.documentElement.scrollHeight; // Total page height
