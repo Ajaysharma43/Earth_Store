@@ -79,21 +79,26 @@ const CartSlice = createSlice({
       state.Cart = state.Cart.filter((item) => item.ProductId !== action.payload);
     },
     UpdatePrice: (state, action) => {
-      const Existed = state.Cart.find((item) => item.ProductId === action.payload.ProductId);
+      const Existed = state.Cart.find((item) => item._id === action.payload);
       if (Existed) {
         Existed.ProductPrice = action.payload.ProductPrice;
       }
     },
     Increament: (state, action) => {
-      const Existed = state.Cart.find((item) => item.ProductId === action.payload);
+      const Existed = state.Cart.find((item) => item._id === action.payload);
+      console.log("existed product is "+Existed);
       if (Existed) {
-        Existed.ProductQuantity += 1;
+        Existed.Quantity += 1;
       }
     },
     Decreament: (state, action) => {
-      const Existed = state.Cart.find((item) => item.ProductId === action.payload);
-      if (Existed && Existed.ProductQuantity > 1) {
-        Existed.ProductQuantity -= 1;
+      const Existed = state.Cart.find((item) => item._id === action.payload);
+      if (Existed && Existed.Quantity > 1) {
+        Existed.Quantity -= 1;
+        if(Existed.Quantity == 0)
+        {
+          state.Cart.filter((item) => item._id === action.payload)
+        }
       }
     },
   },
@@ -113,13 +118,6 @@ const CartSlice = createSlice({
       })
       .addCase(DeleteProduct.fulfilled , (state , action) => {
         state.Cart = action.payload.Products
-      })
-      .addCase(IncreaseQunatity.fulfilled , (state , action) => {
-            state.Cart = action.payload
-      })
-      .addCase(DecreaseQunatity.fulfilled , (state , action) => {
-        state.Cart = action.payload
-        state.Loading = false
       })
   },
 });

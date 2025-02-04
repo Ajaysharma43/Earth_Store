@@ -1,14 +1,18 @@
 import errorImage from "../../../assets/Homapage_Images/a9588ac4be92480bbf420071afe1043d.png";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteDilog from "../../Dilogs/CartDilog/Delete";
-import { useState } from "react";
-import { DeleteProduct, RemoveProduct } from "../../Features/CartSlice/CartSlice";
+import { useEffect, useState } from "react";
+import { DeleteProduct, GetCart, RemoveProduct } from "../../Features/CartSlice/CartSlice";
 
 const Cart_Body = () => {
-  const Cart = useSelector((state) => state.Cart.Cart);
+  const Cart = useSelector((state) => Array.isArray(state.Cart.Cart) ? state.Cart.Cart : []);
   const dispatch = useDispatch();
   const [DilogState, setDilogState] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    dispatch(GetCart())
+  },[])
 
   // Toggle dialog visibility and select a product for removal
   const ToggleDilog = (item) => {
@@ -29,6 +33,7 @@ const Cart_Body = () => {
   return (
     <>
       {/* Iterate through cart items and render dialog for each item */}
+
       {Cart.map((item) => (
         <DeleteDilog
           key={item.ProductId}
@@ -47,7 +52,7 @@ const Cart_Body = () => {
         
         
         {/* If cart is empty, display a message */}
-        {Cart.length === 0 ? (
+        {Cart.length == 0 ? (
           <div className="text-center text-xl text-gray-600">
             <p>Your cart is empty.</p>
           </div>

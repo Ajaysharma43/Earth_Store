@@ -2,9 +2,11 @@ import { Drawer } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  Decreament,
   DecreaseQunatity,
   DeleteProduct,
   GetCart,
+  Increament,
   IncreaseQunatity,
 } from "../Features/CartSlice/CartSlice";
 import DeleteDilog from "../Dilogs/CartDilog/Delete";
@@ -23,21 +25,25 @@ const Drawers = ({ open, toggleDrawer }) => {
   const IsLoading = useSelector((state) => state.Cart.Loading);
   const dispatch = useDispatch();
 
+  const CalCulateTotal = () => {
+    const total = Product.reduce(
+      (acc, item) => acc + item.Price * item.Quantity,
+      0
+    );
+    setTotalPrice(total);
+  }
+
   useEffect(() => {
     try {
       setTimeout(() => {
         dispatch(GetCart());
         console.log(Product);
-        const total = Product.reduce(
-          (acc, item) => acc + item.Price * item.Quantity,
-          0
-        );
-        setTotalPrice(total);
+        CalCulateTotal()
       }, 100);
     } catch (error) {
       console.error("the error is " + error);
     }
-  }, [Product.length]);
+  }, []);
 
   const openDialog = (product) => {
     setSelectedProduct(product);
@@ -48,14 +54,18 @@ const Drawers = ({ open, toggleDrawer }) => {
     setDialogOpen(false);
   };
 
-  const increase = (item) => {
+  const increase = async (item) => {
     console.log(item);
     dispatch(IncreaseQunatity(item));
+    dispatch(Increament(item._id))
+    CalCulateTotal()
   };
 
-  const decrease = (item) => {
+  const decrease = async (item) => {
     console.log(item);
     dispatch(DecreaseQunatity(item));
+    dispatch(Decreament(item._id))
+    CalCulateTotal()
   };
 
   const Remove = (item) => {
@@ -65,6 +75,7 @@ const Drawers = ({ open, toggleDrawer }) => {
       dispatch(DeleteProduct({ ProductID: item.ProductID }));
       SetDeletedDilog(false);
       setDialogOpen(false);
+      CalCulateTotal()
     }, 3000);
   };
 
