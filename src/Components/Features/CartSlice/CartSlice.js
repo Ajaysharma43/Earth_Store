@@ -1,24 +1,37 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import CartInstance from "../../../../AxiosInterseptors/CartInterseptors";
 import Cookies from "js-cookie";
+import {jwtDecode}  from 'jwt-decode'
 
 // Add to Cart
 export const Cart = createAsyncThunk("CartSlice", async ({ CartData }) => {
-  const Userid = Cookies.get("ID");
+  const AccessToken = sessionStorage.getItem('AccessToken')
+    const decoded = jwtDecode(AccessToken)
+    console.log("decoded token is here" + decoded);
+    
+    const Userid = decoded.ID;
   const Response = await CartInstance.post("/AddCart", { Userid, CartData });
   return Response.data;
 });
 
 // Get Cart
 export const GetCart = createAsyncThunk("GetCart", async () => {
-  const Userid = Cookies.get("ID");
+  const AccessToken = sessionStorage.getItem('AccessToken')
+    const decoded = jwtDecode(AccessToken)
+    console.log("decoded token is here" + decoded);
+    
+    const Userid = decoded.ID;
   const Response = await CartInstance.get(`/GetCart?UserID=${Userid}`);
   return Response.data; // You forgot to return data
 });
 
 export const  DeleteProduct = createAsyncThunk('DeleteProduct' , async({ProductID}) => {
     
-    const UserID = Cookies.get('ID');
+    const AccessToken = sessionStorage.getItem('AccessToken')
+      const decoded = jwtDecode(AccessToken)
+      console.log("decoded token is here" + decoded);
+      
+      const UserID = decoded.ID;
     const Response = await CartInstance.delete(`/DeleteProduct?UserID=${UserID}&ProductID=${ProductID}`)
     console.log("delete data is "+Response.data);
     return Response.data;
@@ -26,14 +39,22 @@ export const  DeleteProduct = createAsyncThunk('DeleteProduct' , async({ProductI
 
 export const IncreaseQunatity = createAsyncThunk('IncreaseQunatity' , async(item) => {
     console.log("The product is : " + item);
-    const UserID = Cookies.get('ID');
+    const AccessToken = sessionStorage.getItem('AccessToken')
+      const decoded = jwtDecode(AccessToken)
+      console.log("decoded token is here" + decoded);
+      
+      const UserID = decoded.ID;
     const Response = await CartInstance.put('/IncreaseQunatity' , {UserID , ProductID:item.ProductID , Qunatity : item.Quantity})
     return Response.data.Message;
 })
 
 export const DecreaseQunatity = createAsyncThunk('DecreaseQunatity' , async(item) => {
     console.log("The product is : " + item);
-    const UserID = Cookies.get('ID');
+    const AccessToken = sessionStorage.getItem('AccessToken')
+      const decoded = jwtDecode(AccessToken)
+      console.log("decoded token is here" + decoded);
+      
+      const UserID = decoded.ID;
     const Response = await CartInstance.put('/DecreaseQunatity' , {UserID , ProductID:item.ProductID , Qunatity : item.Quantity})
     return Response.data.Message;
 })

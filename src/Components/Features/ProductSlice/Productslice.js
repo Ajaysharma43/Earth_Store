@@ -1,11 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import axios from "axios";
+import {jwtDecode}  from 'jwt-decode'
 
 const URL = import.meta.env.VITE_API_URL;
 
 export const FindUserReviews = createAsyncThunk("FindUserReviews", async (id) => {
-  const USERID = Cookies.get("ID");
+  const AccessToken = sessionStorage.getItem('AccessToken')
+  const decoded = jwtDecode(AccessToken)
+  console.log("decoded token is here" + decoded);
+  
+  const USERID = decoded.ID;
   console.log("FindUserReviews is called");
 
   const response = await axios.get(`${URL}/Data/UserReview?id=${USERID}&productid=${id}`);
@@ -13,7 +18,11 @@ export const FindUserReviews = createAsyncThunk("FindUserReviews", async (id) =>
 });
 
 export const UpdateUserReveiws = createAsyncThunk("UpdateUserReviews", async ({ ProductID, ID, Review }) => {
-  const USERID = Cookies.get("ID");
+  const AccessToken = sessionStorage.getItem('AccessToken')
+  const decoded = jwtDecode(AccessToken)
+  console.log("decoded token is here" + decoded);
+  
+  const USERID = decoded.ID;
   console.log("Updating User Review:", USERID);
 
   const response = await axios.put(`${URL}/Data/UpdateReview`, { USERID, ID, Review, ProductID });

@@ -12,7 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import api from "../../../AxiosInterseptors/TokenVerify";
 import Cookies from "js-cookie";
-
+import { jwtDecode } from "jwt-decode";
 const URL = import.meta.env.VITE_API_URL;
 
 const Homepage = () => {
@@ -21,13 +21,14 @@ const Homepage = () => {
   useEffect(() => {
     const AccessToken = sessionStorage.getItem("AccessToken");
     const RefreshToken = Cookies.get("RefreshToken");
+    const Decoded = jwtDecode(RefreshToken)
     if(AccessToken)
-    {
+    { 
       if (RefreshToken) {
         const req = async () => {
           const response = await api.post("/VerifyRoute");
           if (response.data.message == "expired") {
-            const response = await api.post("/RefreshToken", { RefreshToken });
+            const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded });
             console.log(response.data);
             if (response.data.message == "NotExisted") {
               navigate("/login");
@@ -47,7 +48,7 @@ const Homepage = () => {
       if(RefreshToken)
       {
         const getaccesstoken = async() => {
-          const response = await api.post("/RefreshToken", { RefreshToken });
+          const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded });
           console.log(response.data);
           sessionStorage.setItem("AccessToken", response.data.AccessToken);
         }

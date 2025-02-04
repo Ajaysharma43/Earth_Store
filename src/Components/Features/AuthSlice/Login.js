@@ -63,7 +63,7 @@ const Reducer = createSlice({
           Cookies.set("ID" , action.payload.ID , {
             expires: 7
           })
-          sessionStorage.setItem("AccessToken" , action.payload.token)
+          sessionStorage.setItem("AccessToken" , action.payload.AccessToken)
         }
         else
         {

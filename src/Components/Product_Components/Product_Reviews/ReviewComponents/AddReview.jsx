@@ -23,6 +23,7 @@ import DeleteReview from "./DeleteReview";
 import apiinstance from "../../../../../AxiosInterseptors/RefetchData";
 import axios from "axios";
 import { Snackbar } from "@mui/material";
+import { jwtDecode } from "jwt-decode";
 
 const ReviewsContent = ({ datalimit, setdatalimit }) => {
   const { id } = useParams();
@@ -35,9 +36,9 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
   const [Datalimit, setlimit] = useState(limit);
   const [Displayimit, setDisplayimit] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [UpdateLoader , SetUpdateLoader] = useState(false) 
-  const [DeleteLoader , setDeleteLoader] = useState(false)
-  const [uploadLoader , setUploadLoader] = useState(false)
+  const [UpdateLoader, SetUpdateLoader] = useState(false);
+  const [DeleteLoader, setDeleteLoader] = useState(false);
+  const [uploadLoader, setUploadLoader] = useState(false);
   const [UserData, setuserdata] = useState(UserReviews);
   const [ReviewData, setReviewData] = useState(Reviews);
   const [UpdateDilog, SetUpdateDilog] = useState(false);
@@ -80,7 +81,9 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
 
   const Upload = async () => {
     const paramsid = id;
-    const Userid = Cookies.get("ID");
+    const AccessToken = sessionStorage.getItem("AccessToken");
+    const decoded = jwtDecode(AccessToken);
+    const Userid = decoded.ID;
 
     if (
       Review_Name.current.value &&
@@ -125,7 +128,9 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
           });
         } else if (Response === "Reviewd") {
           try {
-            const USERID = Cookies.get("ID");
+            const AccessToken = sessionStorage.getItem("AccessToken");
+            const decoded = jwtDecode(AccessToken);
+            const USERID = decoded.ID;
 
             // Fetch user review data
             const Reviews = await apiinstance.get(
@@ -194,7 +199,7 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
   };
 
   const onDelete = (ReviewID) => {
-    setDeleteLoader(true)
+    setDeleteLoader(true);
     setTimeout(() => {
       setuserdata((prevUserData) =>
         prevUserData.filter((item) => item._id !== ReviewID)
@@ -204,30 +209,28 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
       );
       setdatalimit(datalimit - 1);
       SetDeleteDilog(false);
-      setDeleteLoader(false)
+      setDeleteLoader(false);
     }, 2000);
-    
   };
 
   const onSave = ({ modifiedReview, userid }) => {
-    SetUpdateLoader(true)
+    SetUpdateLoader(true);
     setTimeout(() => {
       setuserdata((prevUserData) =>
         prevUserData.map((review) =>
           review._id === userid ? { ...review, ...modifiedReview } : review
         )
       );
-  
+
       setReviewData((prevReviewData) =>
         prevReviewData.map((review) =>
           review._id === userid ? { ...review, ...modifiedReview } : review
         )
       );
 
-      SetUpdateLoader(false)
+      SetUpdateLoader(false);
       SetUpdateDilog(false);
     }, 3000);
-    
   };
 
   const Loadmore = () => {
@@ -352,7 +355,6 @@ const ReviewsContent = ({ datalimit, setdatalimit }) => {
           </p>
         )}
       </div>
-
 
       <div className="w-full max-w-3xl lg:max-w-screen-lg xl:max-w-screen-xl mx-auto p-6 md:p-8 bg-white rounded-lg text-gray-800 border border-gray-300">
         <form action="" onSubmit={(e) => e.preventDefault()}>
