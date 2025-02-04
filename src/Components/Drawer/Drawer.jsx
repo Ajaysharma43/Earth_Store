@@ -21,7 +21,7 @@ const Drawers = ({ open, toggleDrawer }) => {
   const [DeletedDilog, SetDeletedDilog] = useState(false);
   const [Loading, setLoading] = useState(false);
   const [TotalPrice, setTotalPrice] = useState(0);
-  const Product = useSelector((state) => state.Cart.Cart);
+  const Product = useSelector((state) => state.Cart.Cart) || [];
   const IsLoading = useSelector((state) => state.Cart.Loading);
   const dispatch = useDispatch();
 
@@ -34,16 +34,17 @@ const Drawers = ({ open, toggleDrawer }) => {
   }
 
   useEffect(() => {
+    CalCulateTotal()
+  },[Product])
+
+  useEffect(() => {
     try {
-      setTimeout(() => {
         dispatch(GetCart());
-        console.log(Product);
-        CalCulateTotal()
-      }, 100);
+        
     } catch (error) {
       console.error("the error is " + error);
     }
-  }, [Product.length]);
+  }, []);
 
   const openDialog = (product) => {
     setSelectedProduct(product);
@@ -65,10 +66,9 @@ const Drawers = ({ open, toggleDrawer }) => {
     console.log(item);
     dispatch(DecreaseQunatity(item));
     dispatch(Decreament(item._id))
-    CalCulateTotal()
-    if(item.Quantity == 0)
+    if(item.Quantity == 1)
     {
-      dispatch(DeleteProduct({ ProductID: item.ProductID }));
+      openDialog(item)
     }
     CalCulateTotal()
   };

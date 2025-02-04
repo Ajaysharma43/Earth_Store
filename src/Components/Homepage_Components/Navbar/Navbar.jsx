@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaShoppingBag, FaUser, FaBars   } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import "./Navbar.css";
@@ -9,10 +9,12 @@ import Drawers from "../../Drawer/Drawer";
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const Quantity = useSelector((state) => state.Cart)
-  const Product = useSelector((state) => state.Cart.Cart)
+  const Product = useSelector((state) => state.Cart.Cart) || []
   const [CartItems, setCartItems] = useState(Quantity.length);
   const [DrawerState , setDrawerState] = useState(false)
   const [icon,seticon] = useState(<FaBars/>)
+
+
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -76,7 +78,7 @@ const Navbar = () => {
 
               <button id="Navbar_Icon_Cart">
                 <FaShoppingBag size={26} onClick={ToggleDrawer}/>
-                <h6 id="Navbar_Icon_Cart_Data">{Product.length ? Product.length : "0"}</h6>
+                <h6 id="Navbar_Icon_Cart_Data">{Product.length ? Product.length : 0}</h6>
               </button>
 
               <h3 id="Navbar_Icon_User">
