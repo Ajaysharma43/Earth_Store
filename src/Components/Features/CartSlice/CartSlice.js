@@ -94,7 +94,7 @@ const CartSlice = createSlice({
     Decreament: (state, action) => {
       const Existed = state.Cart.find((item) => item._id === action.payload);
       if (Existed && Existed.Quantity > 1) {
-        Existed.Quantity -= 1;
+        Existed.Quantity -= 1; 
         if(Existed.Quantity === 1)
         {
           // state.Cart.filter((item) => item._id === action.payload)
