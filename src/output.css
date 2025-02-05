@@ -652,6 +652,10 @@ video {
   z-index: 50;
 }
 
+.m-3 {
+  margin: 0.75rem;
+}
+
 .m-9 {
   margin: 2.25rem;
 }
@@ -900,6 +904,10 @@ video {
   width: 4rem;
 }
 
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .w-24 {
   width: 6rem;
 }
@@ -954,6 +962,10 @@ video {
 
 .w-\[90px\] {
   width: 90px;
+}
+
+.w-auto {
+  width: auto;
 }
 
 .w-full {
@@ -1110,6 +1122,10 @@ video {
 
 .gap-\[0\%\] {
   gap: 0%;
+}
+
+.gap-\[10\%\] {
+  gap: 10%;
 }
 
 .gap-\[16\%\] {

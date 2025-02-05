@@ -12,6 +12,7 @@ import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
 import Loader from "../Components/Loaders/Loader";
 import DashBoardProducts from "../Components/DashBoardPages/DashboardProductsPage/DashBoardProductsPage";
+import Checkout from "../Pages/Checkout/Checkout";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -22,6 +23,7 @@ const Routes = () => {
         {element:<Shop/>,path:"/Shop"},
         {element:<Login/> , path:"/login"},
         {element:<Signup/>,path:"/Signup" },
+        {element:<Checkout/>,path:"/Checkout"},
 
         // {Unkown Routes}
         {element:<Unknowm/>,path:"*"},

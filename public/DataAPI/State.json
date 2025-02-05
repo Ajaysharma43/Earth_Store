@@ -1,0 +1,178 @@
+[
+    {
+      "name": "Andhra Pradesh",
+      "code": "AP",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Flag_of_Andhra_Pradesh.png"
+    },
+    {
+      "name": "Arunachal Pradesh",
+      "code": "AR",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/2/28/Flag_of_Arunachal_Pradesh.png"
+    },
+    {
+      "name": "Assam",
+      "code": "AS",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Assam.png"
+    },
+    {
+      "name": "Bihar",
+      "code": "BR",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Bihar.png"
+    },
+    {
+      "name": "Chhattisgarh",
+      "code": "CG",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Chhattisgarh.png"
+    },
+    {
+      "name": "Goa",
+      "code": "GA",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Goa.png"
+    },
+    {
+      "name": "Gujarat",
+      "code": "GJ",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Gujarat.png"
+    },
+    {
+      "name": "Haryana",
+      "code": "HR",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Haryana.png"
+    },
+    {
+      "name": "Himachal Pradesh",
+      "code": "HP",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/8/81/Flag_of_Himachal_Pradesh.png"
+    },
+    {
+      "name": "Jharkhand",
+      "code": "JH",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_Jharkhand.png"
+    },
+    {
+      "name": "Karnataka",
+      "code": "KA",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Karnataka.png"
+    },
+    {
+      "name": "Kerala",
+      "code": "KL",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flag_of_Kerala.png"
+    },
+    {
+      "name": "Madhya Pradesh",
+      "code": "MP",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Madhya_Pradesh.png"
+    },
+    {
+      "name": "Maharashtra",
+      "code": "MH",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Maharashtra.png"
+    },
+    {
+      "name": "Manipur",
+      "code": "MN",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Flag_of_Manipur.png"
+    },
+    {
+      "name": "Meghalaya",
+      "code": "ML",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Meghalaya.png"
+    },
+    {
+      "name": "Mizoram",
+      "code": "MZ",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Flag_of_Mizoram.png"
+    },
+    {
+      "name": "Nagaland",
+      "code": "NL",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Flag_of_Nagaland.png"
+    },
+    {
+      "name": "Odisha",
+      "code": "OD",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Flag_of_Odisha.png"
+    },
+    {
+      "name": "Punjab",
+      "code": "PB",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Punjab.png"
+    },
+    {
+      "name": "Rajasthan",
+      "code": "RJ",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Flag_of_Rajasthan.png"
+    },
+    {
+      "name": "Sikkim",
+      "code": "SK",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Sikkim.png"
+    },
+    {
+      "name": "Tamil Nadu",
+      "code": "TN",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Tamil_Nadu.png"
+    },
+    {
+      "name": "Telangana",
+      "code": "TG",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_Telangana.png"
+    },
+    {
+      "name": "Tripura",
+      "code": "TR",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Flag_of_Tripura.png"
+    },
+    {
+      "name": "Uttar Pradesh",
+      "code": "UP",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/9/98/Flag_of_Uttar_Pradesh.png"
+    },
+    {
+      "name": "Uttarakhand",
+      "code": "UK",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Flag_of_Uttarakhand.png"
+    },
+    {
+      "name": "West Bengal",
+      "code": "WB",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_West_Bengal.png"
+    },
+    {
+      "name": "Andaman and Nicobar Islands",
+      "code": "AN",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Andaman_and_Nicobar_Islands.png"
+    },
+    {
+      "name": "Chandigarh",
+      "code": "CH",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Chandigarh.png"
+    },
+    {
+      "name": "Delhi",
+      "code": "DL",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Delhi.png"
+    },
+    {
+      "name": "Jammu and Kashmir",
+      "code": "JK",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_Jammu_and_Kashmir.png"
+    },
+    {
+      "name": "Ladakh",
+      "code": "LA",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Ladakh.png"
+    },
+    {
+      "name": "Lakshadweep",
+      "code": "LD",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Lakshadweep.png"
+    },
+    {
+      "name": "Puducherry",
+      "code": "PY",
+      "flag": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Puducherry.png"
+    }
+  ]
+  
