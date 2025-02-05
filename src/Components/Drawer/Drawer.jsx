@@ -1,5 +1,5 @@
 import { Drawer } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Decreament,
@@ -23,6 +23,7 @@ const Drawers = ({ open, toggleDrawer }) => {
   const [TotalPrice, setTotalPrice] = useState(0);
   const Product = useSelector((state) => state.Cart.Cart) || [];
   const IsLoading = useSelector((state) => state.Cart.Loading);
+  const Decreaseref = useRef();
   const dispatch = useDispatch();
 
   const CalCulateTotal = () => {
@@ -31,16 +32,15 @@ const Drawers = ({ open, toggleDrawer }) => {
       0
     );
     setTotalPrice(total);
-  }
+  };
 
   useEffect(() => {
-    CalCulateTotal()
-  },[Product])
+    CalCulateTotal();
+  }, [Product]);
 
   useEffect(() => {
     try {
-        dispatch(GetCart());
-        
+      dispatch(GetCart());
     } catch (error) {
       console.error("the error is " + error);
     }
@@ -58,19 +58,16 @@ const Drawers = ({ open, toggleDrawer }) => {
   const increase = async (item) => {
     console.log(item);
     dispatch(IncreaseQunatity(item));
-    dispatch(Increament(item._id))
-    CalCulateTotal()
+    dispatch(Increament(item._id));
+    CalCulateTotal();
   };
 
   const decrease = async (item) => {
     console.log(item);
     dispatch(DecreaseQunatity(item));
-    dispatch(Decreament(item._id))
-    if(item.Quantity == 1)
-    {
-      openDialog(item)
-    }
-    CalCulateTotal()
+    dispatch(Decreament(item._id));
+
+    CalCulateTotal();
   };
 
   const Remove = (item) => {
@@ -80,7 +77,7 @@ const Drawers = ({ open, toggleDrawer }) => {
       dispatch(DeleteProduct({ ProductID: item.ProductID }));
       SetDeletedDilog(false);
       setDialogOpen(false);
-      CalCulateTotal()
+      CalCulateTotal();
     }, 3000);
   };
 
@@ -138,12 +135,22 @@ const Drawers = ({ open, toggleDrawer }) => {
                       ${item.Price * item.Quantity}
                     </p>
                     <div className="flex items-center mt-2 gap-2">
-                      <button
-                        className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+                      {item.Quantity == 1 ? (
+                        <button
+                        disabled
+                        className="px-3 py-1 bg-gray-50 text-gray-300 rounded-md hover:bg-gray-100 "
+                      >
+                        -
+                      </button>
+                      ) : (
+                        
+                        <button
+                        className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 "
                         onClick={() => decrease(item)}
                       >
                         -
                       </button>
+                      )}
                       <span className="text-gray-800 font-medium">
                         {item.Quantity}
                       </span>

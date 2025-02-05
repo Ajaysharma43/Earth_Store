@@ -41,10 +41,7 @@ const Cart_Body = () => {
         console.log(item);
         dispatch(DecreaseQunatity(item));
         dispatch(Decreament(item._id))
-        if(item.Quantity == 1)
-        {
-          ToggleDilog(item)
-        }
+        
       };
 
   return (
@@ -97,7 +94,8 @@ const Cart_Body = () => {
                         <td className="p-3 border border-gray-300 text-green-600 font-semibold">${item.Price * item.Quantity}</td>
                         <td className="p-3 border border-gray-300">
                           <ButtonGroup>
-                            <button className="w-8 h-8 border text-[#74a84a] text-sm" onClick={() => decrease(item)}>-</button>
+                            <button
+                            className={`w-8 h-8 border text-[#74a84a] text-sm disabled:opacity-0`}  onClick={() => decrease(item)}>-</button>
                             <span className="w-8 h-8 flex items-center justify-center border text-gray-500 text-sm">{item.Quantity}</span>
                             <button className="w-8 h-8 border text-[#74a84a] text-sm" onClick={() => increase(item)}>+</button>
                           </ButtonGroup>
