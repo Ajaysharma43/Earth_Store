@@ -60,7 +60,8 @@ export const DecreaseQunatity = createAsyncThunk('DecreaseQunatity' , async(item
 })
 
 const initialState = {
-  Cart: [], 
+  Cart: [],
+  Total: null, 
   Message: null,
   Loading : false
 };
@@ -97,11 +98,16 @@ const CartSlice = createSlice({
         Existed.Quantity -= 1; 
         if(Existed.Quantity === 1)
         {
-          // state.Cart.filter((item) => item._id === action.payload)
           Existed.Quantity = 1
         }
       }
     },
+    CalcualteTotal : (state , action) => {
+      state.Total = state.Cart.reduce(
+        (acc, item) => acc + item.Price * item.Quantity,
+        0
+      );
+    }
   },
 
 
@@ -123,5 +129,5 @@ const CartSlice = createSlice({
   },
 });
 
-export const { SetCart, UpdatePrice, RemoveProduct, Increament, Decreament } = CartSlice.actions;
+export const { SetCart, UpdatePrice, RemoveProduct, Increament, Decreament , CalcualteTotal} = CartSlice.actions;
 export default CartSlice.reducer;
