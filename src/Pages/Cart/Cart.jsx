@@ -4,6 +4,7 @@ import Cookies from "js-cookie"
 import api from "../../../AxiosInterseptors/TokenVerify"
 import { useEffect } from "react"
 import { jwtDecode } from "jwt-decode"
+import Checkout_Payment from "../../Components/Checkout_Component/Checkout_Payment"
 
 const Cart = () => {
     const Navigate = useNavigate();
@@ -54,6 +55,9 @@ const Cart = () => {
         <>
         <article>
             <Cart_Body/>
+        </article>
+        <article>
+          <Checkout_Payment/>
         </article>
         </>
     )

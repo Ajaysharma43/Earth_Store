@@ -34,7 +34,6 @@ const CheckoutReducer = createSlice({
                 // state.loading = false;
                 // state.checkoutData = action.payload.invoice;  
                 console.log("the payload is " + action.payload);
-
             })
             .addCase(HandleCheckout.rejected, (state, action) => {
                 state.loading = false;

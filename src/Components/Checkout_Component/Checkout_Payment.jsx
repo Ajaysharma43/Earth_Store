@@ -28,10 +28,9 @@ const Checkout_Payment = () => {
     }, [Product.length, dispatch]);
 
     const handleToken = (token) => {
-        // Ensure token is passed correctly
         if (token) {
-            console.log("Received token:", token);  // For debugging
-            dispatch(HandleCheckout({token : token , amount:(Total + ShippingCharges) * 100}));  // Make sure HandleCheckout is designed to handle the token
+            console.log("Received token:", token); 
+            dispatch(HandleCheckout({token : token , amount:(Total + ShippingCharges) * 100})); 
         } else {
             console.error("No token received");
         }
@@ -40,13 +39,14 @@ const Checkout_Payment = () => {
     return (
         <>
             <div className="border border-solid bg-gray-100 m-2">
-                <h1>SubTotal : {Total}</h1>
-                <h1>ShippingCharges : {ShippingCharges}</h1>
-                <h1>Final Total : {Total + ShippingCharges}</h1>
+                <h1>SubTotal : ${Total}</h1>
+                <h1>ShippingCharges : ${ShippingCharges}</h1>
+                <h1>Final Total : ${Total + ShippingCharges}</h1>
 
                 <StripeCheckout
-                    stripeKey={import.meta.env.VITE_API_STRIPE_KEY}  // Ensure correct Stripe key is set
-                    token={handleToken}  // Ensure handleToken is passed correctly
+                    alipay={true}
+                    stripeKey={import.meta.env.VITE_API_STRIPE_KEY}  
+                    token={handleToken}  
                     currency="USD"
                     description="fill all the details"
                     amount={(Total + ShippingCharges) * 100}
