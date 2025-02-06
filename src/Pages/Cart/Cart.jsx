@@ -56,9 +56,6 @@ const Cart = () => {
         <article>
             <Cart_Body/>
         </article>
-        <article>
-          <Checkout_Payment/>
-        </article>
         </>
     )
 }

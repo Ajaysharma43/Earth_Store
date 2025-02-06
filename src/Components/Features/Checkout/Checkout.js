@@ -15,25 +15,29 @@ export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async 
     }
 });
 
+const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts' , async () => {
+    const response = await axios.post('')
+})
+
 const initialState = {
     loading: false,
     error: null,
     checkoutData: {},
+    invoiceid: "",
+    success : false
 };
 
 const CheckoutReducer = createSlice({
     name: 'checkout',
     initialState,
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(HandleCheckout.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(HandleCheckout.fulfilled, (state, action) => {
-                // state.loading = false;
-                // state.checkoutData = action.payload.invoice;  
-                console.log("the payload is " + action.payload);
+            .addCase(HandleCheckout.fulfilled, (state, action) => { 
+                console.log("the payload is " + action.payload.success);
+                state.success = action.payload.success
             })
             .addCase(HandleCheckout.rejected, (state, action) => {
                 state.loading = false;

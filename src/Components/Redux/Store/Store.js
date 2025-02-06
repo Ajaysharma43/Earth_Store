@@ -9,6 +9,7 @@ import Product from "../../Features/ProductSlice/Productslice"
 import related from "../../Features/DataSlice/RelatedProducts"
 import Otp from "../../Features/AuthSlice/Signup"
 import Login from "../../Features/AuthSlice/Login"
+import CheckoutReducer from "../../Features/Checkout/Checkout"
 
 export default configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export default configureStore({
     SingleProduct : SingleProduct,
     related : related,
     UserData : Otp,
-    Login : Login
+    Login : Login,
+    Checkout : CheckoutReducer
   },
 })

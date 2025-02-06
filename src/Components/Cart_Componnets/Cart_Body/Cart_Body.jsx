@@ -12,6 +12,7 @@ import {
   IncreaseQunatity,
 } from "../../Features/CartSlice/CartSlice";
 import { ButtonGroup } from "@mui/material";
+import Checkout_Payment from "../../Checkout_Component/Checkout_Payment";
 
 const Cart_Body = () => {
   const Cart = useSelector((state) =>
@@ -217,7 +218,9 @@ const Cart_Body = () => {
             </h1>
           )}
         </div>
+        <Checkout_Payment/>
       </div>
+     
     </>
   );
 };
