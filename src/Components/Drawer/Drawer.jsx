@@ -132,7 +132,7 @@ const Drawers = ({ open, toggleDrawer }) => {
                     </h2>
                     <p className="text-sm text-gray-500">{item.Type}</p>
                     <p className="text-base font-bold text-green-600 ">
-                      ${item.Price * item.Quantity}
+                    ${item.Price * item.Quantity}
                     </p>
                     <div className="flex items-center mt-2 gap-2">
                       {item.Quantity == 1 ? (

@@ -10,7 +10,7 @@ const Checkout = () => {
             <Navbar/>
         </nav>
 
-        <article className="flex justify-center gap-[10%] w-full">
+        <article className="flex flex-wrap justify-center gap-[10%] w-full">
             <section className="w-1/2">
                 <Checkout_Address/>
             </section>

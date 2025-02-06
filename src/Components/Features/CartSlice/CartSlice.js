@@ -102,10 +102,9 @@ const CartSlice = createSlice({
         }
       }
     },
-    CalcualteTotal : (state , action) => {
-      state.Total = state.Cart.reduce(
-        (acc, item) => acc + item.Price * item.Quantity,
-        0
+    CalcualteTotal: (state, action) => {
+      state.Total = parseFloat(
+        state.Cart.reduce((acc, item) => acc + item.Price * item.Quantity, 0).toFixed(2)
       );
     }
   },
