@@ -27,7 +27,6 @@ export const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts', async
         const UserID = decoded.ID;
     console.log("the product are " , Product);
     const response = await CheckoutInstance.delete(`/CheckoutCart?Product=${Product}&UserID=${UserID}`)
-    Cart()
 })
 
 const initialState = {

@@ -61,6 +61,7 @@ export const DecreaseQunatity = createAsyncThunk('DecreaseQunatity' , async(item
 
 const initialState = {
   Cart: [],
+  Checkout : [],
   Total: null, 
   Message: null,
   Loading : false
@@ -121,6 +122,7 @@ const CartSlice = createSlice({
       })
       .addCase(GetCart.fulfilled, (state, action) => {
         state.Cart = action.payload.Message || []; 
+        state.Checkout = action.payload.CheckoutProducts
       })
       .addCase(DeleteProduct.fulfilled , (state , action) => {
         state.Cart = action.payload.Products

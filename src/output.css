@@ -652,6 +652,10 @@ video {
   z-index: 50;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .m-3 {
   margin: 0.75rem;
 }
@@ -666,10 +670,6 @@ video {
 
 .m-\[21px\] {
   margin: 21px;
-}
-
-.m-2 {
-  margin: 0.5rem;
 }
 
 .mx-auto {
@@ -851,6 +851,10 @@ video {
   height: 40px;
 }
 
+.h-\[50px\] {
+  height: 50px;
+}
+
 .h-auto {
   height: auto;
 }
@@ -870,10 +874,6 @@ video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[50px\] {
-  height: 50px;
 }
 
 .max-h-\[400px\] {
@@ -1228,10 +1228,6 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
-}
-
-.rounded-sm {
-  border-radius: 0.125rem;
 }
 
 .border {
