@@ -78,7 +78,7 @@ const Checkout_Payment = () => {
                         billingAddress
                         shippingAddress={false}
                     >
-                        <button className="mt-5 w-full bg-orange-500 hover:bg-orange-600 transition-all text-white text-lg py-3 rounded-md uppercase">
+                        <button className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-md uppercase">
                             Buy Now
                         </button>
                     </StripeCheckout>

@@ -102,7 +102,7 @@ const Cart_Body = () => {
                     <td className="p-3 border border-gray-300 text-gray-800 font-medium">
                       {item.Name}
                     </td>
-                    <td className="p-3 border border-gray-300 text-green-600 font-semibold">
+                    <td className="p-3 border border-gray-300 text-[#74a84a] font-semibold">
                       ${parseFloat((item.Price * item.Quantity).toFixed(2))}
                     </td>
                     <td className="p-3 border border-gray-300">
@@ -122,7 +122,7 @@ const Cart_Body = () => {
                           {item.Quantity}
                         </span>
                         <button
-                          className="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600"
+                          className="px-3 py-1 bg-[#74a84a] text-white rounded-md hover:bg-[#2c541d]"
                           onClick={() => increase(item)}
                         >
                           +
@@ -180,7 +180,7 @@ const Cart_Body = () => {
                         {item.Quantity}
                       </span>
                       <button
-                        className="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600"
+                        className="px-3 py-1 bg-[#74a84a] text-white rounded-md hover:bg-green-600"
                         onClick={() => increase(item)}
                       >
                         +
