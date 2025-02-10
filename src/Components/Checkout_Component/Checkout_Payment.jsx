@@ -30,13 +30,15 @@ const Checkout_Payment = () => {
         SetShippingCharges(Cart.length * salesTaxRate);
     };
 
+
+
     useEffect(() => {
         console.log("Cart is:", Cart);
         dispatch(GetCart());
         dispatch(CalcualteTotal());
         CalCulateTotal();
         CheckoutProducts();
-    }, [Cart, dispatch, Success]);
+    }, [Cart.length, dispatch, Success]);
 
     const handleToken = (token) => {
         if (token) {

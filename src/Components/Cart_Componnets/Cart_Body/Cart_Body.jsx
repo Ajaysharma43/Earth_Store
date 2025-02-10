@@ -12,7 +12,6 @@ import {
   IncreaseQunatity,
 } from "../../Features/CartSlice/CartSlice";
 import Checkout_Payment from "../../Checkout_Component/Checkout_Payment";
-import Loader from "../../Loaders/Loader";
 
 const Cart_Body = () => {
   const Cart = useSelector((state) =>
@@ -27,7 +26,7 @@ const Cart_Body = () => {
   useEffect(() => {
     dispatch(GetCart());
     console.log("Cart data:", Cart);
-  }, [Checkout , Loading]);
+  }, [Checkout]);
 
   const ToggleDilog = (item) => {
     setDilogState((prevState) => !prevState);
@@ -51,15 +50,7 @@ const Cart_Body = () => {
     dispatch(DecreaseQunatity(item));
     dispatch(Decreament(item._id));
   };
-
-  if(Loading == true)
-  {
-    return(
-      <>
-      <Loader/>
-      </>
-    )
-  }
+  
 
   return (
     <>
@@ -74,7 +65,7 @@ const Cart_Body = () => {
     ))}
     <div className="min-h-screen bg-gray-100 flex flex-row justify-center flex-wrap items-center py-10 px-4">
       {Cart.length > 0 ? (
-        <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-6">
+        <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-6 m-[5%]">
           <h2 className="text-2xl font-semibold text-gray-800 text-center mb-6">
             Shopping Cart
           </h2>
@@ -160,13 +151,13 @@ const Cart_Body = () => {
                     <TiDeleteOutline size={24} />
                   </button>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 flex-wrap">
                   <img
                     src={item.Image}
                     alt={item.Name}
                     className="w-16 h-16 object-cover rounded-md"
                   />
-                  <div className="flex flex-col">
+                  <div className="flex flex-wrap">
                     <span className="text-gray-600">
                       Price:{" "}
                       <span className="text-green-600 font-semibold">
@@ -213,7 +204,7 @@ const Cart_Body = () => {
         </div>
       )}
 
-      {/* Checkout Section */}
+      
       <Checkout_Payment />
     </div>
     </>

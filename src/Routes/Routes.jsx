@@ -14,6 +14,7 @@ import Loader from "../Components/Loaders/Loader";
 import DashBoardProducts from "../Components/DashBoardPages/DashboardProductsPage/DashBoardProductsPage";
 import Checkout from "../Pages/Checkout/Checkout";
 import ORDERS from "../Pages/Orders/Orders";
+import User_Profile from "../Pages/User_Profile/User_Profile";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -26,6 +27,7 @@ const Routes = () => {
         {element:<Signup/>,path:"/Signup" },
         {element:<Checkout/>,path:"/Checkout"},
         {element:<ORDERS/>,path:"/Orders"},
+        {element:<User_Profile/>,path:"/userProfile"},
 
         // {Unkown Routes}
         {element:<Unknowm/>,path:"*"},
