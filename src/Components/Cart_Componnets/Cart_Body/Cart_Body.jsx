@@ -24,6 +24,8 @@ const Cart_Body = () => {
 
   useEffect(() => {
     dispatch(GetCart());
+    console.log(Cart);
+    
   }, []);
 
   // Toggle dialog visibility and select a product for removal

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CalcualteTotal, GetCart } from "../Features/CartSlice/CartSlice";
 import StripeCheckout from "react-stripe-checkout";
-import { HandleCheckout } from "../Features/Checkout/Checkout";
+import { AddCheckoutProducts, HandleCheckout } from "../Features/Checkout/Checkout";
 
 const Checkout_Payment = () => {
-    const Product = useSelector((state) => (Array.isArray(state.Cart.Cart) ? state.Cart.Cart : []));
+    const Cart = useSelector((state) =>state.Cart.Cart)
     const Total = useSelector((state) => state.Cart.Total);
     const Success = useSelector((state) => state.Checkout.success)
     const [TotalPrice, setTotalPrice] = useState(0);
@@ -13,29 +13,31 @@ const Checkout_Payment = () => {
     const dispatch = useDispatch();
 
     const CheckoutProducts = () => {
-      if(Success == true)
-      {
-        console.log("products are checkout");
-        
-      }
-    }
+        if (Success === true) {
+            console.log("checkout payment:", Cart);  
+            dispatch(AddCheckoutProducts({ Product: Cart }));
+        }
+    };
+    
 
     const CalCulateTotal = () => {
         const salesTaxRate = 10;
-        const total = Product.reduce(
+        const total = Cart.reduce(
             (acc, item) => acc + item.Price * item.Quantity,
             0
         );
         setTotalPrice(total);
-        SetShippingCharges(Product.length * salesTaxRate);
+        SetShippingCharges(Cart.length * salesTaxRate);
     };
 
     useEffect(() => {
+        console.log("cart is " + Cart);
+        
         dispatch(GetCart());
         dispatch(CalcualteTotal());
         CalCulateTotal();
         CheckoutProducts()
-    }, [Product.length, dispatch , Success]);
+    }, [Cart.length, dispatch , Success]);
 
     const handleToken = (token) => {
         if (token) {

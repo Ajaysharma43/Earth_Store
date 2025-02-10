@@ -120,7 +120,7 @@ const CartSlice = createSlice({
         }
       })
       .addCase(GetCart.fulfilled, (state, action) => {
-        state.Cart = action.payload.Message || []; // Set cart data from backend
+        state.Cart = action.payload.Message || []; 
       })
       .addCase(DeleteProduct.fulfilled , (state , action) => {
         state.Cart = action.payload.Products

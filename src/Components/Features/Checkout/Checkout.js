@@ -1,12 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import CheckoutInstance from "../../../../AxiosInterseptors/CheckoutInterseptor";
 
 
 export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async ({ token, amount }) => {
     try {
-        console.log("the token is " + token);
-
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Checkout/Buy`, { token: token, amount: amount });
+        const AccessToken = sessionStorage.getItem('AccessToken')
+        const decoded = jwtDecode(AccessToken)
+        console.log("decoded token is here" + decoded);
+        const UserID = decoded.ID;
+        const response = await CheckoutInstance.post(`/Buy`, { token: token, amount: amount, UserID: UserID });
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -15,8 +19,13 @@ export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async 
     }
 });
 
-const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts' , async () => {
-    const response = await axios.post('')
+export const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts', async ({ Product }) => {
+    const AccessToken = sessionStorage.getItem('AccessToken')
+        const decoded = jwtDecode(AccessToken)
+        console.log("decoded token is here" , decoded);
+        const UserID = decoded.ID;
+    console.log("the product are " , Product);
+    const response = await CheckoutInstance.delete(`/CheckoutCart?Product=${Product}&UserID=${UserID}`)
 })
 
 const initialState = {
@@ -24,7 +33,7 @@ const initialState = {
     error: null,
     checkoutData: {},
     invoiceid: "",
-    success : false
+    success: false
 };
 
 const CheckoutReducer = createSlice({
@@ -33,9 +42,10 @@ const CheckoutReducer = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(HandleCheckout.pending, (state) => {
+                state.success = false
                 state.loading = true;
             })
-            .addCase(HandleCheckout.fulfilled, (state, action) => { 
+            .addCase(HandleCheckout.fulfilled, (state, action) => {
                 console.log("the payload is " + action.payload.success);
                 state.success = action.payload.success
             })
