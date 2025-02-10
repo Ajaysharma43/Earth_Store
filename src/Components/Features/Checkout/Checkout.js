@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import CheckoutInstance from "../../../../AxiosInterseptors/CheckoutInterseptor";
+import { Cart } from "../CartSlice/CartSlice";
 
 
 export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async ({ token, amount }) => {
@@ -26,9 +27,11 @@ export const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts', async
         const UserID = decoded.ID;
     console.log("the product are " , Product);
     const response = await CheckoutInstance.delete(`/CheckoutCart?Product=${Product}&UserID=${UserID}`)
+    Cart()
 })
 
 const initialState = {
+    Checkout: false,
     loading: false,
     error: null,
     checkoutData: {},
@@ -52,7 +55,13 @@ const CheckoutReducer = createSlice({
             .addCase(HandleCheckout.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-            });
+            })
+            .addCase(AddCheckoutProducts.pending , (state , action) => {
+                state.Checkout = false
+            })
+            .addCase(AddCheckoutProducts.fulfilled , (state , action) => {
+                state.Checkout = true
+            })
     }
 });
 

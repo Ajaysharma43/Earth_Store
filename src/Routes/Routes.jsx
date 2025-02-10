@@ -13,6 +13,7 @@ import Signup from "../Pages/Signup/Signup";
 import Loader from "../Components/Loaders/Loader";
 import DashBoardProducts from "../Components/DashBoardPages/DashboardProductsPage/DashBoardProductsPage";
 import Checkout from "../Pages/Checkout/Checkout";
+import ORDERS from "../Pages/Orders/Orders";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -24,6 +25,7 @@ const Routes = () => {
         {element:<Login/> , path:"/login"},
         {element:<Signup/>,path:"/Signup" },
         {element:<Checkout/>,path:"/Checkout"},
+        {element:<ORDERS/>,path:"/Orders"},
 
         // {Unkown Routes}
         {element:<Unknowm/>,path:"*"},

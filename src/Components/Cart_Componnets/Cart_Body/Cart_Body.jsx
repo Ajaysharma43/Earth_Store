@@ -18,6 +18,8 @@ const Cart_Body = () => {
   const Cart = useSelector((state) =>
     Array.isArray(state.Cart.Cart) ? state.Cart.Cart : []
   );
+  const Checkout = useSelector((state) => state.Checkout.Checkout);
+  const Success = useSelector((state) => state.Checkout.success)
   const dispatch = useDispatch();
   const [DilogState, setDilogState] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -26,7 +28,7 @@ const Cart_Body = () => {
     dispatch(GetCart());
     console.log(Cart);
     
-  }, []);
+  }, [Checkout]);
 
   // Toggle dialog visibility and select a product for removal
   const ToggleDilog = (item) => {

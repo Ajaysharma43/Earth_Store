@@ -76,6 +76,10 @@ const Navbar = () => {
 
               <h3 className="Navbar_Element">CONTACT</h3>
 
+              <Link to='/Orders'>
+              <h3 className="Navbar_Element">ORDERS</h3>
+              </Link>
+
               <button id="Navbar_Icon_Cart">
                 <FaShoppingBag size={26} onClick={ToggleDrawer}/>
                 <h6 id="Navbar_Icon_Cart_Data">{Product.length ? Product.length : 0}</h6>
@@ -107,6 +111,9 @@ const Navbar = () => {
               <li>SHOP</li>
               </Link>
               <li>CONTACT</li>
+              <Link to='/Orders'>
+              <li>ORDERS</li>
+              </Link>
             </ul>
           </div>
         )}
