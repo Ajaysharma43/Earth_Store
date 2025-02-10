@@ -35,12 +35,18 @@ const initialState = {
     error: null,
     checkoutData: {},
     invoiceid: "",
-    success: false
+    success: false,
 };
 
 const CheckoutReducer = createSlice({
     name: 'checkout',
     initialState,
+
+    reducers : {
+        setSuccess: (state , action) => {
+            state.success = false;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(HandleCheckout.pending, (state) => {
@@ -50,6 +56,7 @@ const CheckoutReducer = createSlice({
             .addCase(HandleCheckout.fulfilled, (state, action) => {
                 console.log("the payload is " + action.payload.success);
                 state.success = action.payload.success
+                state.loading = false
             })
             .addCase(HandleCheckout.rejected, (state, action) => {
                 state.loading = false;
@@ -63,5 +70,7 @@ const CheckoutReducer = createSlice({
             })
     }
 });
+
+export const {setSuccess} = CheckoutReducer.actions
 
 export default CheckoutReducer.reducer;
