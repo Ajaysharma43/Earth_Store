@@ -6,12 +6,12 @@ import { Cart } from "../CartSlice/CartSlice";
 import { JWTTOken } from "../../JWTDecode/JWTdecode";
 
 
-export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async ({ token, Details ,  amount }) => {
+export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async ({ token, Details, amount }) => {
     try {
         const decoded = JWTTOken()
-        console.log("decoded token is here" , decoded , Details , token , amount);
+        console.log("decoded token is here", decoded, Details, token, amount);
         const UserID = decoded.ID;
-        const response = await CheckoutInstance.post(`/Buy`, { token: token, amount: amount, UserID: UserID  , Details : Details});
+        const response = await CheckoutInstance.post(`/Buy`, { token: token, amount: amount, UserID: UserID, Details: Details });
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -20,15 +20,22 @@ export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async 
     }
 });
 
-export const HandleCOD = createAsyncThunk('checkout/HandleCOD' , async() => {
-    const response = await CheckoutInstance.post()
+export const HandleCOD = createAsyncThunk('checkout/HandleCOD', async ({ Token, Total }) => {
+    try {
+        const decoded = JWTTOken()
+        const UserID = decoded.ID;
+        const response = await CheckoutInstance.post('/CheckoutCOD', { Token: Token, Total: Total, UserID: UserID })
+    }
+    catch (error) {
+        console.error("the error is " + error);
+    }
 })
 
 export const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts', async ({ Product }) => {
     const decoded = JWTTOken()
-        console.log("decoded token is here" , decoded);
-        const UserID = decoded.ID;
-    console.log("the product are " , Product);
+    console.log("decoded token is here", decoded);
+    const UserID = decoded.ID;
+    console.log("the product are ", Product);
     const response = await CheckoutInstance.delete(`/CheckoutCart?Product=${Product}&UserID=${UserID}`)
 })
 
@@ -45,8 +52,8 @@ const CheckoutReducer = createSlice({
     name: 'checkout',
     initialState,
 
-    reducers : {
-        setSuccess: (state , action) => {
+    reducers: {
+        setSuccess: (state, action) => {
             state.success = false;
         }
     },
@@ -65,15 +72,23 @@ const CheckoutReducer = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
-            .addCase(AddCheckoutProducts.pending , (state , action) => {
+
+            .addCase(AddCheckoutProducts.pending, (state, action) => {
                 state.Checkout = false
             })
-            .addCase(AddCheckoutProducts.fulfilled , (state , action) => {
+            .addCase(AddCheckoutProducts.fulfilled, (state, action) => {
                 state.Checkout = true
+            })
+
+            .addCase(HandleCOD.pending , (state, actoion) => {
+                state.success = false
+            })
+            .addCase(HandleCOD.fulfilled , (state , action) => {
+                state.success = true
             })
     }
 });
 
-export const {setSuccess} = CheckoutReducer.actions
+export const { setSuccess } = CheckoutReducer.actions
 
 export default CheckoutReducer.reducer;

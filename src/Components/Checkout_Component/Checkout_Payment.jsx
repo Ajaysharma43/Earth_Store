@@ -5,6 +5,7 @@ import StripeCheckout from "react-stripe-checkout";
 import {
   AddCheckoutProducts,
   HandleCheckout,
+  HandleCOD,
   setSuccess,
 } from "../Features/Checkout/Checkout";
 import Checkout_Address from "./Checkout_Address";
@@ -17,6 +18,7 @@ const Checkout_Payment = () => {
   const [Token, setToken] = useState({});
   const [TotalPrice, setTotalPrice] = useState(0);
   const [ShippingCharges, SetShippingCharges] = useState(0);
+  const [errormessage, seterrormessage] = useState("");
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
@@ -26,6 +28,7 @@ const Checkout_Payment = () => {
       console.log("Checkout payment:", Cart);
       dispatch(AddCheckoutProducts({ Product: Cart }));
       dispatch(setSuccess());
+      setToken({});
     }
   };
 
@@ -47,81 +50,143 @@ const Checkout_Payment = () => {
     CheckoutProducts();
   }, [Cart.length, dispatch, Success]);
 
+  const handleCoD = async () => {
+    if (
+      Token.FullName == "" ||
+      Token.Email == "" ||
+      Token.PhoneNumber == "" ||
+      Token.Country == "" ||
+      Token.State == "" ||
+      Token.City == "" ||
+      Token.Area == "" ||
+      Token.Street == "" ||
+      Token.Pincode == "" ||
+      Token.PaymentMethod == ""
+    ) {
+      seterrormessage("details are not fill completely");
+    } else {
+      seterrormessage("");
+      dispatch(
+        HandleCOD({ Token: Token, Total: (Total + ShippingCharges).toFixed(2) })
+      );
+    }
+  };
+
   const handlesubmit = async () => {
     console.log(Token.PaymentMethod);
-    const cardElement = elements.getElement(CardElement);
-    const PaymentMethod = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
-    dispatch(HandleCheckout({token : PaymentMethod.paymentMethod , Details : Token , amount : (Total + ShippingCharges).toFixed(2)}))
+    if (
+        Token.FullName == "" ||
+        Token.Email == "" ||
+        Token.PhoneNumber == "" ||
+        Token.Country == "" ||
+        Token.State == "" ||
+        Token.City == "" ||
+        Token.Area == "" ||
+        Token.Street == "" ||
+        Token.Pincode == "" ||
+        Token.PaymentMethod == ""
+      ) {
+        seterrormessage("details are not fill completely");
+      } else
+    {
+        seterrormessage("");
+        const cardElement = elements.getElement(CardElement);
+        const PaymentMethod = await stripe.createPaymentMethod({
+          type: "card",
+          card: cardElement,
+        });
+        dispatch(
+          HandleCheckout({
+            token: PaymentMethod.paymentMethod,
+            Details: Token,
+            amount: (Total + ShippingCharges).toFixed(2),
+          })
+        );
+    }
+    
   };
 
   return (
-    <>
-      <div>
-        <Checkout_Address Token={Token} setToken={setToken} />
-      </div>
-      <div className="flex flex-col items-center justify-center ">
-        {Total > 0 ? (
-          <div className="bg-white shadow-md rounded-lg p-6 max-w-md w-full">
-            <h1 className="text-2xl font-semibold text-gray-800 text-center mb-4">
+    <div className="flex flex-col min-h-screen  p-4 w-full">
+      {Total > 0 ? (
+        <div className=" p-6 w-full flex flex-wrap justify-evenly">
+          {/* Checkout Address */}
+          <section className="">
+            <Checkout_Address Token={Token} setToken={setToken} />
+          </section>
+          <section className="mt-[200px] border border-solid border-black p-4 h-fit rounded-sm">
+            {/* Checkout Summary */}
+            <h1 className="text-2xl font-bold text-gray-900 text-center mb-4">
               Checkout Summary
             </h1>
 
-            <div className="border-b border-gray-300 pb-3">
+            <div className="border-b border-gray-300 pb-4 mb-4 space-y-2">
               <p className="text-lg text-gray-700 flex justify-between">
-                <span>Subtotal:</span>{" "}
+                <span>Subtotal:</span>
                 <span className="font-semibold">${Total.toFixed(2)}</span>
               </p>
               <p className="text-lg text-gray-700 flex justify-between">
-                <span>Shipping Charges:</span>{" "}
+                <span>Shipping Charges:</span>
                 <span className="font-semibold">
                   ${ShippingCharges.toFixed(2)}
                 </span>
               </p>
             </div>
-
-            <p className="text-xl font-bold text-gray-800 mt-3 flex justify-between">
-              <span>Total:</span>{" "}
+            {/* Total Amount */}
+            <p className="text-xl font-bold text-gray-900 flex justify-between mb-5">
+              <span>Total:</span>
               <span>${(Total + ShippingCharges).toFixed(2)}</span>
             </p>
-            {Token.PaymentMethod == "Online Payment" ? (
-              <>
-                <CardElement className="h-[40px] border border-gray-300 p-2 w-full" />
-                <button
-                  className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-md uppercase"
-                  onClick={handlesubmit}
-                >
-                  Pay ${(Total + ShippingCharges).toFixed(2)}
-                </button>
-              </>
-            ) : (
-              <>
-                <button className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-md uppercase">
-                  Buy now
-                </button>
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="text-center">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
-              alt="Empty Cart"
-              className="w-40 mx-auto mb-4"
-            />
-            <h1 className="text-2xl font-semibold text-gray-700">
-              Nothing to Checkout
-            </h1>
-            <p className="text-gray-500 mt-1">
-              Your cart is empty. Start shopping now!
-            </p>
-          </div>
-        )}
-      </div>
-    </>
+          
+          {/* Payment Section */}
+          {Token.PaymentMethod === "Online Payment" ? (
+            <>
+              <CardElement className="h-[50px] border border-gray-300 rounded-md p-3 w-full" />
+              {errormessage && (
+                <h1 className="text-red-600 font-semibold text-center uppercase">
+                  {errormessage}
+                </h1>
+              )}
+              <button
+                className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-lg font-semibold"
+                onClick={handlesubmit}
+              >
+                Pay ${(Total + ShippingCharges).toFixed(2)}
+              </button>
+            </>
+          ) : (
+            <>
+              {errormessage && (
+                <h1 className="text-red-600 font-semibold text-center uppercase">
+                  {errormessage}
+                </h1>
+              )}
+              <button
+                className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-lg font-semibold"
+                onClick={handleCoD}
+              >
+                Buy Now
+              </button>
+            </>
+          )}
+          </section>
+        </div>
+      ) : (
+        <div className="text-center pt-32">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
+            alt="Empty Cart"
+            className="w-32 mx-auto mb-4 opacity-80"
+          />
+          <h1 className="text-2xl font-semibold text-gray-800">
+            Nothing to Checkout
+          </h1>
+          <p className="text-gray-500 mt-2">
+            Your cart is empty. Start shopping now!
+          </p>
+        </div>
+      )}
+    </div>
   );
 };
-
 export default Checkout_Payment;
