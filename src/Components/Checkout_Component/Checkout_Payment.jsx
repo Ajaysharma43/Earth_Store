@@ -15,6 +15,7 @@ const Checkout_Payment = () => {
   const Cart = useSelector((state) => state.Cart.Cart);
   const Total = useSelector((state) => state.Cart.Total);
   const Success = useSelector((state) => state.Checkout.success);
+  const error = useSelector((state) => state.Checkout.error);
   const [Token, setToken] = useState({});
   const [TotalPrice, setTotalPrice] = useState(0);
   const [ShippingCharges, SetShippingCharges] = useState(0);
@@ -22,6 +23,10 @@ const Checkout_Payment = () => {
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
+
+  useEffect(() => {
+seterrormessage(error)
+  },[errormessage])
 
   const CheckoutProducts = () => {
     if (Success === true) {
