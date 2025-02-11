@@ -15,6 +15,8 @@ import DashBoardProducts from "../Components/DashBoardPages/DashboardProductsPag
 import Checkout from "../Pages/Checkout/Checkout";
 import ORDERS from "../Pages/Orders/Orders";
 import User_Profile from "../Pages/User_Profile/User_Profile";
+import Checkout_Product from "../Components/CheckoutProduct/CheckoutProduct";
+import Checkout_Product_Page from "../Pages/Checkout_Product/Checkout_Product";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -28,7 +30,7 @@ const Routes = () => {
         {element:<Checkout/>,path:"/Checkout"},
         {element:<ORDERS/>,path:"/Orders"},
         {element:<User_Profile/>,path:"/userProfile"},
-
+        {element:<Checkout_Product_Page/> , path:"/CheckoutProduct/:id"},
         // {Unkown Routes}
         {element:<Unknowm/>,path:"*"},
 

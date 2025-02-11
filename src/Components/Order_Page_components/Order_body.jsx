@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCart } from "../Features/CartSlice/CartSlice";
+import { Link } from "react-router-dom";
 
 const Order = () => {
     const Checkout = useSelector((state) => state.Cart.Checkout) || [];
@@ -29,9 +30,11 @@ const Order = () => {
                                 <p className="text-gray-600 font-medium">${(item.Price * item.Quantity).toFixed(2)}</p>
                                 <p className="text-gray-500 text-sm">Quantity: {item.Quantity}</p>
                                 <p className="text-sm text-green-600 mt-1">📅 Shipped on: {formattedDate}</p>
+                                <Link to={`/CheckoutProduct/${item._id}`}>
                                 <button className="mt-4 px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-all">
                                     View Details
                                 </button>
+                                </Link>
                             </div>
                         );
                     })}
