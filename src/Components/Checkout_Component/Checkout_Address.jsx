@@ -1,39 +1,60 @@
-import axios from "axios";
-import data from "/DataAPI/Country.json?url";
-import statedata from "/DataAPI/State.json?url";
 import { useEffect, useRef, useState } from "react";
+import data from "/DataAPI/Country.json?url";
+import indiadata from "/DataAPI/State.json?url";
+import axios from "axios";
 
 const URL = import.meta.env.VITE_API_PINCODE;
 
-const Checkout_Address = () => {
+const Checkout_Address = ({ Token, setToken }) => {
   const [CountryData, setCountryData] = useState([]);
-  const [State, setState] = useState([]) || ""
+  const [State, setState] = useState([]);
   const [ActiveState, setActiveState] = useState("");
-  const [Pincode, SetPincode] = useState("");
-  const [City, setCity] = useState("");
-  const [Area, setArea] = useState("");
-  const [Street, setStreet] = useState("");
-  const CurrentState = useRef()
+  const [Pincode, setPincode] = useState("");
+  const [formData, setFormData] = useState({
+    FullName: "",
+    Email: "",
+    PhoneNumber: "",
+    Country: "",
+    State: "",
+    City: "",
+    Area: "",
+    Street: "",
+    Pincode: "",
+  });
 
+  const CurrentState = useRef();
+
+  // Fetch Country Data
   useEffect(() => {
     const GetData = async () => {
-      const Response = await axios.get(data);
-      setCountryData(Response.data);
+      try {
+        const Response = await axios.get(data);
+        setCountryData(Response.data);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      }
     };
-
     GetData();
   }, []);
 
+  // Fetch State Data when Country is India
   useEffect(() => {
     if (ActiveState === "India") {
       const GetState = async () => {
-        const response = await axios.get(statedata);
-        setState(response.data);
+        try {
+          const response = await axios.get(indiadata);
+          setState(response.data);
+        } catch (error) {
+          console.error("Error fetching states:", error);
+        }
       };
       GetState();
+    } else {
+      setState([]);
     }
   }, [ActiveState]);
 
+  // Fetch Address from Pincode API
   const GetAddress = async () => {
     if (Pincode && Pincode.length === 6) {
       try {
@@ -42,11 +63,19 @@ const Checkout_Address = () => {
           const { District, Block, Name, State, Country } =
             response.data[0].PostOffice[0];
 
-          setCity(District); // Set City
-          setStreet(Block); // Set Street
-          setArea(Name); // Set Area
-          setActiveState(Country); // Set Country
-          CurrentState.current.value = State
+          setFormData((prev) => ({
+            ...prev,
+            City: District,
+            Street: Block,
+            Area: Name,
+            Country: Country,
+            State: State,
+            Pincode: Pincode,
+          }));
+
+          if (CurrentState.current) {
+            CurrentState.current.value = State;
+          }
         }
       } catch (error) {
         console.error("Error fetching address:", error);
@@ -58,146 +87,143 @@ const Checkout_Address = () => {
     GetAddress();
   }, [Pincode]);
 
+  // Handle Input Change & Update Token
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setToken((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
-    <>
-      <form action="" onSubmit={(e) => e.preventDefault()}>
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">FullName</label>
+    <div>
+      <form className="p-5">
+        <div className="grid mb-3 w-2/3">
+          <label>Full Name</label>
           <input
             type="text"
-            className="h-[40px] w-auto border border-solid border-gray-300"
+            name="FullName"
+            className="h-[40px] border border-gray-300 p-2"
+            value={formData.FullName}
+            onChange={handleChange}
+            required
           />
         </div>
 
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">Email</label>
+        <div className="grid mb-3 w-2/3">
+          <label>Email</label>
           <input
-            type="text"
-            className="h-[40px] w-auto border border-solid border-gray-300"
+            type="email"
+            name="Email"
+            className="h-[40px] border border-gray-300 p-2"
+            value={formData.Email}
+            onChange={handleChange}
+            required
           />
         </div>
 
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">Country</label>
+        <div className="grid mb-3 w-2/3">
+          <label>Country</label>
           <select
-            name=""
-            id=""
-            value={ActiveState}
-            onChange={(e) => setActiveState(e.target.value)}
-            className="h-[40px] w-auto border border-solid border-gray-300"
+            name="Country"
+            value={formData.Country}
+            onChange={(e) => {
+              setActiveState(e.target.value);
+              handleChange(e);
+            }}
+            className="h-[40px] border border-gray-300 p-2"
+            required
           >
-            <option
-              value=""
-              className="h-[40px] w-auto border border-solid border-gray-300"
-            >
-              Select the Country
-            </option>
+            <option value="">Select a Country</option>
             {CountryData.map((item) => (
-              <option
-                key={item.name}
-                value={item.name}
-                className="h-[40px] w-auto border border-solid border-gray-300"
-              >
+              <option key={item.name} value={item.name}>
                 {item.name}
               </option>
             ))}
           </select>
         </div>
 
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">Area</label>
-          <input
-            type="text"
-            id="Area"
-            value={Area}
-            className="h-[40px] w-auto border border-solid border-gray-300"
-            readOnly
-          />
-        </div>
-
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">Street Address</label>
-          <input
-            type="text"
-            id="Street"
-            value={Street}
-            className="h-[40px] w-auto border border-solid border-gray-300"
-            readOnly
-          />
-        </div>
-
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">Town/City</label>
-          <input
-            type="text"
-            id="city"
-            value={City}
-            className="h-[40px] w-auto border border-solid border-gray-300"
-            readOnly
-          />
-        </div>
-
         {ActiveState === "India" && (
-          <>
-            <div className="grid m-3 w-2/3">
-              <label htmlFor="">State</label>
-              <select
-                name=""
-                id=""
-                className="h-[40px] w-auto border border-solid border-gray-300"
-                ref={CurrentState}
-                required
-              >
-                <option
-                  value=""
-                  className="h-[40px] w-auto border border-solid border-gray-300"
-                >
-                  Select your state
+          <div className="grid mb-3 w-2/3">
+            <label>State</label>
+            <select
+              name="State"
+              className="h-[40px] border border-gray-300 p-2"
+              ref={CurrentState}
+              value={formData.State}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select your state</option>
+              {State.map((item) => (
+                <option key={item.name} value={item.name}>
+                  {item.name}
                 </option>
-                {State.map((item) => (
-                  <option
-                    key={item.name}
-                    value={item.name}
-                    className="h-[40px] w-auto border border-solid border-gray-300"
-                  >
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </>
+              ))}
+            </select>
+          </div>
         )}
 
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">Pincode</label>
+        <div className="grid mb-3 w-2/3">
+          <label>Area</label>
           <input
-            type="Number"
-            className="h-[40px] w-auto border border-solid border-gray-300"
-            value={Pincode}
-            onChange={(e) => SetPincode(e.target.value)}
+            type="text"
+            name="Area"
+            value={formData.Area}
+            className="h-[40px] border border-gray-300 p-2"
+            readOnly
+          />
+        </div>
+
+        <div className="grid mb-3 w-2/3">
+          <label>Street Address</label>
+          <input
+            type="text"
+            name="Street"
+            value={formData.Street}
+            className="h-[40px] border border-gray-300 p-2"
+            readOnly
+          />
+        </div>
+
+        <div className="grid mb-3 w-2/3">
+          <label>Town/City</label>
+          <input
+            type="text"
+            name="City"
+            value={formData.City}
+            className="h-[40px] border border-gray-300 p-2"
+            readOnly
+          />
+        </div>
+
+        <div className="grid mb-3 w-2/3">
+          <label>Pincode</label>
+          <input
+            type="number"
+            name="Pincode"
+            className="h-[40px] border border-gray-300 p-2"
+            value={formData.Pincode}
+            onChange={(e) => {
+              setPincode(e.target.value);
+              handleChange(e);
+            }}
             required
           />
         </div>
 
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">PhoneNumber</label>
+        <div className="grid mb-3 w-2/3">
+          <label>Phone Number</label>
           <input
-            type="Number"
-            className="h-[40px] w-auto border border-solid border-gray-300"
-            required
-          />
-        </div>
-
-        <div className="grid m-3 w-2/3">
-          <label htmlFor="">Email</label>
-          <input
-            type="Email"
-            className="h-[40px] w-auto border border-solid border-gray-300"
+            type="number"
+            name="PhoneNumber"
+            className="h-[40px] border border-gray-300 p-2"
+            value={formData.PhoneNumber}
+            onChange={handleChange}
             required
           />
         </div>
       </form>
-    </>
+    </div>
   );
 };
 
