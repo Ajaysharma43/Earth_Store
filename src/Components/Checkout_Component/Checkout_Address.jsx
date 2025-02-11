@@ -9,7 +9,7 @@ const Checkout_Address = ({ Token, setToken }) => {
   const [CountryData, setCountryData] = useState([]);
   const [State, setState] = useState([]);
   const [ActiveState, setActiveState] = useState("");
-  const [Pincode, setPincode] = useState("");
+
   const [formData, setFormData] = useState({
     FullName: "",
     Email: "",
@@ -20,6 +20,7 @@ const Checkout_Address = ({ Token, setToken }) => {
     Area: "",
     Street: "",
     Pincode: "",
+    PaymentMethod: "",
   });
 
   const CurrentState = useRef();
@@ -29,7 +30,7 @@ const Checkout_Address = ({ Token, setToken }) => {
     const GetData = async () => {
       try {
         const Response = await axios.get(data);
-        setCountryData(Response.data);
+        setCountryData(Array.isArray(Response.data) ? Response.data : []);
       } catch (error) {
         console.error("Error fetching countries:", error);
       }
@@ -43,7 +44,7 @@ const Checkout_Address = ({ Token, setToken }) => {
       const GetState = async () => {
         try {
           const response = await axios.get(indiadata);
-          setState(response.data);
+          setState(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
           console.error("Error fetching states:", error);
         }
@@ -55,43 +56,46 @@ const Checkout_Address = ({ Token, setToken }) => {
   }, [ActiveState]);
 
   // Fetch Address from Pincode API
-  const GetAddress = async () => {
-    if (Pincode && Pincode.length === 6) {
-      try {
-        const response = await axios.get(`${URL}/${Pincode}`);
-        if (response.data && response.data.length > 0) {
-          const { District, Block, Name, State, Country } =
-            response.data[0].PostOffice[0];
-
-          setFormData((prev) => ({
-            ...prev,
-            City: District,
-            Street: Block,
-            Area: Name,
-            Country: Country,
-            State: State,
-            Pincode: Pincode,
-          }));
-
-          if (CurrentState.current) {
-            CurrentState.current.value = State;
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching address:", error);
-      }
-    }
-  };
-
   useEffect(() => {
-    GetAddress();
-  }, [Pincode]);
+    const GetAddress = async () => {
+      if (formData.Pincode && formData.Pincode.length === 6) {
+        try {
+          const response = await axios.get(`${URL}/${formData.Pincode}`);
+          if (response.data && response.data.length > 0) {
+            const { District, Block, Name, State, Country } =
+              response.data[0].PostOffice[0];
 
-  // Handle Input Change & Update Token
+            setFormData((prev) => ({
+              ...prev,
+              City: District,
+              Street: Block,
+              Area: Name,
+              Country: Country,
+              State: State,
+            }));
+
+            if (CurrentState.current) {
+              CurrentState.current.value = State;
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching address:", error);
+        }
+      }
+    };
+
+    GetAddress();
+  }, [formData.Pincode]);
+
+  // Update setToken whenever formData changes
+  useEffect(() => {
+    setToken(formData);
+  }, [formData, setToken]);
+
+  // Handle Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setToken((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -169,8 +173,8 @@ const Checkout_Address = ({ Token, setToken }) => {
             type="text"
             name="Area"
             value={formData.Area}
+            onChange={handleChange}
             className="h-[40px] border border-gray-300 p-2"
-            readOnly
           />
         </div>
 
@@ -180,8 +184,8 @@ const Checkout_Address = ({ Token, setToken }) => {
             type="text"
             name="Street"
             value={formData.Street}
+            onChange={handleChange}
             className="h-[40px] border border-gray-300 p-2"
-            readOnly
           />
         </div>
 
@@ -191,8 +195,8 @@ const Checkout_Address = ({ Token, setToken }) => {
             type="text"
             name="City"
             value={formData.City}
+            onChange={handleChange}
             className="h-[40px] border border-gray-300 p-2"
-            readOnly
           />
         </div>
 
@@ -203,10 +207,7 @@ const Checkout_Address = ({ Token, setToken }) => {
             name="Pincode"
             className="h-[40px] border border-gray-300 p-2"
             value={formData.Pincode}
-            onChange={(e) => {
-              setPincode(e.target.value);
-              handleChange(e);
-            }}
+            onChange={handleChange}
             required
           />
         </div>
@@ -221,6 +222,21 @@ const Checkout_Address = ({ Token, setToken }) => {
             onChange={handleChange}
             required
           />
+        </div>
+
+        <div className="grid mb-3 w-2/3">
+          <label>Select Payment Method</label>
+          <select
+            name="PaymentMethod"
+            className="h-[40px] border border-gray-300 p-2"
+            value={formData.PaymentMethod}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select a Payment Method</option>
+            <option value="Cash on Delivery">Cash on Delivery</option>
+            <option value="Online Payment">Online Payment</option>
+          </select>
         </div>
       </form>
     </div>

@@ -8,15 +8,18 @@ import {
   setSuccess,
 } from "../Features/Checkout/Checkout";
 import Checkout_Address from "./Checkout_Address";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 const Checkout_Payment = () => {
   const Cart = useSelector((state) => state.Cart.Cart);
   const Total = useSelector((state) => state.Cart.Total);
   const Success = useSelector((state) => state.Checkout.success);
-  const [Token , setToken] = useState({})
+  const [Token, setToken] = useState({});
   const [TotalPrice, setTotalPrice] = useState(0);
   const [ShippingCharges, SetShippingCharges] = useState(0);
   const dispatch = useDispatch();
+  const stripe = useStripe();
+  const elements = useElements();
 
   const CheckoutProducts = () => {
     if (Success === true) {
@@ -44,15 +47,20 @@ const Checkout_Payment = () => {
     CheckoutProducts();
   }, [Cart.length, dispatch, Success]);
 
-  const handlesubmit = () => {
-    console.log(Token);
-    
-  }
+  const handlesubmit = async () => {
+    console.log(Token.PaymentMethod);
+    const cardElement = elements.getElement(CardElement);
+    const PaymentMethod = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+    });
+    dispatch(HandleCheckout({token : PaymentMethod.paymentMethod , Details : Token , amount : (Total + ShippingCharges).toFixed(2)}))
+  };
 
   return (
     <>
       <div>
-        <Checkout_Address Token={Token} setToken={setToken}/>
+        <Checkout_Address Token={Token} setToken={setToken} />
       </div>
       <div className="flex flex-col items-center justify-center ">
         {Total > 0 ? (
@@ -78,10 +86,23 @@ const Checkout_Payment = () => {
               <span>Total:</span>{" "}
               <span>${(Total + ShippingCharges).toFixed(2)}</span>
             </p>
-              <button className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-md uppercase"
-              onClick={handlesubmit}>
-                Buy Now
-              </button>
+            {Token.PaymentMethod == "Online Payment" ? (
+              <>
+                <CardElement className="h-[40px] border border-gray-300 p-2 w-full" />
+                <button
+                  className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-md uppercase"
+                  onClick={handlesubmit}
+                >
+                  Pay ${(Total + ShippingCharges).toFixed(2)}
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-md uppercase">
+                  Buy now
+                </button>
+              </>
+            )}
           </div>
         ) : (
           <div className="text-center">

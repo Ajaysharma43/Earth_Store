@@ -3,15 +3,15 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import CheckoutInstance from "../../../../AxiosInterseptors/CheckoutInterseptor";
 import { Cart } from "../CartSlice/CartSlice";
+import { JWTTOken } from "../../JWTDecode/JWTdecode";
 
 
-export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async ({ token, amount }) => {
+export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async ({ token, Details ,  amount }) => {
     try {
-        const AccessToken = sessionStorage.getItem('AccessToken')
-        const decoded = jwtDecode(AccessToken)
-        console.log("decoded token is here" + decoded);
+        const decoded = JWTTOken()
+        console.log("decoded token is here" , decoded , Details , token , amount);
         const UserID = decoded.ID;
-        const response = await CheckoutInstance.post(`/Buy`, { token: token, amount: amount, UserID: UserID });
+        const response = await CheckoutInstance.post(`/Buy`, { token: token, amount: amount, UserID: UserID  , Details : Details});
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -20,9 +20,12 @@ export const HandleCheckout = createAsyncThunk('checkout/handleCheckout', async 
     }
 });
 
+export const HandleCOD = createAsyncThunk('checkout/HandleCOD' , async() => {
+    const response = await CheckoutInstance.post()
+})
+
 export const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts', async ({ Product }) => {
-    const AccessToken = sessionStorage.getItem('AccessToken')
-        const decoded = jwtDecode(AccessToken)
+    const decoded = JWTTOken()
         console.log("decoded token is here" , decoded);
         const UserID = decoded.ID;
     console.log("the product are " , Product);

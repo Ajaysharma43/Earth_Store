@@ -8,7 +8,7 @@ import Store from "./Components/Redux/Store/Store.js";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise  = loadStripe(import.meta.env.VITE_API_STRIPE_KEY);
+const stripePromise  = loadStripe(`${import.meta.env.VITE_API_STRIPE_KEY}`);
 
 createRoot(document.getElementById("root")).render(
   <Provider store={Store}>

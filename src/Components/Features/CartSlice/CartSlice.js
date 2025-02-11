@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import CartInstance from "../../../../AxiosInterseptors/CartInterseptors";
 import Cookies from "js-cookie";
 import {jwtDecode}  from 'jwt-decode'
+import { JWTTOken } from "../../JWTDecode/JWTdecode";
 
 // Add to Cart
 export const Cart = createAsyncThunk("CartSlice", async ({ CartData }) => {
-  const AccessToken = sessionStorage.getItem('AccessToken')
-    const decoded = jwtDecode(AccessToken)
+  const decoded = JWTTOken()
     console.log("decoded token is here" + decoded);
     
     const Userid = decoded.ID;
@@ -16,8 +16,7 @@ export const Cart = createAsyncThunk("CartSlice", async ({ CartData }) => {
 
 // Get Cart
 export const GetCart = createAsyncThunk("GetCart", async () => {
-  const AccessToken = sessionStorage.getItem('AccessToken')
-    const decoded = jwtDecode(AccessToken)
+  const decoded = JWTTOken()
     console.log("decoded token is here" + decoded);
     
     const Userid = decoded.ID;
@@ -27,8 +26,7 @@ export const GetCart = createAsyncThunk("GetCart", async () => {
 
 export const  DeleteProduct = createAsyncThunk('DeleteProduct' , async({ProductID}) => {
     
-    const AccessToken = sessionStorage.getItem('AccessToken')
-      const decoded = jwtDecode(AccessToken)
+  const decoded = JWTTOken()
       console.log("decoded token is here" + decoded);
       
       const UserID = decoded.ID;
@@ -39,8 +37,7 @@ export const  DeleteProduct = createAsyncThunk('DeleteProduct' , async({ProductI
 
 export const IncreaseQunatity = createAsyncThunk('IncreaseQunatity' , async(item) => {
     console.log("The product is : " + item);
-    const AccessToken = sessionStorage.getItem('AccessToken')
-      const decoded = jwtDecode(AccessToken)
+    const decoded = JWTTOken()
       console.log("decoded token is here" + decoded);
       
       const UserID = decoded.ID;
@@ -50,8 +47,7 @@ export const IncreaseQunatity = createAsyncThunk('IncreaseQunatity' , async(item
 
 export const DecreaseQunatity = createAsyncThunk('DecreaseQunatity' , async(item) => {
     console.log("The product is : " + item);
-    const AccessToken = sessionStorage.getItem('AccessToken')
-      const decoded = jwtDecode(AccessToken)
+    const decoded = JWTTOken()
       console.log("decoded token is here" + decoded);
       
       const UserID = decoded.ID;

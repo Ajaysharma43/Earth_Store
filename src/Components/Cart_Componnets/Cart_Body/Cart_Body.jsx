@@ -12,6 +12,7 @@ import {
   IncreaseQunatity,
 } from "../../Features/CartSlice/CartSlice";
 import Checkout_Payment from "../../Checkout_Component/Checkout_Payment";
+import { Link } from "react-router-dom";
 
 const Cart_Body = () => {
   const Cart = useSelector((state) =>
@@ -63,8 +64,9 @@ const Cart_Body = () => {
         onConfirm={remove}
       />
     ))}
-    <div className="min-h-screen bg-gray-100 flex flex-row justify-center flex-wrap items-center py-10 px-4">
+    <div className="  bg-gray-100 flex flex-row justify-center flex-wrap items-center py-10 px-4">
       {Cart.length > 0 ? (
+        <>
         <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-6 m-[5%]">
           <h2 className="text-2xl font-semibold text-gray-800 text-center mb-6">
             Shopping Cart
@@ -192,6 +194,12 @@ const Cart_Body = () => {
             ))}
           </div>
         </div>
+        <Link to={'/Checkout'}>
+        <div className="h-[40px] w-[200px] text-white bg-gradient-to-r from-[#74a84a] to-[#588a2f] text-center uppercase text-xl rounded-sm pt-[4px] transition-all duration-200 hover:ring hover:ring-offset-2 hover:ring-[#588a2f]">
+        <button>Checkout Products</button>
+      </div>
+      </Link>
+      </>
       ) : (
         <div className="text-center">
           <img
@@ -203,9 +211,6 @@ const Cart_Body = () => {
           <p className="text-gray-500 mt-1">Start adding items to your cart now!</p>
         </div>
       )}
-
-      
-      <Checkout_Payment />
     </div>
     </>
   );
