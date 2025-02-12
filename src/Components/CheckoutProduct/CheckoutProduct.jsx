@@ -91,6 +91,10 @@ const Checkout_Product = () => {
                     <p className="text-gray-600">
                         <strong>Pincode:</strong> {address.Pincode}
                     </p>
+                    <p className="text-gray-600">
+                        <strong>PaymentMethod:</strong> {address.PaymentMethod}
+                    </p>
+                    
                 </div>
             )}
         </div>

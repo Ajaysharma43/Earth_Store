@@ -31,12 +31,13 @@ export const HandleCOD = createAsyncThunk('checkout/HandleCOD', async ({ Token, 
     }
 })
 
-export const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts', async ({ Product }) => {
+export const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts', async ({ Product , Charges , Token }) => {
     const decoded = JWTTOken()
-    console.log("decoded token is here", decoded);
     const UserID = decoded.ID;
-    console.log("the product are ", Product);
-    const response = await CheckoutInstance.delete(`/CheckoutCart?Product=${Product}&UserID=${UserID}`)
+    console.log(Token);
+    console.log("the charges are " , Charges);
+    const response = await CheckoutInstance.delete(`/CheckoutCart?Product=${Product}&UserID=${UserID}&Charges=${Charges}&Token=${JSON.stringify(Token)}`)
+    return response.data
 })
 
 const initialState = {
@@ -46,6 +47,7 @@ const initialState = {
     checkoutData: {},
     invoiceid: "",
     success: false,
+    Charges : null
 };
 
 const CheckoutReducer = createSlice({
@@ -66,6 +68,7 @@ const CheckoutReducer = createSlice({
             .addCase(HandleCheckout.fulfilled, (state, action) => {
                 console.log("the payload is " + action.payload.success);
                 state.success = action.payload.success
+                state.Charges = action.payload.Charges
                 state.loading = false
             })
             .addCase(HandleCheckout.rejected, (state, action) => {
@@ -78,6 +81,7 @@ const CheckoutReducer = createSlice({
             })
             .addCase(AddCheckoutProducts.fulfilled, (state, action) => {
                 state.Checkout = true
+                state.Charges = null
             })
 
             .addCase(HandleCOD.pending , (state, actoion) => {

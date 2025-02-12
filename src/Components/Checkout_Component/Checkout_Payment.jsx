@@ -16,6 +16,7 @@ const Checkout_Payment = () => {
   const Total = useSelector((state) => state.Cart.Total);
   const Success = useSelector((state) => state.Checkout.success);
   const error = useSelector((state) => state.Checkout.error);
+  const Charges = useSelector((state) => state.Checkout.Charges);
   const [Token, setToken] = useState({});
   const [TotalPrice, setTotalPrice] = useState(0);
   const [ShippingCharges, SetShippingCharges] = useState(0);
@@ -32,7 +33,9 @@ const Checkout_Payment = () => {
   const CheckoutProducts = () => {
     if (Success === true) {
       console.log("Checkout payment:", Cart);
-      dispatch(AddCheckoutProducts({ Product: Cart }));
+      console.log(Token);
+      
+      dispatch(AddCheckoutProducts({ Product: Cart ,Charges:Charges , Token : Token}));
       dispatch(setSuccess());
       setToken({});
     }
