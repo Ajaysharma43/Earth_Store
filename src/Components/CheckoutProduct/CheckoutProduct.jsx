@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import CheckoutInstance from "../../../AxiosInterseptors/CheckoutInterseptor";
 import { useParams } from "react-router-dom";
 import { JWTTOken } from "../JWTDecode/JWTdecode";
+import { useDispatch } from "react-redux";
+import { CheckPaymentStatus } from "../Features/Checkout/Checkout";
 
 const Checkout_Product = () => {
     const { id } = useParams();
     const [product, setProduct] = useState([]);
     const [address, setAddress] = useState(null);
+    const [Charges , setcharges] = useState('')
     const [loading, setLoading] = useState(true);
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const GetProduct = async () => {
@@ -20,6 +25,7 @@ const Checkout_Product = () => {
 
                 setProduct(response.data.CheckoutProduct.Product);
                 setAddress(response.data.CheckoutProduct.Address);
+                setcharges(response.data.CheckoutProduct.ChargeID)
             } catch (error) {
                 console.error("Error fetching product:", error);
             } finally {
@@ -103,7 +109,8 @@ const Checkout_Product = () => {
                     Cancel Order
                 </button>
 
-                <button className="h-[30px] w-fit bg-gradient-to-r from-orange-400 to-orange-700 pr-3 pl-3 uppercase text-white rounded-md transition-all duration-200 hover:ring hover:ring-offset-2 hover:ring-orange-500">
+                <button className="h-[30px] w-fit bg-gradient-to-r from-orange-400 to-orange-700 pr-3 pl-3 uppercase text-white rounded-md transition-all duration-200 hover:ring hover:ring-offset-2 hover:ring-orange-500"
+                onClick={() => dispatch(CheckPaymentStatus({ObjectID : Charges}))}>
                     Payment Status
                 </button>
             </div>

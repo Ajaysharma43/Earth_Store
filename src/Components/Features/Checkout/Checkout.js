@@ -43,6 +43,8 @@ export const AddCheckoutProducts = createAsyncThunk('AddCheckoutProducts', async
 export const CheckPaymentStatus = createAsyncThunk('CheckPaymentStatus', async ({ ObjectID }) => {
     const decoded = JWTTOken()
     const UserID = decoded.ID;
+    console.log(ObjectID);
+    
     const response = await CheckoutInstance.get(`/CheckPaymentStatus?Userid=${UserID}&ObjectID=${ObjectID}`)
     return response.data
 })
@@ -101,6 +103,8 @@ const CheckoutReducer = createSlice({
 
             .addCase(CheckPaymentStatus.fulfilled , (state , action) => {
                 state.PaymentStatus = action.payload.Charge
+                console.log(action.payload);
+                
             })
     }
 });
