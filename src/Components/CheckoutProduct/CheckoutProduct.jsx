@@ -97,6 +97,16 @@ const Checkout_Product = () => {
                     
                 </div>
             )}
+
+            <div className="bg-gray-100 shadow-md rounded-lg p-6 mt-5 grid justify-start gap-3">
+                <button className="h-[30px] w-fit bg-gradient-to-r from-orange-400 to-orange-700 pr-3 pl-3 uppercase text-white rounded-md transition-all duration-200 hover:ring hover:ring-offset-2 hover:ring-orange-500">
+                    Cancel Order
+                </button>
+
+                <button className="h-[30px] w-fit bg-gradient-to-r from-orange-400 to-orange-700 pr-3 pl-3 uppercase text-white rounded-md transition-all duration-200 hover:ring hover:ring-offset-2 hover:ring-orange-500">
+                    Payment Status
+                </button>
+            </div>
         </div>
     );
 };
