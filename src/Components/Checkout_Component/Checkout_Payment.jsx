@@ -20,13 +20,14 @@ const Checkout_Payment = () => {
   const [TotalPrice, setTotalPrice] = useState(0);
   const [ShippingCharges, SetShippingCharges] = useState(0);
   const [errormessage, seterrormessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Loader state
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
 
   useEffect(() => {
-seterrormessage(error)
-  },[errormessage])
+    seterrormessage(error);
+  }, [error]);
 
   const CheckoutProducts = () => {
     if (Success === true) {
@@ -57,49 +58,57 @@ seterrormessage(error)
 
   const handleCoD = async () => {
     if (
-      Token.FullName == "" ||
-      Token.Email == "" ||
-      Token.PhoneNumber == "" ||
-      Token.Country == "" ||
-      Token.State == "" ||
-      Token.City == "" ||
-      Token.Area == "" ||
-      Token.Street == "" ||
-      Token.Pincode == "" ||
-      Token.PaymentMethod == ""
+      Token.FullName === "" ||
+      Token.Email === "" ||
+      Token.PhoneNumber === "" ||
+      Token.Country === "" ||
+      Token.State === "" ||
+      Token.City === "" ||
+      Token.Area === "" ||
+      Token.Street === "" ||
+      Token.Pincode === "" ||
+      Token.PaymentMethod === ""
     ) {
-      seterrormessage("details are not fill completely");
+      seterrormessage("Details are not filled completely");
     } else {
       seterrormessage("");
-      dispatch(
-        HandleCOD({ Token: Token, Total: (Total + ShippingCharges).toFixed(2) })
-      );
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        dispatch(
+          HandleCOD({
+            Token: Token,
+            Total: (Total + ShippingCharges).toFixed(2),
+          })
+        );
+      }, 4000);
     }
   };
 
   const handlesubmit = async () => {
-    console.log(Token.PaymentMethod);
     if (
-        Token.FullName == "" ||
-        Token.Email == "" ||
-        Token.PhoneNumber == "" ||
-        Token.Country == "" ||
-        Token.State == "" ||
-        Token.City == "" ||
-        Token.Area == "" ||
-        Token.Street == "" ||
-        Token.Pincode == "" ||
-        Token.PaymentMethod == ""
-      ) {
-        seterrormessage("details are not fill completely");
-      } else
-    {
-        seterrormessage("");
+      Token.FullName === "" ||
+      Token.Email === "" ||
+      Token.PhoneNumber === "" ||
+      Token.Country === "" ||
+      Token.State === "" ||
+      Token.City === "" ||
+      Token.Area === "" ||
+      Token.Street === "" ||
+      Token.Pincode === "" ||
+      Token.PaymentMethod === ""
+    ) {
+      seterrormessage("Details are not filled completely");
+    } else {
+      seterrormessage("");
+      setIsLoading(true); // Start loading
+      try {
         const cardElement = elements.getElement(CardElement);
         const PaymentMethod = await stripe.createPaymentMethod({
           type: "card",
           card: cardElement,
         });
+
         dispatch(
           HandleCheckout({
             token: PaymentMethod.paymentMethod,
@@ -107,14 +116,18 @@ seterrormessage(error)
             amount: (Total + ShippingCharges).toFixed(2),
           })
         );
+      } catch (error) {
+        seterrormessage("Payment failed. Please try again.");
+      } finally {
+        setIsLoading(false); // Stop loading
+      }
     }
-    
   };
 
   return (
-    <div className="flex flex-col min-h-screen  p-4 w-full">
+    <div className="flex flex-col min-h-screen p-4 w-full">
       {Total > 0 ? (
-        <div className=" p-6 w-full flex flex-wrap justify-evenly">
+        <div className="p-6 w-full flex flex-wrap justify-evenly">
           {/* Checkout Address */}
           <section className="">
             <Checkout_Address Token={Token} setToken={setToken} />
@@ -142,38 +155,40 @@ seterrormessage(error)
               <span>Total:</span>
               <span>${(Total + ShippingCharges).toFixed(2)}</span>
             </p>
-          
-          {/* Payment Section */}
-          {Token.PaymentMethod === "Online Payment" ? (
-            <>
-              <CardElement className="h-[50px] border border-gray-300 rounded-md p-3 w-full" />
-              {errormessage && (
-                <h1 className="text-red-600 font-semibold text-center uppercase">
-                  {errormessage}
-                </h1>
-              )}
-              <button
-                className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-lg font-semibold"
-                onClick={handlesubmit}
-              >
-                Pay ${(Total + ShippingCharges).toFixed(2)}
-              </button>
-            </>
-          ) : (
-            <>
-              {errormessage && (
-                <h1 className="text-red-600 font-semibold text-center uppercase">
-                  {errormessage}
-                </h1>
-              )}
-              <button
-                className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-lg font-semibold"
-                onClick={handleCoD}
-              >
-                Buy Now
-              </button>
-            </>
-          )}
+
+            {/* Payment Section */}
+            {Token.PaymentMethod === "Online Payment" ? (
+              <>
+                <CardElement className="h-[50px] border border-gray-300 rounded-md p-3 w-full" />
+                {errormessage && (
+                  <h1 className="text-red-600 font-semibold text-center uppercase">
+                    {errormessage}
+                  </h1>
+                )}
+                <button
+                  className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-lg font-semibold disabled:opacity-50"
+                  onClick={handlesubmit}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Processing..." : `Pay ${(Total + ShippingCharges).toFixed(2)}`}
+                </button>
+              </>
+            ) : (
+              <>
+                {errormessage && (
+                  <h1 className="text-red-600 font-semibold text-center uppercase">
+                    {errormessage}
+                  </h1>
+                )}
+                <button
+                  className="mt-5 w-full bg-[#74a84a] hover:bg-[#2c541d] transition-all text-white text-lg py-3 rounded-lg font-semibold disabled:opacity-50"
+                  onClick={handleCoD}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Processing..." : "Buy Now"}
+                </button>
+              </>
+            )}
           </section>
         </div>
       ) : (
@@ -194,4 +209,5 @@ seterrormessage(error)
     </div>
   );
 };
+
 export default Checkout_Payment;

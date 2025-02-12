@@ -5,7 +5,8 @@ import { JWTTOken } from "../JWTDecode/JWTdecode";
 
 const Checkout_Product = () => {
     const { id } = useParams();
-    const [product, setProduct] = useState(null);
+    const [product, setProduct] = useState([]);
+    const [address, setAddress] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -13,8 +14,12 @@ const Checkout_Product = () => {
             try {
                 const decoded = JWTTOken();
                 const UserID = decoded.ID;
-                const response = await CheckoutInstance.get(`/GetSingleProduct?UserID=${UserID}&ProductID=${id}`);
-                setProduct(response.data.CheckoutProduct);
+
+                const response = await CheckoutInstance.get(`/GetSingleProduct?UserID=${UserID}&ObjectID=${id}`);
+                console.log(response.data);
+
+                setProduct(response.data.CheckoutProduct.Product);
+                setAddress(response.data.CheckoutProduct.Address);
             } catch (error) {
                 console.error("Error fetching product:", error);
             } finally {
@@ -32,7 +37,7 @@ const Checkout_Product = () => {
         );
     }
 
-    if (!product) {
+    if (!product || product.length === 0) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <h1 className="text-2xl font-bold text-gray-700">Product Not Found</h1>
@@ -41,29 +46,53 @@ const Checkout_Product = () => {
     }
 
     return (
-        <div className="container mx-auto px-4 py-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                {/* Product Image */}
-                <div className="flex justify-center">
-                    <img
-                        src={product.Image}
-                        alt={product.Name}
-                        className="rounded-lg shadow-lg object-cover w-full max-w-sm md:max-w-md lg:max-w-lg"
-                    />
-                </div>
+        <div className="container mx-auto p-6">
+            <h1 className="text-3xl font-bold mb-8 text-gray-800">🛒 Checkout Details</h1>
 
-                {/* Product Details */}
-                <div className="space-y-4">
-                    <h1 className="text-3xl font-bold text-gray-900">{product.Name}</h1>
-                    <p className="text-xl font-semibold text-green-600">💰 ${product.Price.toFixed(2)}</p>
-                    <span className="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-md">
-                        {product.Type}
-                    </span>
-                    <p className="text-gray-600 leading-relaxed">{product.Description}</p>
-
-                    
-                </div>
+            {/* Products Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                {product.map((item, index) => (
+                    <div
+                        key={index}
+                        className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center hover:shadow-2xl transition-shadow"
+                    >
+                        <img
+                            src={item.Image}
+                            alt={item.Name}
+                            className="w-[150px] h-[150px] rounded-lg object-cover mb-4"
+                        />
+                        <h2 className="text-lg font-semibold text-gray-800">{item.Name}</h2>
+                        <p className="text-gray-600">Type: {item.Type}</p>
+                        <p className="text-gray-600">Quantity: {item.Quantity}</p>
+                        <p className="text-gray-800 font-medium mt-2">💰 ${item.Price.toFixed(2)}</p>
+                    </div>
+                ))}
             </div>
+
+            {/* Address Section */}
+            {address && (
+                <div className="bg-gray-100 shadow-md rounded-lg p-6">
+                    <h2 className="text-xl font-bold mb-4 text-gray-800">📍 Delivery Address</h2>
+                    <p className="text-gray-600">
+                        <strong>Street:</strong> {address.Street}
+                    </p>
+                    <p className="text-gray-600">
+                        <strong>Area:</strong> {address.Area}
+                    </p>
+                    <p className="text-gray-600">
+                        <strong>City:</strong> {address.City}
+                    </p>
+                    <p className="text-gray-600">
+                        <strong>State:</strong> {address.State}
+                    </p>
+                    <p className="text-gray-600">
+                        <strong>Country:</strong> {address.Country}
+                    </p>
+                    <p className="text-gray-600">
+                        <strong>Pincode:</strong> {address.Pincode}
+                    </p>
+                </div>
+            )}
         </div>
     );
 };
