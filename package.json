@@ -36,6 +36,7 @@
     "react-stripe-checkout": "^2.6.3",
     "react-toastify": "^11.0.3",
     "react-top-loading-bar": "^3.0.2",
+    "reactflow": "^11.11.4",
     "styled-components": "^6.1.14"
   },
   "devDependencies": {

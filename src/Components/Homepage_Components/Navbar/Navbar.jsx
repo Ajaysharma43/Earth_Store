@@ -70,6 +70,9 @@ const Navbar = () => {
                 <h3 className="Navbar_Element">ORDERS</h3>
               </Link>
 
+              <Link to={'/Order_History'}>
+              <h3 className="Navbar_Element">ORDERS HISTORY</h3>
+              </Link>
               <button id="Navbar_Icon_Cart">
                 <FaShoppingBag size={26} onClick={ToggleDrawer} />
                 <h6 id="Navbar_Icon_Cart_Data">
@@ -107,6 +110,9 @@ const Navbar = () => {
               <li>CONTACT</li>
               <Link to="/Orders">
                 <li>ORDERS</li>
+              </Link>
+              <Link to={'/Order_History'}>
+              <li>ORDERS HISTORY</li>
               </Link>
             </ul>
           </div>

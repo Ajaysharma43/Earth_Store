@@ -38,6 +38,7 @@ const Checkout_Payment = () => {
       dispatch(AddCheckoutProducts({ Product: Cart ,Charges:Charges , Token : Token}));
       dispatch(setSuccess());
       setToken({});
+      setIsLoading(false);
     }
   };
 
@@ -121,8 +122,6 @@ const Checkout_Payment = () => {
         );
       } catch (error) {
         seterrormessage("Payment failed. Please try again.");
-      } finally {
-        setIsLoading(false); // Stop loading
       }
     }
   };

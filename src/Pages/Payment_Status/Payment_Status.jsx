@@ -3,9 +3,9 @@ import Payment_Status_Body from "../../Components/Payment_Status_Component/Payme
 const Payment_Status = () => {
     return(
         <>
-        <header>
+        <article>
             <Payment_Status_Body/>
-        </header>
+        </article>
         </>
     )
 }
