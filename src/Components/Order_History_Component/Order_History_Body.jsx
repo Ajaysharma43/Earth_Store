@@ -2,10 +2,12 @@ import { useEffect, useState, useRef } from "react";
 import CheckoutInstance from "../../../AxiosInterseptors/CheckoutInterseptor";
 import { JWTTOken } from "../JWTDecode/JWTdecode";
 import LoadingBar from "react-top-loading-bar";
+import { useNavigate } from "react-router-dom";
 
 const Order_History_Body = () => {
   const [Product, setProduct] = useState([]);
-  const loadingBarRef = useRef(null); // Ref for the loading bar
+  const loadingBarRef = useRef(null);
+  const Navigate = useNavigate()
 
   useEffect(() => {
     const GetOrderHistory = async () => {
@@ -28,6 +30,10 @@ const Order_History_Body = () => {
 
     GetOrderHistory();
   }, []);
+
+  const HandlePyamentStatus = () => {
+
+  }
 
   return (
     <div>
@@ -73,6 +79,20 @@ const Order_History_Body = () => {
                   <p className="text-sm text-gray-600">
                     <strong>Country:</strong> {item.Address.Country}
                   </p>
+
+                  <p className="text-sm text-gray-600">
+                    <strong>PaymentMethod:</strong> {item.Address.PaymentMethod}
+                  </p>
+                  {
+                    item.Address.PaymentMethod == 'Online Payment' ? 
+                    (
+                        <button className="bg-red-100 text-red-600 font-medium text-center py-2 rounded" onClick={() => Navigate(`/Payment_Status/${item._id}`)}>Check Recipt</button>
+                    )
+                    :
+                    (
+                        <h1 className="text-sm text-gray-600">Purchace on cod</h1>
+                    )
+                  }
                 </div>
 
                 {/* Order Status */}
