@@ -17,6 +17,7 @@ import ORDERS from "../Pages/Orders/Orders";
 import User_Profile from "../Pages/User_Profile/User_Profile";
 import Checkout_Product from "../Components/CheckoutProduct/CheckoutProduct";
 import Checkout_Product_Page from "../Pages/Checkout_Product/Checkout_Product";
+import Payment_Status from "../Pages/Payment_Status/Payment_Status";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -31,6 +32,7 @@ const Routes = () => {
         {element:<ORDERS/>,path:"/Orders"},
         {element:<User_Profile/>,path:"/userProfile"},
         {element:<Checkout_Product_Page/> , path:"/CheckoutProduct/:id"},
+        {element:<Payment_Status/> , path:"/Payment_Status/:id"},
         // {Unkown Routes}
         {element:<Unknowm/>,path:"*"},
 

@@ -103,8 +103,7 @@ const CheckoutReducer = createSlice({
 
             .addCase(CheckPaymentStatus.fulfilled , (state , action) => {
                 state.PaymentStatus = action.payload.Charge
-                console.log(action.payload);
-                
+                console.log(action.payload.Charge);
             })
     }
 });
