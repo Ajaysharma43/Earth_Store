@@ -1,7 +1,16 @@
+import { useSelector , useDispatch } from "react-redux";
+import TotalProducts from "./Products";
+import { useEffect } from "react";
+import TotalUsers from "./Users";
+
 const DashBoard_Body = () => {
+    
     return(
         <>
-        <h1>dashboard body</h1>
+        <div>
+            <TotalProducts/>
+            <TotalUsers/>
+        </div>
         </>
     )
 }

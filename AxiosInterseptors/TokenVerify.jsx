@@ -11,11 +11,9 @@ const api = axios.create({
 api.interceptors.request.use(
   async (config) => {
     const AccessToken = sessionStorage.getItem("AccessToken");
-    const Decoded  = jwtDecode(AccessToken)
     
     if (AccessToken) {
-      config.headers["Authorization"] = `Bearer ${AccessToken}`;
-      config.headers["User-Agent"] = `${Decoded.Role}`
+      config.headers["Authorization"] = `Bearer ${AccessToken}`
       return config;
     }
     return config;

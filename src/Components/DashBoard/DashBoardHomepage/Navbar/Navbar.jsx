@@ -18,7 +18,7 @@ const DashboardNavbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6">
           <Link
-            to="/home"
+            to="/Dashboard"
             className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg"
           >
             Home
@@ -30,10 +30,10 @@ const DashboardNavbar = () => {
             Products
           </Link>
           <Link
-            to="/settings"
+            to="/dashboard/upload"
             className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg"
           >
-            Settings
+            Upload
           </Link>
           <Link
             to="/logout"
@@ -88,26 +88,24 @@ const DashboardNavbar = () => {
       {/* Mobile Menu */}
       <div className={`md:hidden ${isOpen ? "block" : "hidden"} bg-gray-800`}>
         <Link
-          to="/home"
+          to="/dashboard"
           className="block text-white px-3 py-2 rounded-md text-lg"
           onClick={toggleMenu}
         >
           Home
         </Link>
         <Link
-          to="/profile"
-          className="block text-white px-3 py-2 rounded-md text-lg"
-          onClick={toggleMenu}
-        >
-          Profile
-        </Link>
+            to="/dashboard/products"
+            className="block text-white px-3 py-2 rounded-md text-lg"
+          >
+            Products
+          </Link>
         <Link
-          to="/settings"
-          className="block text-white px-3 py-2 rounded-md text-lg"
-          onClick={toggleMenu}
-        >
-          Settings
-        </Link>
+            to="/dashboard/upload"
+            className="block text-white px-3 py-2 rounded-md text-lg"
+          >
+            Upload
+          </Link>
         <Link
           to="/logout"
           className="block text-white px-3 py-2 rounded-md text-lg"

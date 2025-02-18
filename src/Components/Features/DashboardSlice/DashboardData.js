@@ -10,6 +10,7 @@ export const GetAllProducts = createAsyncThunk('AllProducts' , async() => {
 
 const initialState = {
     AllProducts : [],
+    ProductsLength : null,
     error : null,
     loading : null
 }
@@ -20,6 +21,7 @@ const DashboardReducer = createSlice({
     extraReducers : (builder) => {
         builder.addCase(GetAllProducts.fulfilled , (state , action) => {
             state.AllProducts = action.payload.Data
+            state.ProductsLength = action.payload.Data.length
         })
     }
 })
