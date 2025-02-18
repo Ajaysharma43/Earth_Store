@@ -15,19 +15,19 @@ const Navbar = () => {
   const [CartItems, setCartItems] = useState(Quantity.length);
   const [DrawerState, setDrawerState] = useState(false);
   const [icon, seticon] = useState(<FaBars />);
-  const [Roles , setRoles] = useState('')
+  const [Roles, setRoles] = useState("");
 
   useEffect(() => {
     const VerifyRole = () => {
-      const AccessToken  = sessionStorage.getItem('AccessToken')
+      const AccessToken = sessionStorage.getItem("AccessToken");
       const Decode = jwtDecode(AccessToken);
-      setRoles(Decode.Role)
-    }
+      setRoles(Decode.Role);
+    };
     VerifyRole();
-  },[])
+  }, []);
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownOpen(!isDropdownOpen); 
   };
 
   const ToggleDrawer = () => {
@@ -82,13 +82,15 @@ const Navbar = () => {
                 <h3 className="Navbar_Element">ORDERS</h3>
               </Link>
 
-              <Link to={'/Order_History'}>
-              <h3 className="Navbar_Element">ORDERS HISTORY</h3>
+              <Link to={"/Order_History"}>
+                <h3 className="Navbar_Element">ORDERS HISTORY</h3>
               </Link>
 
-              {
-                Roles == "Admin" ?   <h3 className="Navbar_Element">Admin</h3>  : ""
-              }
+              {Roles == "Admin" ? (
+                <h3 className="Navbar_Element">Admin</h3>
+              ) : (
+                ""
+              )}
               <button id="Navbar_Icon_Cart">
                 <FaShoppingBag size={26} onClick={ToggleDrawer} />
                 <h6 id="Navbar_Icon_Cart_Data">
@@ -96,7 +98,7 @@ const Navbar = () => {
                 </h6>
               </button>
 
-              <Link to={'/userProfile'}>
+              <Link to={"/userProfile"}>
                 <h3 id="Navbar_Icon_User">
                   <FaUser size={26} />
                 </h3>
@@ -127,8 +129,8 @@ const Navbar = () => {
               <Link to="/Orders">
                 <li>ORDERS</li>
               </Link>
-              <Link to={'/Order_History'}>
-              <li>ORDERS HISTORY</li>
+              <Link to={"/Order_History"}>
+                <li>ORDERS HISTORY</li>
               </Link>
             </ul>
           </div>

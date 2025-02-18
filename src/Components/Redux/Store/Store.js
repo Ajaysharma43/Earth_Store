@@ -10,6 +10,7 @@ import related from "../../Features/DataSlice/RelatedProducts"
 import Otp from "../../Features/AuthSlice/Signup"
 import Login from "../../Features/AuthSlice/Login"
 import CheckoutReducer from "../../Features/Checkout/Checkout"
+import DashboardReducer from "../../Features/DashboardSlice/DashboardData"
 
 export default configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export default configureStore({
     related : related,
     UserData : Otp,
     Login : Login,
-    Checkout : CheckoutReducer
+    Checkout : CheckoutReducer,
+    Dashboardreducer : DashboardReducer
   },
 })

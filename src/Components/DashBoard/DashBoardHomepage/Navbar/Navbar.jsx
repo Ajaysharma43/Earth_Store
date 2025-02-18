@@ -24,10 +24,10 @@ const DashboardNavbar = () => {
             Home
           </Link>
           <Link
-            to="/profile"
+            to="/dashboard/products"
             className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg"
           >
-            Profile
+            Products
           </Link>
           <Link
             to="/settings"

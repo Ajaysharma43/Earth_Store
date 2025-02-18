@@ -10,9 +10,11 @@ export const GetData = createAsyncThunk('FetchData' , async({Limit,currentPage})
     return Response.data
 })
 
+
 const initialState  = {
     isLoading : true,
     data : [],
+    AllProducts : [],
     totalpages : null,
     initialpage : 1,
     isError : false
@@ -55,6 +57,7 @@ const Reducer = createSlice({
             state.data = action.payload.Data;
             state.totalpages = action.payload.totalpages
         })
+
     }
 })
 
