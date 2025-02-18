@@ -15,7 +15,7 @@ const TotalProducts = () => {
 
   return (
       <>
-      <div className="bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg shadow-lg text-white p-8 sm:p-12 max-w-sm text-center">
+      <div className="bg-gradient-to-r from-green-400 to-teal-600 rounded-lg text-white p-8 sm:p-12 max-w-sm text-center">
         <h2 className="text-2xl sm:text-3xl font-bold uppercase mb-4 tracking-wide">
           Total Products
         </h2>

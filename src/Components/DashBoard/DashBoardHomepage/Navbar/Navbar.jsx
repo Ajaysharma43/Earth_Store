@@ -11,7 +11,7 @@ const DashboardNavbar = () => {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
-        <Link to="/" className="text-white text-2xl font-semibold">
+        <Link to="/Dashboard" className="text-white text-2xl font-semibold">
           Dashboard
         </Link>
 
@@ -36,10 +36,10 @@ const DashboardNavbar = () => {
             Upload
           </Link>
           <Link
-            to="/logout"
+            to="/dashboard/Users"
             className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg"
           >
-            Logout
+            Users
           </Link>
         </div>
 
@@ -107,11 +107,11 @@ const DashboardNavbar = () => {
             Upload
           </Link>
         <Link
-          to="/logout"
+          to="/dashboard/Users"
           className="block text-white px-3 py-2 rounded-md text-lg"
           onClick={toggleMenu}
         >
-          Logout
+          Users
         </Link>
       </div>
     </nav>

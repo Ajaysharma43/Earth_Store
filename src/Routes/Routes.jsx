@@ -19,6 +19,8 @@ import Checkout_Product_Page from "../Pages/Checkout_Product/Checkout_Product";
 import Payment_Status from "../Pages/Payment_Status/Payment_Status";
 import Order_History from "../Pages/Order_History/Order_History";
 import Order_History_Status from "../Pages/Order_HIstory_Status/Order_HIstory_Status";
+import DashboardUsersPage from "../Components/DashBoardPages/DashboardUsersPage/DashBoardUsersPage";
+import DashBoardProductDetails from "../Components/DashBoard/DashBoardUsersComponent/DashboardProductDetails";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -43,6 +45,8 @@ const Routes = () => {
         {element:<DashboardHomepage/>,path:"/dashboard"},
         {element:<UploadPage/>,path:"/dashboard/upload"},
         {element:<DashBoardProducts/> , path:"/dashboard/products"},
+        {element:<DashboardUsersPage/> , path:"/dashboard/Users"},
+        {element:<DashBoardProductDetails/> , path:"/dashboard/Productdetails/:id"},
 
         // {test component}
         {element:<Loader/> , path:"/Loader"}
