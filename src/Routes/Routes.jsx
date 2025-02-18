@@ -15,10 +15,10 @@ import DashBoardProducts from "../Components/DashBoardPages/DashboardProductsPag
 import Checkout from "../Pages/Checkout/Checkout";
 import ORDERS from "../Pages/Orders/Orders";
 import User_Profile from "../Pages/User_Profile/User_Profile";
-import Checkout_Product from "../Components/CheckoutProduct/CheckoutProduct";
 import Checkout_Product_Page from "../Pages/Checkout_Product/Checkout_Product";
 import Payment_Status from "../Pages/Payment_Status/Payment_Status";
 import Order_History from "../Pages/Order_History/Order_History";
+import Order_History_Status from "../Pages/Order_HIstory_Status/Order_HIstory_Status";
 
 const Routes = () => {
     const Route = useRoutes([
@@ -35,6 +35,7 @@ const Routes = () => {
         {element:<Checkout_Product_Page/> , path:"/CheckoutProduct/:id"},
         {element:<Payment_Status/> , path:"/Payment_Status/:id"},
         {element:<Order_History/> , path:"/Order_History"},
+        {element:<Order_History_Status/>,path:"/Order_History_Status/:id"},
         // {Unkown Routes}
         {element:<Unknowm/>,path:"*"},
 

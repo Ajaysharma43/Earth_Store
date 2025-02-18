@@ -46,7 +46,9 @@ const Payment_Status_Body = () => {
               <span className="text-lg font-semibold text-gray-700">
                 Receipt ID:
               </span>
-              <span className="text-lg text-gray-800 break-words whitespace-pre-wrap">{PaymentStatus.id}</span>
+              <span className="text-lg text-gray-800 break-words whitespace-pre-wrap">
+                {PaymentStatus.id}
+              </span>
             </div>
             <div className="flex justify-between items-center mt-2">
               <span className="text-lg font-semibold text-gray-700">
@@ -58,25 +60,12 @@ const Payment_Status_Body = () => {
             </div>
           </div>
 
-          {/* <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="font-medium text-gray-600">Payment Method:</span>
-              <span className="text-gray-800">
-                {PaymentStatus.payment_method_details.card.brand.toUpperCase()} ****{" "}
-                {PaymentStatus.payment_method_details.card.last4}
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="font-medium text-gray-600">Customer Name:</span>
-              <span className="text-gray-800">{PaymentStatus.billing_details.name || "N/A"}</span>
-            </div>
+          <div className="flex justify-between items-center">
+            <span className="font-medium text-gray-600">Customer Email:</span>
+            <span className="text-gray-800">
+              {PaymentStatus.receipt_email || "N/A"}
+            </span>
           </div>
-
-           */}
-<div className="flex justify-between items-center">
-              <span className="font-medium text-gray-600">Customer Email:</span>
-              <span className="text-gray-800">{PaymentStatus.receipt_email || "N/A"}</span>
-            </div>
           <div className="flex justify-between items-center">
             <span className="font-medium text-gray-600">Currency:</span>
             <span className="text-gray-800 uppercase">
@@ -104,6 +93,10 @@ const Payment_Status_Body = () => {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: true,
                 }
               )}
             </span>

@@ -14,13 +14,13 @@ const Cart = () => {
     useEffect(() => {
       const AccessToken = sessionStorage.getItem("AccessToken");
       const RefreshToken = Cookies.get("RefreshToken");
-      const Decoded = jwtDecode(RefreshToken)
       if(AccessToken)
       { 
         if (RefreshToken) {
           const req = async () => {
             const response = await api.post("/VerifyRoute");
             if (response.data.message == "expired") {
+              const Decoded = jwtDecode(RefreshToken)
               const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID });
               console.log(response.data);
               if (response.data.message == "NotExisted") {
@@ -41,6 +41,7 @@ const Cart = () => {
         if(RefreshToken)
         {
           const getaccesstoken = async() => {
+            const Decoded = jwtDecode(RefreshToken)
             const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID });
             console.log(response.data);
             sessionStorage.setItem("AccessToken", response.data.AccessToken);
