@@ -5,6 +5,8 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Drawers from "../../Drawer/Drawer";
+import { jwtDecode } from "jwt-decode";
+import { AccessAlarm } from "@mui/icons-material";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -13,6 +15,16 @@ const Navbar = () => {
   const [CartItems, setCartItems] = useState(Quantity.length);
   const [DrawerState, setDrawerState] = useState(false);
   const [icon, seticon] = useState(<FaBars />);
+  const [Roles , setRoles] = useState('')
+
+  useEffect(() => {
+    const VerifyRole = () => {
+      const AccessToken  = sessionStorage.getItem('AccessToken')
+      const Decode = jwtDecode(AccessToken);
+      setRoles(Decode.Role)
+    }
+    VerifyRole();
+  },[])
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -73,6 +85,10 @@ const Navbar = () => {
               <Link to={'/Order_History'}>
               <h3 className="Navbar_Element">ORDERS HISTORY</h3>
               </Link>
+
+              {
+                Roles == "Admin" ?   <h3 className="Navbar_Element">Admin</h3>  : ""
+              }
               <button id="Navbar_Icon_Cart">
                 <FaShoppingBag size={26} onClick={ToggleDrawer} />
                 <h6 id="Navbar_Icon_Cart_Data">

@@ -28,7 +28,7 @@ const About = () => {
           const response = await api.post("/VerifyRoute");
           if (response.data.message == "expired") {
             const Decoded = jwtDecode(RefreshToken)
-            const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID });
+            const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID , Role: Decoded.Role, });
             console.log(response.data);
             if (response.data.message == "NotExisted") {
               Navigate("/login");
@@ -49,7 +49,7 @@ const About = () => {
       {
         const getaccesstoken = async() => {
           const Decoded = jwtDecode(RefreshToken)
-          const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID });
+          const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID , Role: Decoded.Role, });
           console.log(response.data);
           sessionStorage.setItem("AccessToken", response.data.AccessToken);
         }

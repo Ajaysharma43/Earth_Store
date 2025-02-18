@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 const api = axios.create({
@@ -10,8 +11,11 @@ const api = axios.create({
 api.interceptors.request.use(
   async (config) => {
     const AccessToken = sessionStorage.getItem("AccessToken");
+    const Decoded  = jwtDecode(AccessToken)
+    
     if (AccessToken) {
       config.headers["Authorization"] = `Bearer ${AccessToken}`;
+      config.headers["User-Agent"] = `${Decoded.Role}`
       return config;
     }
     return config;

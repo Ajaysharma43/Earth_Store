@@ -1,10 +1,70 @@
+import { useEffect, useState } from "react";
 import Footer from "../../Components/Homepage_Components/Footer/Footer";
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar";
 import Payment_Status_Body from "../../Components/Payment_Status_Component/Payment_Status_body";
+import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
+import LoadingBar from "react-top-loading-bar";
+import { jwtDecode } from "jwt-decode";
+import api from "../../../AxiosInterseptors/TokenVerify";
 
 const Payment_Status = () => {
+
+    const Navigate = useNavigate()
+    const [progress , setprogress] = useState(0)
+
+    useEffect(() => {
+        setprogress(30)
+        const AccessToken = sessionStorage.getItem("AccessToken");
+        const RefreshToken = Cookies.get("RefreshToken");
+        if(AccessToken)
+        { 
+          if (RefreshToken) {
+            const req = async () => {
+              const response = await api.post("/VerifyRoute");
+              if (response.data.message == "expired") {
+                const Decoded = jwtDecode(RefreshToken)
+                const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID , Role: Decoded.Role, });
+                console.log(response.data);
+                if (response.data.message == "NotExisted") {
+                  Navigate("/login");
+                } else if (response.data.message == "expired") {
+                  Navigate("/login");
+                }
+                sessionStorage.setItem("AccessToken", response.data.AccessToken);
+              }
+            };
+            req();
+          } else {
+            Navigate("/login");
+          }
+        }
+        else
+        {
+          if(RefreshToken)
+          {
+            const getaccesstoken = async() => {
+              const Decoded = jwtDecode(RefreshToken)
+              const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID , Role: Decoded.Role, });
+              console.log(response.data);
+              sessionStorage.setItem("AccessToken", response.data.AccessToken);
+            }
+            getaccesstoken()
+          }
+          else{
+            Navigate('/login')
+          }
+        }
+        window.scrollTo({ top: 0 });;
+          setprogress(100)
+      },[])
+
     return(
         <>
+        <LoadingBar
+    progress={progress}
+    onLoaderFinished={() => setprogress(0)}
+    color="#74a84a"/>
         <header>
             <Navbar/>
         </header>

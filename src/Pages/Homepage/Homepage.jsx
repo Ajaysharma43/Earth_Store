@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../Components/Homepage_Components/Footer/Footer";
 import Front_Page from "../../Components/Homepage_Components/Front_Page/Front_Page";
 import Homepage_Ending from "../../Components/Homepage_Components/Homepage_Ending/Homepage_Ending";
@@ -21,14 +21,17 @@ const Homepage = () => {
   useEffect(() => {
     const AccessToken = sessionStorage.getItem("AccessToken");
     const RefreshToken = Cookies.get("RefreshToken");
-    if(AccessToken)
-    { 
+    if (AccessToken) {
       if (RefreshToken) {
         const req = async () => {
           const response = await api.post("/VerifyRoute");
           if (response.data.message == "expired") {
-            const Decoded = jwtDecode(RefreshToken)
-            const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID });
+            const Decoded = jwtDecode(RefreshToken);
+            const response = await api.post("/RefreshToken", {
+              RefreshToken,
+              Userid: Decoded.ID,
+              Role: Decoded.Role,
+            });
             console.log(response.data);
             if (response.data.message == "NotExisted") {
               navigate("/login");
@@ -42,21 +45,21 @@ const Homepage = () => {
       } else {
         navigate("/login");
       }
-    }
-    else
-    {
-      if(RefreshToken)
-      {
-        const getaccesstoken = async() => {
-          const Decoded = jwtDecode(RefreshToken)
-          const response = await api.post("/RefreshToken", { RefreshToken , Userid : Decoded.ID });
+    } else {
+      if (RefreshToken) {
+        const getaccesstoken = async () => {
+          const Decoded = jwtDecode(RefreshToken);
+          const response = await api.post("/RefreshToken", {
+            RefreshToken,
+            Userid: Decoded.ID,
+            Role: Decoded.Role,
+          });
           console.log(response.data);
           sessionStorage.setItem("AccessToken", response.data.AccessToken);
-        }
-        getaccesstoken()
-      }
-      else{
-        navigate('/login')
+        };
+        getaccesstoken();
+      } else {
+        navigate("/login");
       }
     }
     window.scrollTo({ top: 0 });
