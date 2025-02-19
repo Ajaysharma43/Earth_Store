@@ -88,57 +88,71 @@ const Routes = () => {
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Checkout />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/Checkout",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <ORDERS />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/Orders",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <User_Profile />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/userProfile",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Checkout_Product_Page />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/CheckoutProduct/:id",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Payment_Status />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/Payment_Status/:id",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Order_History />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/Order_History",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Order_History_Status />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/Order_History_Status/:id",
     },

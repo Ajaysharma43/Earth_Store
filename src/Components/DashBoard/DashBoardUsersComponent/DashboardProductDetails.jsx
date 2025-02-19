@@ -73,7 +73,7 @@ const DashBoardProductDetails = () => {
         <BlockDilogs open={BlockDilog} HandleClose={HandleBlock} User={Blockuser} Operation={data.Block}/>
       {/* User Information */}
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
-        <h1 className="text-2xl font-bold mb-4">User Information</h1>
+        <h1 >User Information</h1>
         <p>
           <strong>Name:</strong> {data.UserName}
         </p>
@@ -90,7 +90,7 @@ const DashBoardProductDetails = () => {
           <strong>Password:</strong> {data.Password}
         </p>
         <p>
-            <strong>Block:</strong> {data.Block== true ? "Blocked" : "UnBlocked"}
+            <strong className="font-medium uppercase ">Block:</strong> {data.Block== true ? "Blocked" : "UnBlocked"}
         </p>
       </div>
 
@@ -98,13 +98,13 @@ const DashBoardProductDetails = () => {
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Cart Products</h2>
         {data.CartProducts ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4">
             {data.CartProducts.map((product, index) => (
-              <div key={index} className="p-4 bg-gray-100 rounded-lg shadow">
+              <div key={index} className="p-4 bg-gray-100 w-fit rounded-lg">
                 <img
                   src={product.Image}
                   alt={product.Name}
-                  className="rounded-lg mb-4 w-full h-32 object-cover"
+                  className="rounded-lg mb-4 w-full h-fit object-cover"
                 />
                 <h3 className="font-bold">{product.Name}</h3>
                 <p>
@@ -122,11 +122,11 @@ const DashBoardProductDetails = () => {
       </div>
 
       {/* Checkout Details */}
-      <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
+      <div className="bg-white w-fit rounded-2xl shadow-md p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Checkout</h2>
         {data.Checkout ? (
           data.Checkout.map((checkout, index) => (
-            <div key={index} className="mb-4 border-b pb-4">
+            <div key={index} className="mb-4  w-fit  border-b pb-4">
               <h3 className="font-bold mb-2">Order {index + 1}</h3>
               <div>
                 <strong>Products:</strong>
@@ -134,12 +134,12 @@ const DashBoardProductDetails = () => {
                   {checkout.Product.map((product, idx) => (
                     <div
                       key={index}
-                      className="p-4 bg-gray-100 rounded-lg shadow"
+                      className="p-4 bg-gray-100 rounded-lg"
                     >
                       <img
                         src={product.Image}
                         alt={product.Name}
-                        className="rounded-lg mb-4 w-full h-32 object-cover"
+                        className="rounded-lg mb-4 w-full h-fit object-cover"
                       />
                       <h3 className="font-bold">{product.Name}</h3>
                       <p>
@@ -152,7 +152,7 @@ const DashBoardProductDetails = () => {
                   ))}
                 </div>
               </div>
-              <p>
+              <p className="w-fit h-fit bg-gray-100 p-4 mt-2 shadow rounded-md">
                 <strong>Address:</strong>
                 <br />
                 Street : {checkout.Address.Street || "N/A"}
@@ -171,13 +171,13 @@ const DashBoardProductDetails = () => {
                 <br />
                 {checkout.Address.PaymentMethod == "Online Payment" ? (
                   <button
-                    className="h-fit w-fit uppercase bg-gradient-to-r from-cyan-300 via-cyan-600 to-cyan-900 text-white p-2 rounded-md shadow-md"
+                    className="h-fit w-fit uppercase bg-gradient-to-r from-cyan-300 via-cyan-600 to-cyan-900 text-white p-2 rounded-md shadow-md m-2 transition-all duration-200 hover:bg-gradient-to-r hover:from-cyan-400 hover:via-cyan-700 hover:to-cyan-950"
                     onClick={() => GetRecipt(checkout.ChargeID)}
                   >
                     {ReceiptLoading ? ReceiptLoading : "Check Reciept"}
                   </button>
                 ) : (
-                  <h1>Product is ordered on cash on delivery</h1>
+                  <h1 className="h-fit w-fit p-3 bg-gradient-to-r from-cyan-400 to-cyan-500 text-white uppercase rounded-md transition-all duration-200 m-2 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-600">Product is ordered on cash on delivery. Reciept not available</h1>
                 )}
               </p>
             </div>
@@ -205,7 +205,7 @@ const DashBoardProductDetails = () => {
                       <img
                         src={product.Image}
                         alt={product.Name}
-                        className="rounded-lg mb-4 w-full h-32 object-cover"
+                        className="rounded-lg mb-4 w-full h-fit object-cover"
                       />
                       <h3 className="font-bold">{product.Name}</h3>
                       <p>
@@ -218,7 +218,7 @@ const DashBoardProductDetails = () => {
                   ))}
                 </div>
               </div>
-              <p>
+              <p className="w-fit h-fit bg-gray-100 p-4 mt-2 shadow rounded-md">
                 <strong>Address:</strong>
                 <br />
                 Street : {order.Address.Street || "N/A"}
@@ -237,20 +237,20 @@ const DashBoardProductDetails = () => {
                 <br />
                 {order.Address.PaymentMethod == "Online Payment" ? (
                   <button
-                    className="h-fit w-fit uppercase bg-gradient-to-r from-cyan-300 via-cyan-600 to-cyan-900 text-white p-2 rounded-md shadow-md"
+                    className="h-fit w-fit uppercase bg-gradient-to-r from-cyan-300 via-cyan-600 to-cyan-900 text-white p-2 rounded-md shadow-md m-2 transition-all duration-200 hover:bg-gradient-to-r hover:from-cyan-400 hover:via-cyan-700 hover:to-cyan-950"
                     onClick={() => GetCancelRecipt(order.ChargeID)}
                   >
                     {CancelReceiptLoading ? CancelReceiptLoading : "Check Reciept"}
                   </button>
                 ) : (
-                  <h1>Product is ordered on cash on delivery</h1>
+                  <h1 className="h-fit w-fit p-3 bg-gradient-to-r from-cyan-400 to-cyan-500 text-white uppercase rounded-md transition-all duration-200 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-600">Product is ordered on cash on delivery</h1>
                 )}
               </p>
-              <p>
+              <p className="w-fit h-fit bg-gray-100 p-4 mt-2 shadow rounded-md">
                 <strong>Canceled:</strong> {order.Canceled ? "Yes" : "No"}
               </p>
               {order.Canceled && (
-                <p>
+                <p className="w-fit h-fit bg-gray-100 p-4 mt-2 shadow rounded-md">
                   <strong>Reason:</strong> {order.Reason}
                 </p>
               )}
@@ -277,7 +277,7 @@ const DashBoardProductDetails = () => {
 
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         <h1 className="text-xl font-semibold mb-4">Operations</h1>
-        <button onClick={HandleBlock}>{data.Block== true ? "Unblock User" : "Block User"}</button>
+        <button onClick={HandleBlock} className="h-fit w-fit p-3 bg-gradient-to-r from-teal-300 via-teal-600 to-teal-900 uppercase text-white rounded-md hover:bg-gradient-to-r hover:from-teal-400 hover:via-teal-700 hover:to-teal-950">{data.Block== true ? "Unblock User" : "Block User"}</button>
       </div>
     </div>
   );

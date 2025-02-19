@@ -23,6 +23,7 @@ const AuthMiddleware = ({ children }) => {
                 RefreshToken: refreshToken,
                 Userid: decoded.ID,
                 Role: decoded.Role,
+                Block : decoded.Block,
               });
 
               if (
@@ -50,6 +51,7 @@ const AuthMiddleware = ({ children }) => {
               RefreshToken: refreshToken,
               Userid: decoded.ID,
               Role: decoded.Role,
+              Block : decoded.Block,
             });
 
             if (
