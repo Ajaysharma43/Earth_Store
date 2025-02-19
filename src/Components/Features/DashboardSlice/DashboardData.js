@@ -18,6 +18,11 @@ export const GetUser = createAsyncThunk('User' , async({UserID}) => {
     return Response.data
 })
 
+export const BlockUser = createAsyncThunk('BlockUser' , async({UserID}) => {
+    const Response = await axios.post(`${URL}/UsersOperations/BlockUser` , {UserID})
+    return Response.data;
+})
+
 const initialState = {
     AllProducts : [],
     AllUsers : [],
@@ -44,6 +49,10 @@ const DashboardReducer = createSlice({
 
         builder.addCase(GetUser.fulfilled , (state , action) => {
             state.User = action.payload.User;
+        })
+
+        builder.addCase(BlockUser.fulfilled , (state , action) => {
+            state.User = action.payload.FindUser
         })
     }
 })

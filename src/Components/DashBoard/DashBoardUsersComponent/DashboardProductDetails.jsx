@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { GetUser } from "../../Features/DashboardSlice/DashboardData";
+import { BlockUser, GetUser } from "../../Features/DashboardSlice/DashboardData";
 import axios from "axios";
+import BlockDilogs from "./Dilogs/BlockDilog";
 
 const DashBoardProductDetails = () => {
   const { id } = useParams();
   const data = useSelector((state) => state.Dashboardreducer.User);
   const [ReceiptLoading , setReceiptLoading] = useState("")
   const [CancelReceiptLoading , setCancelReceiptLoading] = useState("")
+  const [BlockDilog , setBlockDilog]  = useState(false)
+  const [Blockuser , setBlockuser] = useState('')
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = () => {
       dispatch(GetUser({ UserID: id }));
+      console.log(data.Block);
+      
     };
     fetchData();
   }, [id, dispatch]);
@@ -50,8 +55,22 @@ const DashBoardProductDetails = () => {
     
   };
 
+  const HandleBlock = () => {
+    if(BlockDilog == true)
+    {
+        setBlockuser("")
+        setBlockDilog(false)
+    }
+    else
+    {
+        setBlockuser(data._id)
+        setBlockDilog(true)
+    }
+  }
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
+        <BlockDilogs open={BlockDilog} HandleClose={HandleBlock} User={Blockuser} Operation={data.Block}/>
       {/* User Information */}
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         <h1 className="text-2xl font-bold mb-4">User Information</h1>
@@ -69,6 +88,9 @@ const DashBoardProductDetails = () => {
         </p>
         <p>
           <strong>Password:</strong> {data.Password}
+        </p>
+        <p>
+            <strong>Block:</strong> {data.Block== true ? "Blocked" : "UnBlocked"}
         </p>
       </div>
 
@@ -255,6 +277,7 @@ const DashBoardProductDetails = () => {
 
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         <h1 className="text-xl font-semibold mb-4">Operations</h1>
+        <button onClick={HandleBlock}>{data.Block== true ? "Unblock User" : "Block User"}</button>
       </div>
     </div>
   );

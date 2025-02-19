@@ -40,33 +40,41 @@ const Routes = () => {
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <About />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/About",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Product />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/Product/:id",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Cart />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/cart",
     },
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Shop />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/Shop",
     },

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const BlockedUserPage = () => {
@@ -22,12 +22,13 @@ const BlockedUserPage = () => {
                 <p className="text-gray-600 mb-6">
                     Unfortunately, your account has been blocked. If this is an error, you can reach out to our support team to resolve the issue.
                 </p>
+                <Link to={'/login'}>
                 <button
-                    onClick={() => navigate("/contact")}
                     className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 transition"
                 >
-                    Contact Support
+                    Go to Login
                 </button>
+                </Link>
             </div>
         </div>
     );
