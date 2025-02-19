@@ -20,8 +20,12 @@ const Navbar = () => {
   useEffect(() => {
     const VerifyRole = () => {
       const AccessToken = sessionStorage.getItem("AccessToken");
-      const Decode = jwtDecode(AccessToken);
-      setRoles(Decode.Role);
+      if(AccessToken)
+      {
+        const Decode = jwtDecode(AccessToken);
+        setRoles(Decode.Role);
+      }
+      
     };
     VerifyRole();
   }, []);

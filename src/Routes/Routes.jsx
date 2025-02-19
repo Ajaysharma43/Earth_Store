@@ -21,38 +21,183 @@ import Order_History from "../Pages/Order_History/Order_History";
 import Order_History_Status from "../Pages/Order_HIstory_Status/Order_HIstory_Status";
 import DashboardUsersPage from "../Components/DashBoardPages/DashboardUsersPage/DashBoardUsersPage";
 import DashBoardProductDetails from "../Components/DashBoard/DashBoardUsersComponent/DashboardProductDetails";
+import RoleVerifyMiddleware from "../../Middlewares/RoleVerify";
+import AuthMiddleware from "../../Middlewares/AuthMiddleware";
 
 const Routes = () => {
-    const Route = useRoutes([
-        {element:<Homepage/>,path:"/"},
-        {element:<About/>,path:"/About"},
-        {element:<Product/>,path:"/Product/:id"},
-        {element:<Cart/>,path:"/cart"},
-        {element:<Shop/>,path:"/Shop"},
-        {element:<Login/> , path:"/login"},
-        {element:<Signup/>,path:"/Signup" },
-        {element:<Checkout/>,path:"/Checkout"},
-        {element:<ORDERS/>,path:"/Orders"},
-        {element:<User_Profile/>,path:"/userProfile"},
-        {element:<Checkout_Product_Page/> , path:"/CheckoutProduct/:id"},
-        {element:<Payment_Status/> , path:"/Payment_Status/:id"},
-        {element:<Order_History/> , path:"/Order_History"},
-        {element:<Order_History_Status/>,path:"/Order_History_Status/:id"},
-        // {Unkown Routes}
-        {element:<Unknowm/>,path:"*"},
+  const Route = useRoutes([
+    {
+      element: (
+        <AuthMiddleware>
+          <Homepage />
+        </AuthMiddleware>
+      ),
+      path: "/",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <About />
+        </AuthMiddleware>
+      ),
+      path: "/About",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Product />
+        </AuthMiddleware>
+      ),
+      path: "/Product/:id",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Cart />
+        </AuthMiddleware>
+      ),
+      path: "/cart",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Shop />
+        </AuthMiddleware>
+      ),
+      path: "/Shop",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Login />
+        </AuthMiddleware>
+      ),
+      path: "/login",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Signup />
+        </AuthMiddleware>
+      ),
+      path: "/Signup",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Checkout />
+        </AuthMiddleware>
+      ),
+      path: "/Checkout",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <ORDERS />
+        </AuthMiddleware>
+      ),
+      path: "/Orders",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <User_Profile />
+        </AuthMiddleware>
+      ),
+      path: "/userProfile",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Checkout_Product_Page />
+        </AuthMiddleware>
+      ),
+      path: "/CheckoutProduct/:id",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Payment_Status />
+        </AuthMiddleware>
+      ),
+      path: "/Payment_Status/:id",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Order_History />
+        </AuthMiddleware>
+      ),
+      path: "/Order_History",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+          <Order_History_Status />
+        </AuthMiddleware>
+      ),
+      path: "/Order_History_Status/:id",
+    },
+    // {Unkown Routes}
+    { element: <Unknowm />, path: "*" },
 
-        // {Dashboard Routers}
-        {element:<DashboardHomepage/>,path:"/dashboard"},
-        {element:<UploadPage/>,path:"/dashboard/upload"},
-        {element:<DashBoardProducts/> , path:"/dashboard/products"},
-        {element:<DashboardUsersPage/> , path:"/dashboard/Users"},
-        {element:<DashBoardProductDetails/> , path:"/dashboard/Productdetails/:id"},
+    // {Dashboard Routers}
+    {
+      element: (
+        <AuthMiddleware>
+        <RoleVerifyMiddleware>
+          <DashboardHomepage />
+        </RoleVerifyMiddleware>
+        </AuthMiddleware>
+      ),
+      path: "/dashboard",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+        <RoleVerifyMiddleware>
+          <UploadPage />
+        </RoleVerifyMiddleware>
+        </AuthMiddleware>
+      ),
+      path: "/dashboard/upload",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+        <RoleVerifyMiddleware>
+          <DashBoardProducts />
+        </RoleVerifyMiddleware>
+        </AuthMiddleware>
+      ),
+      path: "/dashboard/products",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+        <RoleVerifyMiddleware>
+          <DashboardUsersPage />
+        </RoleVerifyMiddleware>
+        </AuthMiddleware>
+      ),
+      path: "/dashboard/Users",
+    },
+    {
+      element: (
+        <AuthMiddleware>
+        <RoleVerifyMiddleware>
+          <DashBoardProductDetails />
+        </RoleVerifyMiddleware>
+        </AuthMiddleware>
+      ),
+      path: "/dashboard/Productdetails/:id",
+    },
 
-        // {test component}
-        {element:<Loader/> , path:"/Loader"}
-    ])
-    
-    return Route;
-}
+    // {test component}
+    { element: <Loader />, path: "/Loader" },
+  ]);
+
+  return Route;
+};
 
 export default Routes;

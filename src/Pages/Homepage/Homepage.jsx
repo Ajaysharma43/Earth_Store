@@ -16,52 +16,7 @@ import { jwtDecode } from "jwt-decode";
 const URL = import.meta.env.VITE_API_URL;
 
 const Homepage = () => {
-  const navigate = useNavigate();
-
   useEffect(() => {
-    const AccessToken = sessionStorage.getItem("AccessToken");
-    const RefreshToken = Cookies.get("RefreshToken");
-    if (AccessToken) {
-      if (RefreshToken) {
-        const req = async () => {
-          const response = await api.post("/VerifyRoute");
-          if (response.data.message == "expired") {
-            const Decoded = jwtDecode(RefreshToken);
-            const response = await api.post("/RefreshToken", {
-              RefreshToken,
-              Userid: Decoded.ID,
-              Role: Decoded.Role,
-            });
-            console.log(response.data);
-            if (response.data.message == "NotExisted") {
-              navigate("/login");
-            } else if (response.data.message == "expired") {
-              navigate("/login");
-            }
-            sessionStorage.setItem("AccessToken", response.data.AccessToken);
-          }
-        };
-        req();
-      } else {
-        navigate("/login");
-      }
-    } else {
-      if (RefreshToken) {
-        const getaccesstoken = async () => {
-          const Decoded = jwtDecode(RefreshToken);
-          const response = await api.post("/RefreshToken", {
-            RefreshToken,
-            Userid: Decoded.ID,
-            Role: Decoded.Role,
-          });
-          console.log(response.data);
-          sessionStorage.setItem("AccessToken", response.data.AccessToken);
-        };
-        getaccesstoken();
-      } else {
-        navigate("/login");
-      }
-    }
     window.scrollTo({ top: 0 });
   }, []);
 
