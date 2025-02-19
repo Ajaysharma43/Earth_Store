@@ -1,14 +1,9 @@
-import { Password, Phone } from "@mui/icons-material";
-import axios from "axios";
-import React, { useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   GetOtp,
-  Setdata,
   updateValue,
 } from "../../../Components/Features/AuthSlice/Signup";
-import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
 
 const Step1 = ({ nextStep }) => {
   const dispatch = useDispatch();

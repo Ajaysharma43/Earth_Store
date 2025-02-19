@@ -6,12 +6,8 @@ import ProductRelated from "../../Components/Product_Components/Product_Related/
 import Product_Reviews from "../../Components/Product_Components/Product_Reviews/Product_Reviews";
 import ProductNav from "../../Components/Product_Components/ProductNav/ProductNav";
 import "../Product/Product.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import api from "../../../AxiosInterseptors/TokenVerify";
-import Cookies from 'js-cookie'
-import ProductNavbar from "../../Components/Product_Components/Product_nav/Product_nav";
-import { jwtDecode } from "jwt-decode";
 
 const Product = () => {
   const [showNav, setShowNav] = useState(false);

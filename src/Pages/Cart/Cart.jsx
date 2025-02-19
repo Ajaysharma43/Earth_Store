@@ -1,15 +1,9 @@
-import { useNavigate } from "react-router-dom"
 import Cart_Body from "../../Components/Cart_Componnets/Cart_Body/Cart_Body"
-import Cookies from "js-cookie"
-import api from "../../../AxiosInterseptors/TokenVerify"
 import { useEffect } from "react"
-import { jwtDecode } from "jwt-decode"
-import Checkout_Payment from "../../Components/Checkout_Component/Checkout_Payment"
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar"
 import Footer from "../../Components/Homepage_Components/Footer/Footer"
 
 const Cart = () => {
-    const Navigate = useNavigate();
 
     useEffect(() => {
       

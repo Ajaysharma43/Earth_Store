@@ -3,10 +3,7 @@ import Footer from "../../Components/Homepage_Components/Footer/Footer";
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar";
 import Payment_Status_Body from "../../Components/Payment_Status_Component/Payment_Status_body";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie'
 import LoadingBar from "react-top-loading-bar";
-import { jwtDecode } from "jwt-decode";
-import api from "../../../AxiosInterseptors/TokenVerify";
 
 const Payment_Status = () => {
 

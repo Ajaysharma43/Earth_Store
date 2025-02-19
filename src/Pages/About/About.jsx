@@ -4,17 +4,11 @@ import Footer from "../../Components/Homepage_Components/Footer/Footer";
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar";
 import Postcard from "../../Components/Homepage_Components/Postcard/Postcard";
 import image from "../../assets/Homapage_Images/a9588ac4be92480bbf420071afe1043d.png"
-import Cookies from "js-cookie"
-import api from "../../../AxiosInterseptors/TokenVerify";
 import "../About/About.css"
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LoadingBar from "react-top-loading-bar";
-import { jwtDecode } from "jwt-decode";
 
 const About = () => {
-
-    const Navigate = useNavigate()
     const [progress , setprogress] = useState(0)
 
     useEffect(() => {

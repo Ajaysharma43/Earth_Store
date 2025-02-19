@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetOtp, Setdata } from "../../../Components/Features/AuthSlice/Signup";
 import { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
-import { Block } from "@mui/icons-material";
 
 const Step2 = ({ nextStep }) => {
   const Data = useSelector((state) => state.UserData.Data);

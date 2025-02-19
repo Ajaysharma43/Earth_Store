@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const BlockedUserPage = () => {
     const navigate = useNavigate();

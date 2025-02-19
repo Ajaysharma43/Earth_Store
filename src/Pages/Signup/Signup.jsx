@@ -1,16 +1,5 @@
-import { Password, Phone } from "@mui/icons-material";
-import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Step, Stepper } from "react-form-stepper";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  GetOtp,
-  Setdata,
-  updateValue,
-} from "../../Components/Features/AuthSlice/Signup";
-import { useForkRef } from "@mui/material";
-import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
 import Step1 from "./Stepper_Components/Step1";
 import Step2 from "./Stepper_Components/Step2";
 import Step3 from "./Stepper_Components/Step3";
