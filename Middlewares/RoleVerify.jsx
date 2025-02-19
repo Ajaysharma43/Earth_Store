@@ -17,14 +17,13 @@ const RoleVerifyMiddleware = ({ children }) => {
         }
       } catch (error) {
         console.error("Role verification failed:", error);
-        navigate("*"); // Redirect on error
+        navigate("*"); 
       }
     };
 
     verifyRole();
   }, [navigate]);
 
-  // Show a loading spinner or fallback UI while verifying
   if (isVerified === null) {
     return navigate("*");
   }

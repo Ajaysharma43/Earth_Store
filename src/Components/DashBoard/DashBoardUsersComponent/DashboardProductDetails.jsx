@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { BlockUser, GetUser } from "../../Features/DashboardSlice/DashboardData";
+import {  useNavigate, useParams } from "react-router-dom";
+import { GetUser } from "../../Features/DashboardSlice/DashboardData";
 import axios from "axios";
 import BlockDilogs from "./Dilogs/BlockDilog";
+import DetailsUpdateDilog from "./Dilogs/DetailsUpdateDilog";
 
 const DashBoardProductDetails = () => {
   const { id } = useParams();
   const data = useSelector((state) => state.Dashboardreducer.User);
   const [ReceiptLoading , setReceiptLoading] = useState("")
   const [CancelReceiptLoading , setCancelReceiptLoading] = useState("")
+  const [UpdateDilog , setUpdateDilog]  = useState(false)
   const [BlockDilog , setBlockDilog]  = useState(false)
   const [Blockuser , setBlockuser] = useState('')
   const dispatch = useDispatch();
-  const Navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = () => {
@@ -68,9 +69,21 @@ const DashBoardProductDetails = () => {
     }
   }
 
+  const HandleUpdate = () => {
+    if(UpdateDilog == true)
+    {
+        setUpdateDilog(false)
+    }
+    else
+    {
+        setUpdateDilog(true)
+    }
+  }
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
         <BlockDilogs open={BlockDilog} HandleClose={HandleBlock} User={Blockuser} Operation={data.Block}/>
+        <DetailsUpdateDilog open={UpdateDilog} HandleClose={HandleUpdate}/>
       {/* User Information */}
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         <h1 >User Information</h1>
@@ -89,9 +102,12 @@ const DashBoardProductDetails = () => {
         <p>
           <strong>Password:</strong> {data.Password}
         </p>
-        <p>
-            <strong className="font-medium uppercase ">Block:</strong> {data.Block== true ? "Blocked" : "UnBlocked"}
+        <p className="font-medium w-fit p-2">
+            <strong>Block:</strong> <span className="font-bold uppercase text-2xl">{data.Block== true ? <span className="text-red-600">Blocked</span> : <span className="text-green-600">UnBlocked</span> }</span>
         </p>
+        <button onClick={HandleUpdate}>
+            UpdateDetails
+        </button>
       </div>
 
       {/* Cart Products */}
@@ -261,7 +277,6 @@ const DashBoardProductDetails = () => {
         )}
       </div>
 
-      {/* Cancelled Orders */}
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Cancelled Orders</h2>
         {data.CancelOrder ? (

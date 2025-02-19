@@ -2,11 +2,8 @@ import { useNavigate } from "react-router-dom"
 import Navbar from "../../Components/Homepage_Components/Navbar/Navbar"
 import Shop_Products from "../../Components/Shop/Shop_Products/Shop_Products"
 import { useEffect, useState } from "react"
-import api from "../../../AxiosInterseptors/TokenVerify"
-import Cookies from 'js-cookie'
 import LoadingBar from "react-top-loading-bar"
 import Footer from "../../Components/Homepage_Components/Footer/Footer"
-import { jwtDecode } from "jwt-decode"
 
 const Shop = () => {
 
