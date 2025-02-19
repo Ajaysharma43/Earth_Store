@@ -103,9 +103,9 @@ const DashBoardProductDetails = () => {
           <strong>Password:</strong> {data.Password}
         </p>
         <p className="font-medium w-fit p-2">
-            <strong>Block:</strong> <span className="font-bold uppercase text-2xl">{data.Block== true ? <span className="text-red-600">Blocked</span> : <span className="text-green-600">UnBlocked</span> }</span>
+            <strong>Block:</strong> <span className="font-bold uppercase text-2xl">{data.Block== true ? <span className="bg-red-600 text-white">Blocked</span> : <span className="bg-green-600 text-white">UnBlocked</span> }</span>
         </p>
-        <button onClick={HandleUpdate}>
+        <button onClick={HandleUpdate} className="h-fit w-fit p-2 bg-gradient-to-r from-amber-300 via-amber-600 to-amber-900 rounded-md uppercase text-white">
             UpdateDetails
         </button>
       </div>
