@@ -190,7 +190,7 @@ const Routes = () => {
         </RoleVerifyMiddleware>
         </AuthMiddleware>
       ),
-      path: "/dashboard/Productdetails/:id",
+      path: "/dashboard/User/:id",
     },
 
     // {test component}

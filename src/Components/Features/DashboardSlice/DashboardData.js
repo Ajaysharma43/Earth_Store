@@ -13,9 +13,15 @@ export const GetAllUsers = createAsyncThunk('GetAllUsers' , async() => {
     return Response.data
 })
 
+export const GetUser = createAsyncThunk('User' , async({UserID}) => {
+    const Response  = await axios.get(`${URL}/Data/User?UserID=${UserID}`)
+    return Response.data
+})
+
 const initialState = {
     AllProducts : [],
     AllUsers : [],
+    User : {},
     ProductsLength : null,
     UsersLength : null,
     error : null,
@@ -34,6 +40,10 @@ const DashboardReducer = createSlice({
         builder.addCase(GetAllUsers.fulfilled , (state , action) => {
             state.AllUsers = action.payload.Users
             state.UsersLength = action.payload.Users.length
+        })
+
+        builder.addCase(GetUser.fulfilled , (state , action) => {
+            state.User = action.payload.User;
         })
     }
 })

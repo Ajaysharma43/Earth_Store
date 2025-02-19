@@ -60,7 +60,7 @@ const DashBoardUsersComponent = () => {
                 {user.Checkout.length || 0}
               </p>
 
-              <Link to={`/dashboard/Productdetails/${user._id}`}>
+              <Link to={`/dashboard/User/${user._id}`}>
                 <button>View all Details</button>
               </Link>
             </div>
