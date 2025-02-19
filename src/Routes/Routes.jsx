@@ -23,14 +23,18 @@ import DashboardUsersPage from "../Components/DashBoardPages/DashboardUsersPage/
 import DashBoardProductDetails from "../Components/DashBoard/DashBoardUsersComponent/DashboardProductDetails";
 import RoleVerifyMiddleware from "../../Middlewares/RoleVerify";
 import AuthMiddleware from "../../Middlewares/AuthMiddleware";
+import BlockedUserPage from "../Pages/BlockedPage/BlockedPage";
+import BlockCheckMiddleware from "../../Middlewares/BlockCheckMiddleware";
 
 const Routes = () => {
   const Route = useRoutes([
     {
       element: (
+        <BlockCheckMiddleware>
         <AuthMiddleware>
           <Homepage />
         </AuthMiddleware>
+        </BlockCheckMiddleware>
       ),
       path: "/",
     },
@@ -67,19 +71,11 @@ const Routes = () => {
       path: "/Shop",
     },
     {
-      element: (
-        <AuthMiddleware>
-          <Login />
-        </AuthMiddleware>
-      ),
+      element: <Login />,
       path: "/login",
     },
     {
-      element: (
-        <AuthMiddleware>
-          <Signup />
-        </AuthMiddleware>
-      ),
+      element: <Signup />,
       path: "/Signup",
     },
     {
@@ -140,14 +136,15 @@ const Routes = () => {
     },
     // {Unkown Routes}
     { element: <Unknowm />, path: "*" },
+    {element : <BlockedUserPage/> , path:"/BlockedUserpage"},
 
     // {Dashboard Routers}
     {
       element: (
         <AuthMiddleware>
-        <RoleVerifyMiddleware>
-          <DashboardHomepage />
-        </RoleVerifyMiddleware>
+          <RoleVerifyMiddleware>
+            <DashboardHomepage />
+          </RoleVerifyMiddleware>
         </AuthMiddleware>
       ),
       path: "/dashboard",
@@ -155,9 +152,9 @@ const Routes = () => {
     {
       element: (
         <AuthMiddleware>
-        <RoleVerifyMiddleware>
-          <UploadPage />
-        </RoleVerifyMiddleware>
+          <RoleVerifyMiddleware>
+            <UploadPage />
+          </RoleVerifyMiddleware>
         </AuthMiddleware>
       ),
       path: "/dashboard/upload",
@@ -165,9 +162,9 @@ const Routes = () => {
     {
       element: (
         <AuthMiddleware>
-        <RoleVerifyMiddleware>
-          <DashBoardProducts />
-        </RoleVerifyMiddleware>
+          <RoleVerifyMiddleware>
+            <DashBoardProducts />
+          </RoleVerifyMiddleware>
         </AuthMiddleware>
       ),
       path: "/dashboard/products",
@@ -175,9 +172,9 @@ const Routes = () => {
     {
       element: (
         <AuthMiddleware>
-        <RoleVerifyMiddleware>
-          <DashboardUsersPage />
-        </RoleVerifyMiddleware>
+          <RoleVerifyMiddleware>
+            <DashboardUsersPage />
+          </RoleVerifyMiddleware>
         </AuthMiddleware>
       ),
       path: "/dashboard/Users",
@@ -185,9 +182,9 @@ const Routes = () => {
     {
       element: (
         <AuthMiddleware>
-        <RoleVerifyMiddleware>
-          <DashBoardProductDetails />
-        </RoleVerifyMiddleware>
+          <RoleVerifyMiddleware>
+            <DashBoardProductDetails />
+          </RoleVerifyMiddleware>
         </AuthMiddleware>
       ),
       path: "/dashboard/User/:id",
