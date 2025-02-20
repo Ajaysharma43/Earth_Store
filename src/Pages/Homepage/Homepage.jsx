@@ -10,6 +10,8 @@ import "../Homepage/Homepage.css";
 
 const Homepage = () => {
   useEffect(() => {
+    console.log("called");
+    
     window.scrollTo({ top: 0 });
   }, []);
 

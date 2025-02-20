@@ -30,51 +30,51 @@ const Routes = () => {
   const Route = useRoutes([
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Homepage />
+          <BlockCheckMiddleware>
+            <Homepage />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <About />
+          <BlockCheckMiddleware>
+            <About />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/About",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Product />
+          <BlockCheckMiddleware>
+            <Product />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/Product/:id",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Cart />
+          <BlockCheckMiddleware>
+            <Cart />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/cart",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Shop />
+          <BlockCheckMiddleware>
+            <Shop />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/Shop",
     },
@@ -88,77 +88,77 @@ const Routes = () => {
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Checkout />
+          <BlockCheckMiddleware>
+            <Checkout />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/Checkout",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <ORDERS />
+          <BlockCheckMiddleware>
+            <ORDERS />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/Orders",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <User_Profile />
+          <BlockCheckMiddleware>
+            <User_Profile />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/userProfile",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Checkout_Product_Page />
+          <BlockCheckMiddleware>
+            <Checkout_Product_Page />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/CheckoutProduct/:id",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Payment_Status />
+          <BlockCheckMiddleware>
+            <Payment_Status />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/Payment_Status/:id",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Order_History />
+          <BlockCheckMiddleware>
+            <Order_History />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/Order_History",
     },
     {
       element: (
-        <BlockCheckMiddleware>
         <AuthMiddleware>
-          <Order_History_Status />
+          <BlockCheckMiddleware>
+            <Order_History_Status />
+          </BlockCheckMiddleware>
         </AuthMiddleware>
-        </BlockCheckMiddleware>
       ),
       path: "/Order_History_Status/:id",
     },
     // {Unkown Routes}
     { element: <Unknowm />, path: "*" },
-    {element : <BlockedUserPage/> , path:"/BlockedUserpage"},
+    { element: <BlockedUserPage />, path: "/BlockedUserpage" },
 
     // {Dashboard Routers}
     {
