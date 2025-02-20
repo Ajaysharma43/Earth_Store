@@ -19,7 +19,13 @@ const BlockDilogs = ({ open, HandleClose, User , Operation}) => {
 
     return (
         <>
-            <Dialog open={open} onClose={HandleClose}>
+            <Dialog open={open}
+            sx={{
+                bgcolor: "rgba(255, 255, 255, 0.01)",
+                backdropFilter: "blur(3px)",
+                borderRadius: "8px",
+                padding: "16px",
+              }}>
                 <DialogContent>
                     <div className="flex flex-col items-center justify-center p-6 text-center space-y-6">
                         <h1 className="text-2xl font-semibold text-gray-700">
