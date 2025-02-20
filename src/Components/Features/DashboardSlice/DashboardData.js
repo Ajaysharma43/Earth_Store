@@ -33,6 +33,11 @@ export const NewUser = createAsyncThunk('NewUser' , async({FormData}) => {
     return Response.data
 })
 
+export const DeleteUser = createAsyncThunk('DeleteUser' , async({UserID}) => {
+    const Response = await axios.delete(`${URL}/UsersOperations/DeleteUser?Userid=${UserID}`)
+    return Response.data
+})
+
 const initialState = {
     AllProducts : [],
     AllUsers : [],
@@ -71,6 +76,10 @@ const DashboardReducer = createSlice({
 
         builder.addCase(NewUser.fulfilled , (state , action) => {
             state.AllUsers  = action.payload.Users
+        })
+
+        builder.addCase(DeleteUser.fulfilled , (state , action) => {
+            state.AllUsers = action.payload.Users
         })
     }
 })

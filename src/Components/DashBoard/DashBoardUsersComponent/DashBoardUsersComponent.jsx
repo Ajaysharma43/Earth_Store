@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetAllUsers } from "../../Features/DashboardSlice/DashboardData";
+import { DeleteUser, GetAllUsers } from "../../Features/DashboardSlice/DashboardData";
 import { Link } from "react-router-dom";
 import {
   FaUser,
@@ -117,13 +117,17 @@ const DashBoardUsersComponent = () => {
                     {user.Checkout.length || 0}
                   </div>
                 </td>
-                <td className="font-sans font-thin px-4 py-2 border-gray-200">
+                <td className="font-sans font-thin px-4 py-2 border-gray-200 flex gap-1">
                   <Link
                     to={`/dashboard/User/${user._id}`}
                     className="px-3 py-1 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600"
                   >
                     View
                   </Link>
+                  <button className="px-3 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"
+                  onClick={() => dispatch(DeleteUser({UserID : user._id}))}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
