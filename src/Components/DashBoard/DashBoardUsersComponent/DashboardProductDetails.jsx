@@ -15,7 +15,7 @@ const DashBoardProductDetails = () => {
   const [UpdateDilog, setUpdateDilog] = useState(false);
   const [BlockDilog, setBlockDilog] = useState(false);
   const [Blockuser, setBlockuser] = useState("");
-  const [UpdateUser , setUpdateUser] = useState({})
+  const [UpdateUser, setUpdateUser] = useState({});
   const decoded = JWTTOken();
   const UserID = decoded.ID;
   const dispatch = useDispatch();
@@ -23,10 +23,9 @@ const DashBoardProductDetails = () => {
   useEffect(() => {
     const fetchData = () => {
       dispatch(GetUser({ UserID: id }));
-      console.log(data.Block);
     };
     fetchData();
-  }, [id, dispatch]);
+  }, [id, dispatch  , UpdateDilog]);
 
   if (!data) {
     return <div>Loading...</div>;
@@ -73,11 +72,14 @@ const DashBoardProductDetails = () => {
       setUpdateDilog(false);
     } else {
       setUpdateUser({
-        UserName : data.UserName,
-        Password : data.Password,
-        PhoneNumber : data.PhoneNumber,
-        Role : data.Role
-      })
+        _id: data._id,
+        UserName: data.UserName,
+        Password: data.Password,
+        PhoneNumber: data.PhoneNumber,
+        Role: data.Role,
+        StripeID: data.StripeID,
+        Block: data.Block,
+      });
       setUpdateDilog(true);
     }
   };
@@ -90,7 +92,11 @@ const DashBoardProductDetails = () => {
         User={Blockuser}
         Operation={data.Block}
       />
-      <DetailsUpdateDilog open={UpdateDilog} HandleClose={HandleUpdate} User={UpdateUser}/>
+      <DetailsUpdateDilog
+        open={UpdateDilog}
+        HandleClose={HandleUpdate}
+        User={UpdateUser}
+      />
       {/* User Information */}
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         <h1>User Information</h1>
@@ -137,7 +143,7 @@ const DashBoardProductDetails = () => {
                 <img
                   src={product.Image}
                   alt={product.Name}
-                 className="rounded-lg mb-4 w-full h-[250px] object-cover"
+                  className="rounded-lg mb-4 w-full h-[250px] object-cover"
                 />
                 <h3 className="font-bold">{product.Name}</h3>
                 <p>
@@ -314,9 +320,12 @@ const DashBoardProductDetails = () => {
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         <h1 className="text-xl font-semibold mb-4">Operations</h1>
         {data._id == UserID ? (
-          <h1 className="h-fit w-fit p-3 bg-gradient-to-r from-teal-300 via-teal-600 to-teal-900 uppercase text-white rounded-md hover:bg-gradient-to-r hover:from-teal-400 hover:via-teal-700 hover:to-teal-950">You Cannot Block Yourself</h1>
+          <h1 className="h-fit w-fit p-3 bg-gradient-to-r from-teal-300 via-teal-600 to-teal-900 uppercase text-white rounded-md hover:bg-gradient-to-r hover:from-teal-400 hover:via-teal-700 hover:to-teal-950">
+            You Cannot Block Yourself
+          </h1>
+        ) : data.Role == "Admin" ? (
+          <h1>You cannot block an Admin</h1>
         ) : (
-          data.Role == "Admin" ? <h1>You cannot block an Admin</h1> : 
           <button
             onClick={HandleBlock}
             className="h-fit w-fit p-3 bg-gradient-to-r from-teal-300 via-teal-600 to-teal-900 uppercase text-white rounded-md hover:bg-gradient-to-r hover:from-teal-400 hover:via-teal-700 hover:to-teal-950"

@@ -1,28 +1,61 @@
 import { Dialog, DialogContent } from "@mui/material";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { UpdateUser } from "../../../Features/DashboardSlice/DashboardData";
 
-const DetailsUpdateDilog = ({ open, HandleClose, User, Operation }) => {
+const DetailsUpdateDialog = ({ open, HandleClose, User, Operation }) => {
   const passwordRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const [FormData, setFormData] = useState({});
 
+  // Initialize form data when the dialog opens
+  useEffect(() => {
+    if (open) {
+      setFormData({
+        _id: User?._id || "",
+        UserName: User?.UserName || "",
+        Password: User?.Password || "",
+        PhoneNumber: User?.PhoneNumber || "",
+        Role: User?.Role || "",
+        StripeID: User?.StripeID || "",
+        Block: User?.Block || false,
+      });
+    }
+  }, [open, User]);
+
+  // Toggle password visibility
   const handlePasswordToggle = () => {
     setShowPassword((prevState) => !prevState);
     if (passwordRef.current) {
-      passwordRef.current.type = passwordRef.current.type === "password" ? "text" : "password";
+      passwordRef.current.type =
+        passwordRef.current.type === "password" ? "text" : "password";
     }
   };
 
+  // Handle form input changes
   const handleInputChange = (e, field) => {
-    User[field] = e.target.value; // Modify as per state management logic (use setState for controlled components if necessary).
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: e.target.value,
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Form Submitted:", FormData);
+    await dispatch(UpdateUser({ FormData: FormData }));
+    HandleClose();
   };
 
   return (
     <Dialog open={open}>
       <DialogContent>
         <form
-          onSubmit={(e) => e.preventDefault()}
-          className="space-y-6 p-6  bg-gray-100 rounded-lg w-full"
+          onSubmit={handleSubmit}
+          className="space-y-6 p-6 bg-gray-100 rounded-lg w-full"
         >
           {/* Form Header */}
           <h2 className="text-2xl font-semibold text-gray-800 text-center">
@@ -33,17 +66,17 @@ const DetailsUpdateDilog = ({ open, HandleClose, User, Operation }) => {
           <div className="flex flex-col space-y-1">
             <label
               htmlFor="username"
-              className="text-sm font-medium text-gray-700 "
+              className="text-sm font-medium text-gray-700"
             >
               Username
             </label>
             <input
               type="text"
               id="username"
-              value={User.UserName || ""}
+              value={FormData.UserName}
               onChange={(e) => handleInputChange(e, "UserName")}
               placeholder="Enter your username"
-              className=" bg-transparent px-3 py-2 border border-black rounded-md focus:outline-none"
+              className="bg-transparent px-3 py-2 border border-black rounded-md focus:outline-none"
             />
           </div>
 
@@ -60,10 +93,10 @@ const DetailsUpdateDilog = ({ open, HandleClose, User, Operation }) => {
                 type="password"
                 id="password"
                 ref={passwordRef}
-                value={User.Password || ""}
+                value={FormData.Password}
                 onChange={(e) => handleInputChange(e, "Password")}
                 placeholder="Enter your password"
-                className=" bg-transparent px-3 py-2 rounded-md focus:outline-none"
+                className="bg-transparent px-3 py-2 rounded-md focus:outline-none"
               />
               <button
                 type="button"
@@ -86,28 +119,36 @@ const DetailsUpdateDilog = ({ open, HandleClose, User, Operation }) => {
             <input
               type="number"
               id="number"
-              value={User.PhoneNumber || ""}
+              value={FormData.PhoneNumber}
               onChange={(e) => handleInputChange(e, "PhoneNumber")}
               placeholder="Enter your number"
-              className=" bg-transparent px-3 py-2 border border-black rounded-md focus:outline-none"
+              className="bg-transparent px-3 py-2 border border-black rounded-md focus:outline-none"
             />
           </div>
 
           {/* Role Selection */}
           <div className="flex flex-col space-y-1">
-            <label htmlFor="role" className="text-sm font-medium text-gray-700">
-              Role
-            </label>
-            <select
-              id="role"
-              value={User.Role || ""}
-              onChange={(e) => handleInputChange(e, "Role")}
-              className=" bg-transparent px-3 py-2 border border-black rounded-md focus:outline-none"
-            >
-              <option value="admin">Admin</option>
-              <option value="editor">Editor</option>
-              <option value="user">User</option>
-            </select>
+            {FormData.Role == "Admin" ? (
+              <h1>Role Can be Changed</h1>
+            ) : (
+              <>
+                <label
+                  htmlFor="role"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  Role
+                </label>
+                <select
+                  id="role"
+                  value={FormData.Role}
+                  onChange={(e) => handleInputChange(e, "Role")}
+                  className="bg-transparent px-3 py-2 border border-black rounded-md focus:outline-none"
+                >
+                  <option value="Editor">Editor</option>
+                  <option value="User">User</option>
+                </select>
+              </>
+            )}
           </div>
 
           {/* Buttons */}
@@ -132,4 +173,4 @@ const DetailsUpdateDilog = ({ open, HandleClose, User, Operation }) => {
   );
 };
 
-export default DetailsUpdateDilog;
+export default DetailsUpdateDialog;
