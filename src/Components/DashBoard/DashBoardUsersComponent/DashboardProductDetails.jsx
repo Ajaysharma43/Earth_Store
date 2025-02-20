@@ -25,7 +25,7 @@ const DashBoardProductDetails = () => {
       dispatch(GetUser({ UserID: id }));
     };
     fetchData();
-  }, [id, dispatch  , UpdateDilog]);
+  }, [id, dispatch, UpdateDilog]);
 
   if (!data) {
     return <div>Loading...</div>;
@@ -98,209 +98,306 @@ const DashBoardProductDetails = () => {
         User={UpdateUser}
       />
       {/* User Information */}
-      <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
-        <h1>User Information</h1>
-        <p>
-          <strong>Name:</strong> {data.UserName}
-        </p>
-        <p>
-          <strong>Phone Number:</strong> {data.PhoneNumber}
-        </p>
-        <p>
-          <strong>Role:</strong> {data.Role}
-        </p>
-        <p>
-          <strong>Stripe ID:</strong> {data.StripeID}
-        </p>
-        <p>
-          <strong>Password:</strong> {data.Password}
-        </p>
-        <p className="font-medium w-fit p-2">
-          <strong>Block:</strong>{" "}
-          <span className="font-bold uppercase text-2xl">
-            {data.Block == true ? (
-              <span className="bg-red-600 text-white">Blocked</span>
-            ) : (
-              <span className="bg-green-600 text-white">UnBlocked</span>
-            )}
-          </span>
-        </p>
-        <button
-          onClick={HandleUpdate}
-          className="h-fit w-fit p-2 bg-gradient-to-r from-amber-300 via-amber-600 to-amber-900 rounded-md uppercase text-white"
-        >
-          UpdateDetails
-        </button>
+      <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
+          User Information
+        </h1>
+        <div className="space-y-4">
+          <p className="text-gray-600">
+            <strong className="text-gray-800">Name:</strong> {data.UserName}
+          </p>
+          <p className="text-gray-600">
+            <strong className="text-gray-800">Phone Number:</strong>{" "}
+            {data.PhoneNumber}
+          </p>
+          <p className="text-gray-600">
+            <strong className="text-gray-800">Role:</strong> {data.Role}
+          </p>
+          <p className="text-gray-600">
+            <strong className="text-gray-800">Stripe ID:</strong>{" "}
+            {data.StripeID}
+          </p>
+          <p className="text-gray-600">
+            <strong className="text-gray-800">Password:</strong> {data.Password}
+          </p>
+          <p className="font-medium">
+            <strong className="text-gray-800">Block Status:</strong>{" "}
+            <span
+              className={`px-3 py-1 text-sm font-bold uppercase rounded-full ${
+                data.Block
+                  ? "bg-red-100 text-red-600 border border-red-600"
+                  : "bg-green-100 text-green-600 border border-green-600"
+              }`}
+            >
+              {data.Block ? "Blocked" : "Unblocked"}
+            </span>
+          </p>
+        </div>
+        <div className="mt-6">
+          <button
+            onClick={HandleUpdate}
+            className="px-6 py-3 bg-gradient-to-r from-amber-400 via-amber-600 to-amber-800 text-white font-medium text-sm uppercase rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:from-amber-500 hover:via-amber-700 hover:to-amber-900"
+          >
+            Update Details
+          </button>
+        </div>
       </div>
 
       {/* Cart Products */}
-      <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">Cart Products</h2>
-        {data.CartProducts ? (
-          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
+          Cart Products
+        </h2>
+        {data.CartProducts && data.CartProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.CartProducts.map((product, index) => (
-              <div key={index} className="p-4 bg-gray-100 w-fit rounded-lg">
+              <div
+                key={index}
+                className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
+              >
                 <img
                   src={product.Image}
                   alt={product.Name}
-                  className="rounded-lg mb-4 w-full h-[250px] object-cover"
+                  className="w-full h-[200px] object-cover"
                 />
-                <h3 className="font-bold">{product.Name}</h3>
-                <p>
-                  <strong>Type:</strong> {product.Type}
-                </p>
-                <p>
-                  <strong>Price:</strong> ${product.Price}
-                </p>
+                <div className="p-4 space-y-2">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {product.Name}
+                  </h3>
+                  <p className="text-gray-600">
+                    <strong className="font-medium text-gray-800">Type:</strong>{" "}
+                    {product.Type}
+                  </p>
+                  <p className="text-gray-600">
+                    <strong className="font-medium text-gray-800">
+                      Price:
+                    </strong>{" "}
+                    <span className="text-green-600 font-bold">
+                      ${product.Price}
+                    </span>
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         ) : (
-          <p>No products in the cart.</p>
+          <p className="text-gray-500 text-center py-6">
+            No products in the cart.
+          </p>
         )}
       </div>
 
       {/* Checkout Details */}
-      <div className="bg-white w-full rounded-2xl shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">Checkout</h2>
-        {data.Checkout ? (
+      <div className="bg-white w-full rounded-2xl shadow-lg p-8 mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
+          Checkout
+        </h2>
+        {data.Checkout && data.Checkout.length > 0 ? (
           data.Checkout.map((checkout, index) => (
-            <div key={index} className="mb-4  w-fit  border-b pb-4">
-              <h3 className="font-bold mb-2">Order {index + 1}</h3>
+            <div
+              key={index}
+              className="mb-6 p-6 bg-gray-50 border border-gray-200 rounded-xl shadow-md"
+            >
+              <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                Order {index + 1}
+              </h3>
               <div>
-                <strong>Products:</strong>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <p className="font-medium text-gray-800 mb-2">
+                  <strong>Products:</strong>
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {checkout.Product.map((product, idx) => (
-                    <div key={index} className="p-4 bg-gray-100 rounded-lg">
-                      <img
-                        src={product.Image}
-                        alt={product.Name}
-                        className="rounded-lg mb-4 w-full h-[250px] object-cover"
-                      />
-                      <h3 className="font-bold">{product.Name}</h3>
-                      <p>
-                        <strong>Type:</strong> {product.Type}
-                      </p>
-                      <p>
-                        <strong>Price:</strong> ${product.Price}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <p className="w-fit h-fit bg-gray-100 p-4 mt-2 shadow rounded-md">
-                <strong>Address:</strong>
-                <br />
-                Street : {checkout.Address.Street || "N/A"}
-                <br />
-                State : {checkout.Address.State || "N/A"}
-                <br />
-                Pincode : {checkout.Address.Pincode || "N/A"}
-                <br />
-                Country : {checkout.Address.Country || "N/A"}
-                <br />
-                City : {checkout.Address.City || "N/A"}
-                <br />
-                Area : {checkout.Address.Area || "N/A"}
-                <br />
-                PaymentMethod : {checkout.Address.PaymentMethod || "N/A"}
-                <br />
-                {checkout.Address.PaymentMethod == "Online Payment" ? (
-                  <button
-                    className="h-fit w-fit uppercase bg-gradient-to-r from-cyan-300 via-cyan-600 to-cyan-900 text-white p-2 rounded-md shadow-md m-2 transition-all duration-200 hover:bg-gradient-to-r hover:from-cyan-400 hover:via-cyan-700 hover:to-cyan-950"
-                    onClick={() => GetRecipt(checkout.ChargeID)}
-                  >
-                    {ReceiptLoading ? ReceiptLoading : "Check Reciept"}
-                  </button>
-                ) : (
-                  <h1 className="h-fit w-fit p-3 bg-gradient-to-r from-cyan-400 to-cyan-500 text-white uppercase rounded-md transition-all duration-200 m-2 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-600">
-                    Product is ordered on cash on delivery. Reciept not
-                    available
-                  </h1>
-                )}
-              </p>
-            </div>
-          ))
-        ) : (
-          <p>No checkout history.</p>
-        )}
-      </div>
-
-      {/* Order History */}
-      <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">Order History</h2>
-        {data.OrderHistory ? (
-          data.OrderHistory.map((order, index) => (
-            <div key={index} className="mb-4 border-b pb-4">
-              <h3 className="font-bold mb-2">Order {index + 1}</h3>
-              <div>
-                <strong>Products:</strong>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {order.Product.map((product, idx) => (
                     <div
                       key={index}
-                      className="p-4 bg-gray-100 rounded-lg shadow"
+                      className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
                     >
                       <img
                         src={product.Image}
                         alt={product.Name}
-                        className="rounded-lg mb-4 w-full h-[250px] object-cover"
+                        className="w-full h-[200px] object-cover"
                       />
-                      <h3 className="font-bold">{product.Name}</h3>
-                      <p>
-                        <strong>Type:</strong> {product.Type}
-                      </p>
-                      <p>
-                        <strong>Price:</strong> ${product.Price}
-                      </p>
+                      <div className="p-4 space-y-2">
+                        <h3 className="text-lg font-semibold text-gray-800">
+                          {product.Name}
+                        </h3>
+                        <p className="text-gray-600">
+                          <strong className="font-medium text-gray-800">
+                            Type:
+                          </strong>{" "}
+                          {product.Type}
+                        </p>
+                        <p className="text-gray-600">
+                          <strong className="font-medium text-gray-800">
+                            Price:
+                          </strong>{" "}
+                          <span className="text-green-600 font-bold">
+                            ${product.Price}
+                          </span>
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-              <p className="w-fit h-fit bg-gray-100 p-4 mt-2 shadow rounded-md">
-                <strong>Address:</strong>
-                <br />
-                Street : {order.Address.Street || "N/A"}
-                <br />
-                State : {order.Address.State || "N/A"}
-                <br />
-                Pincode : {order.Address.Pincode || "N/A"}
-                <br />
-                Country : {order.Address.Country || "N/A"}
-                <br />
-                City : {order.Address.City || "N/A"}
-                <br />
-                Area : {order.Address.Area || "N/A"}
-                <br />
-                PaymentMethod : {order.Address.PaymentMethod || "N/A"}
-                <br />
-                {order.Address.PaymentMethod == "Online Payment" ? (
+
+              <div className="p-4 mt-2 bg-gray-100 rounded-lg shadow-sm">
+                <p className="text-gray-700 font-medium mb-2">
+                  <strong>Address:</strong>
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Street:</strong> {checkout.Address.Street || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>State:</strong> {checkout.Address.State || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Pincode:</strong> {checkout.Address.Pincode || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Country:</strong> {checkout.Address.Country || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>City:</strong> {checkout.Address.City || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Area:</strong> {checkout.Address.Area || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Payment Method:</strong>{" "}
+                  {checkout.Address.PaymentMethod || "N/A"}
+                </p>
+                {checkout.Address.PaymentMethod === "Online Payment" ? (
                   <button
-                    className="h-fit w-fit uppercase bg-gradient-to-r from-cyan-300 via-cyan-600 to-cyan-900 text-white p-2 rounded-md shadow-md m-2 transition-all duration-200 hover:bg-gradient-to-r hover:from-cyan-400 hover:via-cyan-700 hover:to-cyan-950"
+                    className="mt-4 px-4 py-2 bg-gradient-to-r from-cyan-400 via-cyan-600 to-cyan-800 text-white text-sm font-medium rounded-md shadow-md hover:bg-gradient-to-r hover:from-cyan-500 hover:via-cyan-700 hover:to-cyan-900 transition-all duration-200"
+                    onClick={() => GetRecipt(checkout.ChargeID)}
+                  >
+                    {ReceiptLoading ? ReceiptLoading : "Check Receipt"}
+                  </button>
+                ) : (
+                  <p className="mt-4 px-4 py-2 bg-gradient-to-r from-cyan-400 to-cyan-500 text-white text-sm font-medium rounded-md shadow-md">
+                    Product is ordered on cash on delivery. Receipt not
+                    available.
+                  </p>
+                )}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500 text-center py-6">No checkout history.</p>
+        )}
+      </div>
+
+      {/* Order History */}
+      <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
+          Order History
+        </h2>
+        {data.OrderHistory && data.OrderHistory.length > 0 ? (
+          data.OrderHistory.map((order, index) => (
+            <div
+              key={index}
+              className="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl shadow-md"
+            >
+              <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                Order {index + 1}
+              </h3>
+              <div>
+                <p className="font-medium text-gray-800 mb-2">
+                  <strong>Products:</strong>
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {order.Product.map((product, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-200"
+                    >
+                      <img
+                        src={product.Image}
+                        alt={product.Name}
+                        className="w-full h-[200px] object-cover"
+                      />
+                      <div className="p-4 space-y-2">
+                        <h3 className="text-lg font-semibold text-gray-800">
+                          {product.Name}
+                        </h3>
+                        <p className="text-gray-600">
+                          <strong className="font-medium text-gray-800">
+                            Type:
+                          </strong>{" "}
+                          {product.Type}
+                        </p>
+                        <p className="text-gray-600">
+                          <strong className="font-medium text-gray-800">
+                            Price:
+                          </strong>{" "}
+                          <span className="text-green-600 font-bold">
+                            ${product.Price}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 bg-gray-100 p-4 rounded-lg shadow">
+                <p className="text-gray-700 font-medium mb-2">
+                  <strong>Address:</strong>
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Street:</strong> {order.Address.Street || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>State:</strong> {order.Address.State || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Pincode:</strong> {order.Address.Pincode || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Country:</strong> {order.Address.Country || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>City:</strong> {order.Address.City || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Area:</strong> {order.Address.Area || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Payment Method:</strong>{" "}
+                  {order.Address.PaymentMethod || "N/A"}
+                </p>
+                {order.Address.PaymentMethod === "Online Payment" ? (
+                  <button
+                    className="mt-4 px-4 py-2 bg-gradient-to-r from-cyan-400 via-cyan-600 to-cyan-800 text-white text-sm font-medium rounded-md shadow-md hover:bg-gradient-to-r hover:from-cyan-500 hover:via-cyan-700 hover:to-cyan-900 transition-all duration-200"
                     onClick={() => GetCancelRecipt(order.ChargeID)}
                   >
                     {CancelReceiptLoading
                       ? CancelReceiptLoading
-                      : "Check Reciept"}
+                      : "Check Receipt"}
                   </button>
                 ) : (
-                  <h1 className="h-fit w-fit p-3 bg-gradient-to-r from-cyan-400 to-cyan-500 text-white uppercase rounded-md transition-all duration-200 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-600">
-                    Product is ordered on cash on delivery
-                  </h1>
+                  <p className="mt-4 px-4 py-2 bg-gradient-to-r from-cyan-400 to-cyan-500 text-white text-sm font-medium rounded-md shadow-md">
+                    Product is ordered on cash on delivery.
+                  </p>
                 )}
-              </p>
-              <p className="w-fit h-fit bg-gray-100 p-4 mt-2 shadow rounded-md">
-                <strong>Canceled:</strong> {order.Canceled ? "Yes" : "No"}
-              </p>
-              {order.Canceled && (
-                <p className="w-fit h-fit bg-gray-100 p-4 mt-2 shadow rounded-md">
-                  <strong>Reason:</strong> {order.Reason}
+              </div>
+
+              <div className="mt-4 bg-gray-100 p-4 rounded-lg shadow">
+                <p className="text-gray-700 font-medium">
+                  <strong>Canceled:</strong> {order.Canceled ? "Yes" : "No"}
                 </p>
-              )}
+                {order.Canceled && (
+                  <p className="mt-2 text-gray-700">
+                    <strong>Reason:</strong> {order.Reason}
+                  </p>
+                )}
+              </div>
             </div>
           ))
         ) : (
-          <p>No order history available.</p>
+          <p className="text-gray-500 text-center py-6">
+            No order history available.
+          </p>
         )}
       </div>
 
@@ -317,20 +414,22 @@ const DashBoardProductDetails = () => {
         )}
       </div>
 
-      <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
-        <h1 className="text-xl font-semibold mb-4">Operations</h1>
-        {data._id == UserID ? (
-          <h1 className="h-fit w-fit p-3 bg-gradient-to-r from-teal-300 via-teal-600 to-teal-900 uppercase text-white rounded-md hover:bg-gradient-to-r hover:from-teal-400 hover:via-teal-700 hover:to-teal-950">
+      <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">Operations</h1>
+        {data._id === UserID ? (
+          <div className="flex items-center justify-center h-fit w-full p-4 bg-gradient-to-r from-teal-300 via-teal-600 to-teal-900 rounded-md text-white uppercase font-medium shadow-md">
             You Cannot Block Yourself
-          </h1>
-        ) : data.Role == "Admin" ? (
-          <h1>You cannot block an Admin</h1>
+          </div>
+        ) : data.Role === "Admin" ? (
+          <div className="flex items-center justify-center h-fit w-full p-4 bg-gray-100 rounded-md text-gray-700 uppercase font-medium shadow-md">
+            You Cannot Block an Admin
+          </div>
         ) : (
           <button
             onClick={HandleBlock}
-            className="h-fit w-fit p-3 bg-gradient-to-r from-teal-300 via-teal-600 to-teal-900 uppercase text-white rounded-md hover:bg-gradient-to-r hover:from-teal-400 hover:via-teal-700 hover:to-teal-950"
+            className="h-fit w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-teal-300 via-teal-600 to-teal-900 uppercase text-white font-semibold rounded-md shadow-md transition-all duration-200 hover:bg-gradient-to-r hover:from-teal-400 hover:via-teal-700 hover:to-teal-950"
           >
-            {data.Block == true ? "Unblock User" : "Block User"}
+            {data.Block === true ? "Unblock User" : "Block User"}
           </button>
         )}
       </div>
