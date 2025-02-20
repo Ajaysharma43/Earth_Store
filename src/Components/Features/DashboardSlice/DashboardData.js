@@ -28,6 +28,11 @@ export const UpdateUser = createAsyncThunk('UpdateUser' , async({FormData}) => {
     return Response.data
 })
 
+export const NewUser = createAsyncThunk('NewUser' , async({FormData}) => {
+    const Response = await axios.post(`${URL}/UsersOperations/CreateUser` , {FormData})
+    return Response.data
+})
+
 const initialState = {
     AllProducts : [],
     AllUsers : [],
@@ -62,6 +67,10 @@ const DashboardReducer = createSlice({
 
         builder.addCase(UpdateUser.fulfilled , (state , action) => {
             state.User = action.payload.User;
+        })
+
+        builder.addCase(NewUser.fulfilled , (state , action) => {
+            state.AllUsers  = action.payload.Users
         })
     }
 })

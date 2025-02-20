@@ -129,7 +129,7 @@ const DetailsUpdateDialog = ({ open, HandleClose, User, Operation }) => {
           {/* Role Selection */}
           <div className="flex flex-col space-y-1">
             {FormData.Role == "Admin" ? (
-              <h1>Role Can be Changed</h1>
+              <h1>Role Cannot be Changed</h1>
             ) : (
               <>
                 <label

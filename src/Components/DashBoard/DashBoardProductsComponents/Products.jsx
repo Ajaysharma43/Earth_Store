@@ -29,7 +29,6 @@ const Products = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-
       {/* Search Bar */}
       <div className="max-w-md mx-auto mb-6">
         <input
@@ -43,7 +42,7 @@ const Products = () => {
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredData.map((item, index) => (
+        {filteredData.map((item) => (
           <div
             key={item._id}
             className="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 hover:shadow-xl transition duration-300"
