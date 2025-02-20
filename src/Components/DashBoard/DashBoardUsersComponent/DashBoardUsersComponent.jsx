@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteUser, GetAllUsers } from "../../Features/DashboardSlice/DashboardData";
+import {
+  DeleteUser,
+  GetAllUsers,
+} from "../../Features/DashboardSlice/DashboardData";
 import { Link } from "react-router-dom";
 import {
   FaUser,
@@ -124,20 +127,18 @@ const DashBoardUsersComponent = () => {
                   >
                     View
                   </Link>
-                  {
-                    user.Role == "Admin" ? 
-                    (
-                      <h1 className="px-3 py-1 text-sm bg-green-500 text-white rounded-md hover:bg-green-600">Cannot delete Admin</h1>
-                    )
-                    :
-                    (
-<button className="px-3 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"
-                  onClick={() => dispatch(DeleteUser({UserID : user._id}))}>
-                    Delete
-                  </button>
-                    )
-                  }
-                  
+                  {user.Role == "Admin" ? (
+                    <h1 className="px-3 py-1 text-sm bg-green-500 text-white rounded-md hover:bg-green-600">
+                      Cannot delete Admin
+                    </h1>
+                  ) : (
+                    <button
+                      className="px-3 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"
+                      onClick={() => dispatch(DeleteUser({ UserID: user._id }))}
+                    >
+                      Delete
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
