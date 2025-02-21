@@ -86,7 +86,7 @@ const Order_History_Body = () => {
                   {
                     item.Address.PaymentMethod == 'Online Payment' ? 
                     (
-                        <button className="bg-[#dbf0c9d0] text-[#53832c] font-medium text-center p-3 rounded mt-3" onClick={() => Navigate(`/Order_History_Status/${item.ChargeID}`)}>Check Recipt</button>
+                        <button className="bg-[#dbf0c9d0] text-[#53832c] font-medium text-center p-3 rounded mt-3g" onClick={() => Navigate(`/Order_History_Status/${item.ChargeID}`)}>Check Recipt</button>
                     )
                     :
                     (
