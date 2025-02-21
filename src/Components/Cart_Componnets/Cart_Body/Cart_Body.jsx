@@ -64,7 +64,7 @@ const Cart_Body = () => {
         onConfirm={remove}
       />
     ))}
-    <div className="  bg-gray-100 flex flex-row justify-center flex-wrap items-center py-10 px-4">
+    <div className="min-h-screen  bg-gray-100 flex flex-row justify-center flex-wrap items-center py-10 px-4">
       {Cart.length > 0 ? (
         <>
         <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-6 m-[5%]">
@@ -138,13 +138,13 @@ const Cart_Body = () => {
           </div>
 
           {/* Mobile View */}
-          <div className="sm:hidden grid grid-cols-1 gap-4">
+          <div className="sm:hidden grid grid-cols-1">
             {Cart.map((item) => (
               <div
                 key={item.ProductID}
                 className="border p-4 rounded-md shadow-md bg-gray-50"
               >
-                <div className="flex justify-between items-center mb-2">
+                <div className="flex justify-between items-center ">
                   <h3 className="text-lg font-medium text-gray-800">{item.Name}</h3>
                   <button
                     className="text-gray-500 hover:text-red-500 transition"

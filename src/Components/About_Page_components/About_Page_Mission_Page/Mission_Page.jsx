@@ -15,7 +15,7 @@ const Mission = () => {
 
       {/* Content Section */}
       <section className="text-center lg:text-left max-w-[600px]">
-        <h2 className="text-4xl font-bold font-serif pb-6">OUR MISSION</h2>
+        <h2 className="text-4xl font-bold font-serif pb-6 pt-6">OUR MISSION</h2>
         <p className="text-slate-500 text-lg leading-relaxed mb-4">
           Hello, my name is Tyler Moore and with the help of many people I made
           this template. I made it so it is super easy to update and so that it
