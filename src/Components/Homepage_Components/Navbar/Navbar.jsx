@@ -91,7 +91,9 @@ const Navbar = () => {
               </Link>
 
               {Roles == "Admin" ? (
-                <h3 className="Navbar_Element">Admin</h3>
+                <Link to={"/Dashboard"}>
+                <h3 className="Navbar_Element">ADMIN</h3>
+                </Link>
               ) : (
                 ""
               )}
@@ -136,6 +138,12 @@ const Navbar = () => {
               <Link to={"/Order_History"}>
                 <li>ORDERS HISTORY</li>
               </Link>
+              {Roles == "Admin" ? (
+                
+                <Link to={"/Dashboard"}>
+                  <li>ADMIN</li>
+                </Link>
+              ) : null}
             </ul>
           </div>
         )}
