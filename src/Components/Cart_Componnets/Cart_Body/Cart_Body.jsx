@@ -201,7 +201,7 @@ const Cart_Body = () => {
       </Link>
       </>
       ) : (
-        <div className="text-center">
+        <div className="text-center min-h-screen flex flex-col items-center justify-center">
           <img
             src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
             alt="Empty Cart"
