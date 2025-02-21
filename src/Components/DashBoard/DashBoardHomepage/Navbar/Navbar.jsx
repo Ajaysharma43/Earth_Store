@@ -18,7 +18,7 @@ const DashboardNavbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6">
           <Link
-            to="/Dashboard"
+            to="/"
             className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg"
           >
             Home
@@ -88,7 +88,7 @@ const DashboardNavbar = () => {
       {/* Mobile Menu */}
       <div className={`md:hidden ${isOpen ? "block" : "hidden"} bg-gray-800`}>
         <Link
-          to="/dashboard"
+          to="/"
           className="block text-white px-3 py-2 rounded-md text-lg"
           onClick={toggleMenu}
         >
