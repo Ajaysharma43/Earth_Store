@@ -269,7 +269,7 @@ const Product_Info = () => {
         <h1 className="text-center text-gray-500">{Product.Name}</h1>
       </Dialog>
 
-      <div className="flex flex-wrap mt-[5%] mb-[5%] w-full h-full pl-[5%]">
+      <div className="flex flex-wrap justify-center mt-[5%] mb-[5%] w-full h-full pl-[5%]">
         <section className="overflow-hidden w-full lg:w-[38%] flex justify-center relative h-fit mr-[5%]">
           <div className="group relative overflow-hidden">
             {Product.Image ? (
@@ -294,7 +294,7 @@ const Product_Info = () => {
           </div>
         </section>
 
-        <section className="w-[90%] md:w-[72%] flex flex-col lg:w-[38%] md:px-6 lg:px-8">
+        <section className="w-[95%] md:w-[72%] flex flex-col lg:w-[38%] md:px-6 lg:px-8 mr-[5%]">
           {Product.Type && Product.Name ? (
             <h3 className="mt-2 text-sm md:text-base text-gray-500">
               <Link to={"/"}>Home</Link> / {Product.Type} / {Product.Name}
