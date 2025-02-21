@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   GetOtp,
   updateValue,
@@ -7,6 +8,7 @@ import {
 
 const Step1 = ({ nextStep }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     phone: "",
@@ -30,7 +32,6 @@ const Step1 = ({ nextStep }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -44,6 +45,10 @@ const Step1 = ({ nextStep }) => {
       dispatch(updateValue({ Data: userData, PhoneNumber: phone }));
       nextStep();
     }
+  };
+
+  const handleLoginNavigation = () => {
+    navigate("/login");
   };
 
   return (
@@ -110,6 +115,14 @@ const Step1 = ({ nextStep }) => {
             className="w-full flex justify-center py-3 px-6 text-white font-medium bg-[#74a84a] hover:bg-[#2c541d] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2c541d]"
           >
             Submit
+          </button>
+
+          <button
+            type="button"
+            onClick={handleLoginNavigation}
+            className="w-full flex justify-center py-3 px-6 text-white font-medium bg-[#4a90e2] hover:bg-[#357ab8] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#357ab8] mt-4"
+          >
+            Already have an account? Log In
           </button>
         </form>
       </div>

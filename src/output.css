@@ -1585,6 +1585,11 @@ video {
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
 }
 
+.bg-\[\#4a90e2\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 144 226 / var(--tw-bg-opacity, 1));
+}
+
 .bg-opacity-40 {
   --tw-bg-opacity: 0.4;
 }
@@ -2354,6 +2359,11 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-\[\#357ab8\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(53 122 184 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:bg-gradient-to-r:hover {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -2581,6 +2591,11 @@ video {
 .focus\:ring-red-400:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(248 113 113 / var(--tw-ring-opacity, 1));
+}
+
+.focus\:ring-\[\#357ab8\]:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(53 122 184 / var(--tw-ring-opacity, 1));
 }
 
 .focus\:ring-offset-1:focus {

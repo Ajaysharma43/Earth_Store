@@ -64,6 +64,10 @@ const Login = () => {
     setProgress(100);
   }, [isAuthenticated]);
 
+  const handleSignupNavigation = () => {
+    navigate("/signup");
+  };
+
   return (
     <>
       <LoadingBar
@@ -156,8 +160,15 @@ const Login = () => {
               Submit
             </button>
           )}
-        </form>
 
+          <button
+            type="button"
+            onClick={handleSignupNavigation}
+            className="w-full flex justify-center py-3 px-6 text-white uppercase font-medium bg-[#4a90e2] hover:bg-[#357ab8] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#357ab8] mt-4"
+          >
+            Don't have an account? Sign Up
+          </button>
+        </form>
       </div>
     </>
   );
