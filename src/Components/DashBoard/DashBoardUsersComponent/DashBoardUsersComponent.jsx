@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DeleteUser,
@@ -23,16 +23,12 @@ const DashBoardUsersComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const GetUsers = () => {
-      dispatch(GetAllUsers());
-      console.log(Data);
-    };
-    GetUsers();
-  }, [Data.length, dispatch]);
+    dispatch(GetAllUsers());
+  }, [dispatch]);
 
-  const HandleDialog = () => {
+  const HandleDialog = useCallback(() => {
     setAddUserDialog((prev) => !prev);
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -47,6 +43,7 @@ const DashBoardUsersComponent = () => {
         <button
           className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
           onClick={HandleDialog}
+          aria-label="Add User"
         >
           <AiOutlineUserAdd className="text-xl" />
           Add User
@@ -124,10 +121,11 @@ const DashBoardUsersComponent = () => {
                   <Link
                     to={`/dashboard/User/${user._id}`}
                     className="px-3 py-1 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    aria-label={`View ${user.UserName}`}
                   >
                     View
                   </Link>
-                  {user.Role == "Admin" ? (
+                  {user.Role === "Admin" ? (
                     <h1 className="px-3 py-1 text-sm bg-green-500 text-white rounded-md hover:bg-green-600">
                       Cannot delete Admin
                     </h1>
@@ -135,6 +133,7 @@ const DashBoardUsersComponent = () => {
                     <button
                       className="px-3 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"
                       onClick={() => dispatch(DeleteUser({ UserID: user._id }))}
+                      aria-label={`Delete ${user.UserName}`}
                     >
                       Delete
                     </button>
