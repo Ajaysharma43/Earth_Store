@@ -13,6 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [progress, setProgress] = useState(0);
+  const [loading, setloading] = useState(false);
 
   const Username = useRef();
   const Password = useRef();
@@ -30,7 +31,7 @@ const Login = () => {
 
     const phonePattern = /^[0-9]{10}$/;
     if (!phonePattern.test(phoneNumber)) {
-      phoneNumber.current.value = "enter a valid number"
+      phoneNumber.current.value = "enter a valid number";
       return false;
     }
 
@@ -48,20 +49,28 @@ const Login = () => {
       PhoneNumber: PhoneNumber.current.value,
     };
 
+    const Loading = setloading(true);
     dispatch(VerifyUser({ Data }));
   };
 
   useEffect(() => {
     setProgress(30);
     if (isAuthenticated) {
-      navigate("/");
+      setTimeout(() => {
+        setloading(false);
+        navigate("/");
+      }, 3000);
     }
     setProgress(100);
   }, [isAuthenticated]);
 
   return (
     <>
-      <LoadingBar progress={progress} onLoaderFinished={() => setProgress(0)} color="#74a84a" />
+      <LoadingBar
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+        color="#74a84a"
+      />
 
       <div
         className="flex items-center justify-center min-h-screen bg-cover bg-center relative"
@@ -85,7 +94,10 @@ const Login = () => {
           )}
 
           <div>
-            <label htmlFor="name" className="block text-sm font-semibold text-black">
+            <label
+              htmlFor="name"
+              className="block text-sm font-semibold text-black"
+            >
               Name
             </label>
             <input
@@ -98,7 +110,10 @@ const Login = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-semibold text-black">
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold text-black"
+            >
               Password
             </label>
             <input
@@ -111,7 +126,10 @@ const Login = () => {
           </div>
 
           <div>
-            <label htmlFor="phone" className="block text-sm font-semibold text-black">
+            <label
+              htmlFor="phone"
+              className="block text-sm font-semibold text-black"
+            >
               Phone Number
             </label>
             <input
@@ -123,14 +141,23 @@ const Login = () => {
             />
           </div>
 
-          <button
-            type="submit"
-            onClick={handleLogin}
-            className="w-full flex justify-center py-3 px-6 text-white uppercase font-medium bg-[#74a84a] hover:bg-[#2c541d] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2c541d]"
-          >
-            Submit
-          </button>
+          {loading == true ? (
+            <button
+              className="w-full flex justify-center py-3 px-6 text-white uppercase font-medium bg-[#3d5826] hover:bg-[#1b3412] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2c541d]"
+            >
+              Logging in...
+            </button>
+          ) : (
+            <button
+              type="submit"
+              onClick={handleLogin}
+              className="w-full flex justify-center py-3 px-6 text-white uppercase font-medium bg-[#74a84a] hover:bg-[#2c541d] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2c541d]"
+            >
+              Submit
+            </button>
+          )}
         </form>
+
       </div>
     </>
   );
