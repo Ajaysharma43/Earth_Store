@@ -79,7 +79,7 @@ const Shop_Products = () => {
           <>
             <Link to={`/Product/${item._id}`} key={item._id}>
               <div className="w-[300px] flex flex-col gap-4">
-                <section className="relative">
+                <section className="relative flex justify-center">
                   <div
                     style={{ backgroundImage: `url(${item.Image})` }}
                     className="relative h-[250px] w-[90%] bg-cover bg-center rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
