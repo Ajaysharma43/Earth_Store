@@ -72,7 +72,7 @@ const Order = () => {
                                     </p>
                                 </div>
                                 <Link to={`/CheckoutProduct/${order._id}`}>
-                                    <button className="mt-4 w-full px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-all">
+                                    <button className="mt-4 w-full px-4 py-2 bg-[#74a84a] text-white text-sm rounded-lg hover:bg-[#2c541d] transition-all">
                                         View Details
                                     </button>
                                 </Link>
